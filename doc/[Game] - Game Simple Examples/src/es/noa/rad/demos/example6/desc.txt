@@ -1,0 +1,3 @@
+Thread
+
+Animating objects using a thread is the most effective and accurate way of animation. 

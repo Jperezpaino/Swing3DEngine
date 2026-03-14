@@ -1,0 +1,44 @@
+{
+	"menu": [
+		{
+			"id": "file",
+			"value": "File",
+			"popup": {
+				"menuitem": [
+					{
+						"value": "New",
+						"onclick": "CreateNewDoc()"
+					},
+					{
+						"value": "Open",
+						"onclick": "OpenDoc()"
+					},
+					{
+						"value": "Close",
+						"onclick": "CloseDoc()"
+					}
+				]
+			}
+		},
+		{
+			"id": "edit",
+			"value": "Edit",
+			"popup": {
+				"menuitem": [
+					{
+						"value": "Cut",
+						"onclick": "CutDoc()"
+					},
+					{
+						"value": "Copy",
+						"onclick": "CopyDoc()"
+					},
+					{
+						"value": "Paste",
+						"onclick": "PasteDoc()"
+					}
+				]
+			}
+		}
+	]
+}

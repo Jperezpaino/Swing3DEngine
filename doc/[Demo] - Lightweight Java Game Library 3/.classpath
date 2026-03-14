@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Lightweight Java Game Library 3.2.1"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Lightweight Java Game Library (Windows native) 3.2.1"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Java OpenGL Math Library 1.9.9"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Standard Widget Toolkit (Windows native) (x32) 4.9"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

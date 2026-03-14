@@ -1,0 +1,6 @@
+The Puzzle game
+
+In this chapter, we will create a simple puzzle game.
+Puzzle
+
+The goal of this little game is to form a picture. Buttons containing images are moved by clicking on them. Only buttons adjacent to the empty button can be moved.

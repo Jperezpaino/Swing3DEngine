@@ -1,0 +1,8584 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>  <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if IE 7]> <html lang="en" class="no-js lt-ie10 lt-ie9 lt-ie8" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if IE 8]> <html lang="en" class="no-js lt-ie10 lt-ie9" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="no-js lt-ie10" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class=" js flexbox no-touch" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#" style="" lang="en"><!--<![endif]--><head><style type="text/css">.ftscroller_scrolling { user-select: none; cursor: all-scroll !important }
+.ftscroller_container { overflow: hidden; position: relative; max-height: 100%; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); -ms-touch-action: none }
+.ftscroller_hwaccelerated { transform: translateZ(0); }
+.ftscroller_x, .ftscroller_y { position: relative; min-width: 100%; min-height: 100%; overflow: hidden }
+.ftscroller_x { display: inline-block }
+.ftscroller_scrollbar { pointer-events: none; position: absolute; width: 5px; height: 5px; border: 1px solid rgba(255, 255, 255, 0.15); -webkit-border-radius: 3px; border-radius: 6px; opacity: 0; transition: opacity 350ms; z-index: 10 }
+.ftscroller_scrollbarx { bottom: 2px; left: 2px }
+.ftscroller_scrollbary { right: 2px; top: 2px }
+.ftscroller_scrollbarinner { height: 100%; background: rgba(0,0,0,0.5); -webkit-border-radius: 2px; border-radius: 4px / 6px }
+.ftscroller_scrolling .ftscroller_scrollbar { opacity: 1; transition: none; -o-transition: all 0 none }
+.ftscroller_scrolling .ftscroller_container .ftscroller_scrollbar { opacity: 0 }</style>
+	
+	<!-- metas -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">		
+	<title>Image processing with Java 2D | JavaWorld</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	
+		
+				
+		
+		
+		
+	
+
+	<link rel="canonical" href="http://www.javaworld.com/javaworld/jw-09-1998/jw-09-media.html">
+	
+	
+		
+	
+
+	<meta itemprop="url" content="http://www.javaworld.com/article/2076764/java-se/image-processing-with-java-2d.html">
+	<meta name="description" content="Bill Day and guest contributor Jonathan Knudsen describe the image
+processing classes in Java 2D. You'll learn how to blur, sharpen,
+invert, and posterize images. (2,900 words)">
+	
+	
+		
+			<meta name="DC.date.issued" content="1998-09-01T01:00-05:00">
+			<meta name="date" content="1998-09-01">
+		
+		
+		
+	
+	
+	<link rel="amphtml" href="http://www.javaworld.com/article/2076764/java-se/image-processing-with-java-2d.amp.html">
+	
+	
+		
+		
+			<meta property="og:title" content="Image processing with Java 2D">
+		
+	
+	
+	
+	
+	
+		
+		
+			<meta property="og:image" content="http://www.javaworld.com/www.idge.jvw/images/JVW_logo_300x300.png">
+			<meta itemprop="image" content="http://www.javaworld.com/www.idge.jvw/images/JVW_logo_300x300.png">
+			<meta itemprop="thumbnailURl" content="http://www.javaworld.com/www.idge.jvw/images/JVW_logo_300x300.png">
+			<link rel="image_src" href="http://www.javaworld.com/www.idge.jvw/images/JVW_logo_300x300.png">
+			<meta name="twitter:image" content="http://www.javaworld.com/www.idge.jvw/images/JVW_logo_300x300.png">
+		
+	
+	
+		
+			<meta property="og:type" content="article">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<meta name="author" content="Bill Day&nbsp;and&nbsp;Jonathan Knudsen">
+			
+			
+			
+			
+			
+		
+		
+		
+	<meta property="og:site_name" content="JavaWorld">
+	<meta property="fb:app_id" content="196366870381968">
+	
+		
+			<meta property="og:url" content="http://www.javaworld.com/article/2076764/java-se/image-processing-with-java-2d.html">
+			<meta name="twitter:url" content="http://www.javaworld.com/article/2076764/java-se/image-processing-with-java-2d.html">
+			
+			
+			
+		
+		
+		
+	
+
+	
+
+	
+		<!-- Add to article pages only -->
+			<meta name="twitter:card" content="summary_large_image">
+	
+
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:site" content="@javaworldcom">
+	
+		<meta property="og:description" content="Bill Day and guest contributor Jonathan Knudsen describe the image
+processing classes in Java 2D. You'll learn how to blur, sharpen,
+invert, and posterize images. (2,900 words)">
+		<meta name="twitter:description" content="Bill Day and guest contributor Jonathan Knudsen describe the image
+processing classes in Java 2D. You'll learn how to blur, sharpen,
+invert, and posterize images. (2,900 words)">
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<meta name="rating" content="General">
+	
+	<meta name="robots" content="NOODP,NOYDIR">
+	
+	
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<!-- Sailthru -->
+	
+		<meta name="sailthru.tags" content="java-se,learn-java,application-development,client-side-java,apis,java-language,bill-day-and-jonathan-knudsen,media-programming,howto,long">
+	
+
+
+	
+	<meta name="displaytype" content="article">
+	
+	<meta name="blogs" content="media programming">
+	
+	<meta name="source" content="javaworld">
+	
+	<meta name="category" content="java se,learn java,application development,client-side java,apis,java">
+	
+	<meta name="storytype" content="howto">
+	
+		
+	<!-- pagination -->
+	
+	
+	
+	
+	
+	
+	<link rel="prev" href="http://www.javaworld.com/article/2076764/java-se/image-processing-with-java-2d.html">
+	
+	
+	
+	
+	
+	
+	<!-- css -->
+	<link rel="stylesheet" href="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/normalize.css">
+	<link rel="stylesheet" href="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/prettify.css">
+	
+		<link rel="stylesheet" href="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/select2.css">
+	
+	
+	
+		<link rel="stylesheet" href="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/sitewrapper_002.css">
+		
+			
+			
+			
+				<link rel="stylesheet" href="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/article.css">		
+			
+				
+		
+		<link rel="stylesheet" href="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/print.css" media="print">
+		
+	
+	
+		<link rel="stylesheet" href="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/sitewrapper.css">
+		
+		<link rel="stylesheet" href="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/article_002.css">
+		
+	
+	
+	<link rel="stylesheet" href="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/ss-social.css">
+	<link rel="stylesheet" href="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/ss-standard.css">
+	<!--[if lte IE 8]>  
+		<link href="/www.idge/css/webfonts/ss-ie8.css" rel="stylesheet" />
+	<![endif]--> 
+	
+	
+	
+		<link href="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/ecom.css" rel="stylesheet">	
+	
+	
+		<link href="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/css.css" rel="stylesheet" type="text/css">
+	
+		
+	
+	
+	<!--  fav and touch icons -->
+	<link rel="shortcut icon" type="image/x-icon" href="http://www.javaworld.com/www.idge.jvw/favicon.ico">
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.javaworld.com/www.idge.jvw/touchicon_144.gif">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://www.javaworld.com/www.idge.jvw/touchicon_114.gif">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://www.javaworld.com/www.idge.jvw/touchicon_72.gif">
+	<link rel="apple-touch-icon-precomposed" sizes="57x57" href="http://www.javaworld.com/www.idge.jvw/touchicon_57.gif">
+	<link rel="apple-touch-icon" href="http://www.javaworld.com/www.idge.jvw/images/JVW_logo_300x300.png">
+
+	<!-- js -->
+	<script type="text/javascript" async="" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/v1.js"></script><script async="" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/beacon.js"></script><script type="text/javascript" async="" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/analytics.js"></script><script async="" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/gtm.js"></script><script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/jquery-1.js"></script>
+	
+	<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/init_device.js"></script>
+	
+	<!-- google_dfp needs jquery defined first -->
+	
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/gpt_includes.js"></script>
+
+<script type="text/javascript">
+	if (adLayer==null || adLayer=='undefined') {
+		var adLayer=[];
+	}
+	
+		
+			adLayer["itemType"]="article";
+		
+		
+	
+</script>
+
+
+	
+		<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/narf_prebid.js"></script>
+	
+	
+
+
+<script type="text/javascript">
+	// Set up ad related variables
+	try {
+		IDG.GPT.unitName = "/8456/IDG.US_E_JavaWorld.com";
+	}
+	catch (exception) {
+		console.log ("google_dfp can't use IDG.GPT "+ exception);
+	}
+
+	
+	try {
+		IDG.GPT.unitName = IDG.GPT.unitName + "/" + "application-development_section";
+	}
+	catch (exception) {
+		console.log ("google_dfp can't use IDG.GPT "+ exception);
+	}
+	// global variables
+	var global_ShowSuper = true;
+	var global_ShowHero = false;
+	
+	//XFP global targeting, more targeting thm_pre
+	var url = window.location.href;
+	if(url.indexOf("?")>1){
+		url=url.split('?')[0];
+	}
+	
+
+	try {
+		IDG.GPT.addTarget("URL", encodeURIComponent(url));
+	}
+	catch (exception) {
+		console.log ("google_dfp can't use IDG.GPT "+ exception);
+	}
+	try {IDG.GPT.addTarget("zone", 'article-blog/java-se');}	catch (exception) {console.log ("google_dfp can't use IDG.GPT "+ exception);}
+	try{IDG.GPT.addTarget("blogId", '422');}	catch (exception) {console.log ("google_dfp can't use IDG.GPT "+ exception);}try{IDG.GPT.addTarget("articleId", '2076764');}	catch (exception) {console.log ("google_dfp can't use IDG.GPT "+ exception);}try{IDG.GPT.addTarget("type", 'howto');}	catch (exception) {console.log ("google_dfp can't use IDG.GPT "+ exception);}try{IDG.GPT.addTarget("typeId", '4');}	catch (exception) {console.log ("google_dfp can't use IDG.GPT "+ exception);}try{IDG.GPT.addTarget("templateType", 'article-default');}	catch (exception) {console.log ("google_dfp can't use IDG.GPT "+ exception);}
+	
+	try {IDG.GPT.addTarget("categoryIds", [3205,3187,3646,3213,3895,3469]);}	catch (exception) {console.log ("google_dfp can't use IDG.GPT "+ exception);}
+	try{IDG.GPT.addTarget("categorySlugs", ['java-se','learn-java','application-development','client-side-java','apis','java-language']);}	catch (exception) {console.log ("google_dfp can't use IDG.GPT "+ exception);}
+	try {
+		if (null != IDG.GPT.getQsVal("env")) {		
+			IDG.GPT.addTarget("env", IDG.GPT.getQsVal("env").replace(/\W/g, "") );
+		}
+	}
+	catch (exception) {
+		console.log ("google_dfp can't use IDG.GPT "+ exception);
+	}	
+	
+		try {
+			IDG.GPT.addTarget("author", 'Bill Day and Jonathan Knudsen');
+		}
+		catch (exception) {
+			console.log ("google_dfp can't use IDG.GPT "+ exception);
+		}
+	
+	
+	
+		
+
+	try {
+		IDG.GPT.addTarget("page_type", '');
+	}
+	catch (exception) {
+		console.log ("google_dfp can't use IDG.GPT "+ exception);
+	}	
+
+	
+		try {
+			IDG.GPT.addTarget("blog_name", 'Media Programming');
+		}
+		catch (exception) {
+			console.log ("google_dfp can't use IDG.GPT "+ exception);
+		}
+	
+	
+	
+	
+		try {
+			IDG.GPT.addTarget("insiderContent", 'false');
+		}
+		catch (exception) {
+			console.log ("google_dfp can't use IDG.GPT "+ exception);
+		}
+	
+	
+	
+	
+</script>
+
+
+<script type="text/javascript" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/proximic.js"></script>  
+<script type="text/javascript">
+	 var currentUrl = encodeURIComponent(window.location.href);
+	 (function (u) {
+		var f = "scr";
+		var e = (u ? ("url=" + u) : "");
+		document.write("<"+f+"ipt type='text/javascript' src='http://t.zqtk.net/c.js?m=1&s=idg_js&"+e.replace(/\'/g, "")+"'></"+f+"ipt>");
+	  })((typeof (currentUrl) === "undefined") ? "" : currentUrl);
+</script><script type="text/javascript" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/c.js"></script>
+
+
+<script type="text/javascript">
+	
+	
+	
+	
+</script>
+  
+<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/thm_pre.js"></script>
+
+
+	
+		<script>
+			var isMobile = (typeof IDG.DEVICE !== 'undefined') ? IDG.DEVICE.isMobile() : false;
+			
+			
+			
+			
+			
+			
+	
+			
+			try {
+				IDG.GPT.addBiddingParams("yieldbotPsn", (isMobile ? "7541" : "c5a9"));
+				IDG.GPT.addBiddingParams("appnexusPlacementId", (isMobile ? "6451477" : "6353206"));
+			}
+			catch(e) {
+				console.log("Error in adding bidding params: "+e);
+			}
+		</script>
+		<script type="text/javascript" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/prebid_gpt_launcher.js"></script>
+	
+	
+
+
+	
+	
+	
+		<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/select2.js"></script>
+	
+	
+	
+	
+	
+	
+		<script>
+		   $(document).ready(function() { 
+			   $("select#country").select2({
+			    	placeholder: "country",
+			    	minimumResultsForSearch: Infinity,
+			    	allowClear: true
+			    });
+			    $("#jobPosition").select2({
+			    	placeholder: "position",
+			    	minimumResultsForSearch: Infinity,
+			    	allowClear: true
+			    }); 
+			   	$("#jobFunction").select2({
+			   		placeholder: "function",
+			   		minimumResultsForSearch: Infinity,
+			    	allowClear: true
+			   	}); 
+			   	$("#companySize").select2({
+			   		placeholder: "company size",
+			   		minimumResultsForSearch: Infinity,
+			    	allowClear: true
+			   	});
+			   	$("#industry").select2({
+			   		placeholder: "industry",
+			   		minimumResultsForSearch: Infinity,
+			    	allowClear: true
+			   	}); 
+		   });
+	   </script>
+   	    
+   	     
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+var brandCode = "jvw";
+var brandName="JavaWorld";
+var regDebugLog=false;
+var regApiUrl=" http://regdev.idge.int/api/ ";
+var tokenPrefix='www';
+var tokenSuffix='.com/insider/token?';
+var brandDomain=".javaworld.com";
+var insiderContentType="article";
+var notEmptyArticle=false;
+var notEmptyMediaResource=false;
+var isInsiderPremium=false;
+var isResourceInsiderPremium=false;
+
+
+	regApiUrl="http://reg.idgenterprise.com/api/";
+
+
+
+	regDebugLog=false;
+
+
+
+	tokenPrefix="http://www";
+
+
+
+	tokenSuffix="/insider/token";
+
+
+
+
+
+	notEmptyArticle=true;
+
+
+	
+
+
+
+
+
+</script>
+
+
+<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/alc_hashes.js"></script>
+<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/insider_reg_api.js"></script>
+<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/jquery_002.js"></script>
+
+<script>
+$(document).ready(function(){
+	if(typeof(IDG.insiderReg.readCookie('nsdr')) !== 'undefined'){
+		$('#welcome-message').show();			
+		IDG.insiderReg.personalize();
+	}else{
+		$('.signin-register').show();	
+	}
+});
+
+</script>
+
+
+	
+	
+	<!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
+	 <script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/modernizr.js"></script>
+	
+	
+
+
+
+
+
+
+
+
+
+
+<!-- Begin Eloqua Tracking -->
+<script type="text/javascript" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/elqCfg.js"></script>
+<script type="text/javascript" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/elqImg.js"></script></head><body class="article blog422 javaworld insider-plus" id="article2076764"><layer hidden="true"><img src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/svrGP.gif" width="1" height="1" border="0"></layer>
+<script type="text/javascript" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/elqFCS.js"></script><iframe name="elqFCSFra" style="display: none" src="/elqNow/elqBlank.htm" border="0" noresize="" scrolling="no" width="1" height="1" frameborder="0"></iframe>
+<script type="text/javascript" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/elqScr.js"></script><script type="text/javascript" language="JavaScript" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/svrGP.js"></script>
+<script type="text/javascript" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/elqIDG.js"></script>
+
+
+
+	
+		
+			
+			
+			
+		
+		
+			
+			
+		
+	
+	
+
+	
+	
+
+<script type="text/javascript">
+	IDG = window.IDG || {};
+	IDG.PageInfo = IDG.PageInfo || {};
+	IDG.PageInfo = function() {
+		return {
+			eloqua_type: "blogpost", 
+			eloqua_topic: "development"
+		};
+	}();
+	var elqCustomerGUID = "";
+	if (this.GetElqCustomerGUID && typeof GetElqCustomerGUID === "function") {
+	        elqCustomerGUID = GetElqCustomerGUID();
+	}
+	IDG.Eloqua.invoke_flash();
+</script>
+<!-- End Eloqua Tracking -->
+	
+		
+	<script type="text/javascript">
+		var g_arrModules = new Array();
+	</script>
+
+
+
+
+
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/load.js"></script>
+	
+	
+	
+	
+		
+			
+		
+		
+			
+		
+		
+		
+	
+	
+		
+	
+	
+	
+
+	<script>
+	dataLayer=[{
+			   'primaryCategory': 'Java SE',
+			   
+				   'articleType': 'How-To',
+				   'articleId': '2076764',
+				   'articleTitle': 'Image processing with Java 2D',
+			   
+			   'blogName':'Media Programming',
+			   
+			   
+			   	'parselyEnabled':'',
+			   	'parselyDomain':'',
+				'ga_enabled':'true',
+			   
+				'viglinksId':'',
+				
+					'geolocEnabled':'true'
+				
+	}];
+	</script>
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+	
+<script type="text/javascript">
+	var _sf_async_config={};
+
+	_sf_async_config.uid = 29363;
+
+	_sf_async_config.path = "/article/2076764/java-se/image-processing-with-java-2d.html";
+	_sf_async_config.title = "Image processing with Java 2D | JavaWorld";
+	_sf_async_config.domain = "javaworld.com";
+	if(window.location.href.indexOf("video")&&true) {
+		_sf_async_config.playerdomain= _sf_async_config.domain.replace("www.","");
+	}
+	
+	_sf_async_config.useCanonical = true;
+	
+		
+			
+			_sf_async_config.sections = "java-se";
+			_sf_async_config.authors="Bill Day and Jonathan Knudsen";
+			
+		
+	
+</script>
+
+
+
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<!-- Google Tag Manager -->
+	<noscript><iframe src="//www.googletagmanager.com/ns.html?GTM-MMJKZ9"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-MMJKZ9');</script>
+	<!-- End Google Tag Manager -->
+
+	
+
+
+
+	
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- BEGIN PAGE HEADER -->
+<header id="banner">
+	
+	
+    	
+    	<script>
+    	if(!$thm.deviceWidthAtLeast($thm.deviceBreakpoints.tablet)){
+			$('.main-header').insertBefore($('#banner .ad'));
+    	}
+		</script>
+		
+		
+		<div class="topics-wrap">
+		    <section class="topics">
+		        <nav id="scrollable">
+					
+						
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		
+		<!-- blx4 #670 blox4.raw_link_list  -->
+			
+		
+		
+			
+				
+					
+					
+					
+						
+							
+					
+						
+					
+					
+					
+					
+					
+				
+				
+			
+		
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+		
+			
+		
+	
+	
+	<ul>
+		
+		<li class="header">Trending<span class="colon">:</span></li>
+		
+		
+			
+				<li><a href="http://www.javaworld.com/category/careers/">Programming Careers</a></li>
+			
+		
+			
+				<li><a href="http://www.javaworld.com/category/learn-java/">Learn Java</a></li>
+			
+		
+			
+				<li><a href="http://www.javaworld.com/category/mobile-java/">Mobile Java</a></li>
+			
+		
+			
+				<li><a href="http://www.javaworld.com/category/java-app-dev/">Java App Dev</a></li>
+			
+		
+			
+				<li><a href="http://www.javaworld.com/blog/open-source-java-projects/">Open Source Java </a></li>
+			
+		
+			
+				<li><a href="http://www.javaworld.com/category/developer-tools-ide/">Development Tools</a></li>
+			
+		
+			
+				<li><a href="http://www.javaworld.com/blog/java-101/">Java 101</a></li>
+			
+		
+			
+				<li><a href="http://www.javaworld.com/resources">Resources/White Papers</a></li>
+			
+		
+	</ul>
+
+		
+	
+
+
+		        </nav>
+		        
+		        <div class="fading-gradient"></div>
+		        
+		        
+		        <nav class="tools">
+		        	<ul class="user">
+	                     
+	                     	<li class="search-icon"><a href="#search" id="search-btn"><i class="ss-icon">Search</i></a></li>
+	                     
+	                 </ul>
+	                 <ul class="social">
+						
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<li><a href="https://twitter.com/javaworldcom" itemprop="sameAs" rel="nofollow" target="_blank" onclick="brandFollowTrack('Twitter')"><i class="ss-icon ss-social-circle ss-twitter"></i></a></li>
+
+
+
+	<li><a href="http://www.linkedin.com/company/javaworld-com" itemprop="sameAs" rel="nofollow" target="_blank" onclick="brandFollowTrack('LinkedIn')"><i class="ss-icon ss-social-circle brand ss-linkedin"></i></a></li>
+
+
+
+	<li><a href="https://www.facebook.com/pages/JavaWorld/107993545895326" itemprop="sameAs" rel="nofollow" target="_blank" onclick="brandFollowTrack('Facebook')"><i class="ss-icon ss-social-circle brand ss-facebook"></i></a></li>				
+
+
+
+	<li><a href="https://plus.google.com/117974570132126965756/posts" itemprop="sameAs" rel="publisher" target="_blank" onclick="brandFollowTrack('Google+')"><i class="ss-icon ss-social-circle brand ss-googleplus"></i></a></li>                	
+
+
+
+
+
+
+
+	<li><a href="http://www.javaworld.com/about/rss/" target="_blank"><i class="ss-icon ss-social-circle ss-rss"></i></a></li>
+
+
+
+
+	<li class="more-social"><i class="ss-icon ss-ellipsis"></i></li>
+
+	                 </ul>
+	             </nav>
+	             
+		    </section>
+	    </div>
+	    
+	    
+        	 <div id="sticky-anchor"></div>
+        
+	    <section id="sticky-head" class="main stick">
+	        <div class="wrapper">
+	            <div class="masthead">
+	                
+	                <button><i class="ss-icon ss-rows"></i></button>
+	                
+	                <a href="http://www.javaworld.com/"><span class="ir logo">javaworld</span></a>
+	            	<!--
+	            	<img class="print-only" src="/www.idge.jvw/images/javaworld-logo-print.png">
+	            	-->
+	            	
+	            	<img class="print-only" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/javaworld-logo-print.png">
+	            	
+	            </div>
+	            <div id="reading-tools-wrapper">
+
+	                
+	                <nav class="tools">
+	                    
+	                    <ul class="user">
+	                    	
+	                    	
+	                    	
+	                    	
+	                    	
+	                        
+	                    </ul>
+	                </nav>
+	            </div>
+	            
+	            
+	            	<div class="insider-signin">
+	            	
+	            		<span class="signin-register" style="display: inline;">
+	            			<a href="http://www.javaworld.com/learn-about-insider/"><span class="insider"></span></a> <a href="javascript://" onclick="IDG.insiderReg.registerLinkEvent('insider-reg-signin')" class="js-open-modal signin" data-modal-id="insider-popup">Sign In</a> <span class="divider">|</span> <a href="javascript://" onclick="IDG.insiderReg.registerLinkEvent('insider-reg-form-short')" class="js-open-modal register" data-modal-id="insider-popup">Register</a>
+	            		</span>
+	            	
+	            		<div id="welcome-message" class="insider-list" style="display: none;">
+		                    <div id="insider-selector">
+		                        <div id="insider-welcome" class="label"></div>
+		                        
+		                        <div class="stories">
+		                        	
+		                        	<div class="personalization">Hi<span id="person-first-name"></span>! Here are the latest Insider stories.</div>
+		                        	
+		                        	
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<ul>
+		
+			
+			
+				
+					
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+							
+						
+						
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="http://www.javaworld.com/article/3152819/application-development/5-rock-solid-linux-distros-for-developers.html">5 rock-solid Linux distros for developers</a></li>
+				
+				
+			
+		
+			
+			
+				
+					
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+							
+						
+						
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="http://www.javaworld.com/article/3150207/big-data/8-big-data-predictions-for-2017.html">8 big data predictions for 2017</a></li>
+				
+				
+			
+		
+			
+			
+				
+					
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+							
+						
+						
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="http://www.javaworld.com/article/3150743/application-development/get-started-with-azure-machine-learning.html">Get started with Azure Machine Learning</a></li>
+				
+				
+			
+		
+			
+			
+				
+					
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+							
+						
+						
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="http://www.javaworld.com/article/3146569/application-development/review-gitlab-rocks-version-control.html">Review: GitLab rocks version control</a></li>
+				
+				
+			
+		
+	</ul>
+
+
+									
+									<div class="sign-out-link">
+										<a class="more-insider" href="http://www.javaworld.com/insider/">More Insider</a>
+										<a class="sign-out" href="javascript://" onclick="IDG.insiderReg.logout()">Sign Out</a>
+									</div>
+								</div>
+								
+		                    </div>
+		                </div>
+		         
+	            	</div>
+	            	<script>
+	            		$('.signin-register').hide();	
+	            		$('#welcome-message').hide();
+	            	</script>
+	            	
+	            
+	            
+	        </div>
+	    </section>
+	    <section class="tools-expand  ">
+	        
+	        
+	        
+	        
+	        	
+	        	
+	        		
+			        <form class="search" id="search-form" action="/search">
+			            <label for="search-box">Search for</label>
+						<input name="query" id="banner-search-term" class="searchbox-input-class" type="text">
+			            <input id="banner-search-submit" value="Go" type="submit">
+			            <input name="contentType" value="article,resource" type="hidden">
+			            <div class="search-suggest">Suggestions for you</div>
+			        </form>
+			    
+			
+	        <div class="user">
+	            <form>
+	                <label for="login-email">Insider email</label> <input id="login-email" type="text">
+	            </form>
+	        </div>
+	        
+	    </section>
+	    
+	    
+	    
+		
+		
+    		<div id="sticky-anchor-nav"></div>
+    	
+    	
+	    <nav id="sticky-nav" class="main stick" style="height: 608px; top: 52px;">
+	    	<ul class="topnav">
+				
+					
+	        		
+	        		
+	        			
+	        				<li><a href="#" class="hasChildren notMobile">Core Java<span class="ss-icon ss-navigatedown"></span></a>
+	            		
+	            		
+	            	
+	            		
+	            		
+		            		<ul class="subnav">
+		                		<li><a href="http://www.javaworld.com/category/core-java/">All Core Java</a></li>
+		            			
+		            				<li><a href="http://www.javaworld.com/category/agile-development/">Agile Development</a></li>
+		            			
+		            				<li><a href="http://www.javaworld.com/category/java-concurrency/">Java Concurrency</a></li>
+		            			
+		            				<li><a href="http://www.javaworld.com/category/java-language/">Java Language</a></li>
+		            			
+		            				<li><a href="http://www.javaworld.com/category/java-platform/">Java Platform</a></li>
+		            			
+		            				<li><a href="http://www.javaworld.com/category/security/">Java Security</a></li>
+		            			
+		            				<li><a href="http://www.javaworld.com/category/careers/">Programming Careers</a></li>
+		            			
+		            				<li><a href="http://www.javaworld.com/category/testing-debugging/">Testing and Debugging</a></li>
+		            			
+		            		</ul>
+		            	
+	        		</li>
+				
+					
+	        		
+	        		
+	        			
+	        				<li><a href="#" class="hasChildren notMobile">Enterprise Java<span class="ss-icon ss-navigatedown"></span></a>
+	            		
+	            		
+	            	
+	            		
+	            		
+		            		<ul class="subnav">
+		                		<li><a href="http://www.javaworld.com/category/enterprise-java/">All Enterprise Java</a></li>
+		            			
+		            				<li><a href="http://www.javaworld.com/category/big-data/">Big Data</a></li>
+		            			
+		            				<li><a href="http://www.javaworld.com/category/cloud-computing/">Cloud Computing</a></li>
+		            			
+		            				<li><a href="http://www.javaworld.com/category/analytics/">Data Analytics</a></li>
+		            			
+		            				<li><a href="http://www.javaworld.com/category/development-tools/">Development Tools</a></li>
+		            			
+		            				<li><a href="http://www.javaworld.com/category/apis/">Java APIs</a></li>
+		            			
+		            				<li><a href="http://www.javaworld.com/category/application-development/">Java App Dev</a></li>
+		            			
+		            				<li><a href="http://www.javaworld.com/category/web-development/">Java Web Development</a></li>
+		            			
+		            				<li><a href="http://www.javaworld.com/category/open-source-tools/">Open Source</a></li>
+		            			
+		            				<li><a href="http://www.javaworld.com/category/scripting-jvm-languages/">Scripting and JVM Languages</a></li>
+		            			
+		            		</ul>
+		            	
+	        		</li>
+				
+					
+	        		
+	        		
+	        			
+	        				<li><a href="#" class="hasChildren notMobile">Learn Java<span class="ss-icon ss-navigatedown"></span></a>
+	            		
+	            		
+	            	
+	            		
+	            		
+		            		<ul class="subnav">
+		                		<li><a href="http://www.javaworld.com/category/learn-java/">All Learn Java</a></li>
+		            			
+		            				<li><a href="http://www.javaworld.com/category/design-patterns/">Design Patterns</a></li>
+		            			
+		            		</ul>
+		            	
+	        		</li>
+				
+					
+	        		
+	        		
+	        			
+	        				<li><a href="#" class="hasChildren notMobile">Mobile Java<span class="ss-icon ss-navigatedown"></span></a>
+	            		
+	            		
+	            	
+	            		
+	            		
+		            		<ul class="subnav">
+		                		<li><a href="http://www.javaworld.com/category/mobile-java/">All Mobile Java</a></li>
+		            			
+		            				<li><a href="http://www.javaworld.com/category/android/">Java Android Developers</a></li>
+		            			
+		            				<li><a href="http://www.javaworld.com/category/ios/">Java iOS Developers</a></li>
+		            			
+		            		</ul>
+		            	
+	        		</li>
+				
+			</ul>
+	
+	    	<ul class="secondary topnav">
+           		
+           		
+
+
+
+
+
+
+
+
+
+
+<li><a href="http://www.javaworld.com/news/">News</a></li>
+<li><a href="http://www.javaworld.com/feature/">Features</a></li>
+<li><a href="http://www.javaworld.com/howto/">How-Tos</a></li>
+<li><a href="http://www.javaworld.com/blogs/">Blogs</a></li>
+<li><a href="http://www.javaworld.com/resources/">Resources/White Papers</a></li>
+<li><a href="http://www.javaworld.com/newsletters/signup.html">Newsletters</a></li>
+           		
+	    	</ul>
+		</nav>
+		
+	
+	
+		<script>
+    	if(!$thm.deviceWidthAtLeast($thm.deviceBreakpoints.tablet)){
+			$('div.insider-signin').prependTo('section.topics nav.tools');
+    	}
+		</script>
+	
+    
+		<script>
+		$(document).ready(function(){
+			if($thm.deviceWidthAtLeast($thm.deviceBreakpoints.tablet)){
+				$("nav ul li a.hasChildren").attr("href", "#").addClass('notMobile');
+				$('nav#sticky-nav ul.secondary').addClass('topnav');
+			}
+			if(!$thm.deviceWidthAtLeast($thm.deviceBreakpoints.tablet)){
+				$("nav#sticky-nav > ul").switchClass("topnav", "primary");
+			}
+		});
+		</script>
+	
+	
+		
+    	<script>
+    	if(!$thm.deviceWidthAtLeast($thm.deviceBreakpoints.tablet)){
+			$('#sticky-anchor, section.main, section.topics, section.tools-expand, #sticky-anchor-nav, nav.main').insertBefore($('#banner .ad'));
+			$(document).ready(function(){
+				$('#banner section.tools-expand').addClass('top-margin');
+			});
+    	}
+		</script>
+		
+	
+	
+	
+</header>
+
+
+
+<script>
+$(document).ready(function(){
+	$('body').addClass('insider-plus');
+	
+	var headerHeight = $('header#banner').height(); // height for desktop on load not fixed
+	$('header#banner nav#sticky-nav.main.no-stick').css("top", headerHeight);
+	
+	if(!$thm.deviceWidthAtLeast($thm.deviceBreakpoints.tablet)){	
+		var stickyHeaderHeight = $('section.topics').height() + $('#sticky-head.main').height();
+		stickyHeaderHeight = stickyHeaderHeight - 8;
+	}
+	
+	// Listen for orientation changes - mobile devices have a problem resizing fixed position elements on
+	// orientation change from portrait to landscape so scrolling to current position of header
+	var supportsOrientationChange = "onorientationchange" in window,
+    orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
+	
+	if($thm.deviceWidthAtLeast($thm.deviceBreakpoints.tablet)){
+		window.addEventListener(orientationEvent, function() {
+			var top = $('section#sticky-head.main').offset().top;
+			if (top < 170) {
+				top = 0; // so we don't miss the top leaderboard or ticker on change
+			} else {
+				top = top - 50; //acknowledging "shorter" top on landscape than portrait
+			}
+			if (window.orientation == 90 || window.orientation == -90) {
+				window.scrollTo(0, top);
+			}
+		}, false);
+	}
+	
+	if($thm.deviceWidthAtLeast($thm.deviceBreakpoints.tablet) && $thm.deviceHeight() < 768 ) {
+		if($('html').hasClass('touch')) {
+			$('#insider-popup.modal-box .modal-body').addClass('short');
+		} else {
+			$('#insider-popup.modal-box .modal-body').addClass('short-desk');
+		}
+	}
+	
+	if(!$thm.deviceWidthAtLeast($thm.deviceBreakpoints.tablet)){
+		window.addEventListener(orientationEvent, function() {
+			var top = $('section#sticky-head.main').offset().top;
+			if (top < 50) {  // top is fixed on mobile so this is when user is at very top
+				top = 5; // scroll 5 pixels from 0 to resize fixed header from portrait
+			} else {
+				top = top - 40;
+			}
+			if (window.orientation == 90 || window.orientation == -90) {
+				window.scrollTo(0, top);
+			}
+		}, false);
+	}
+	
+	//nexus 7 is sized mobile in portrait and tablet in landscape
+	var ua = navigator.userAgent.toLowerCase();
+	var isAndroid = ua.indexOf("android") > -1;
+	window.addEventListener(orientationEvent, function() {
+	    if(isAndroid && (screen.width == 600 || screen.width == 960)) {
+	    	location.reload(true); // refreshing page for changes to header
+	    }
+	}, false);
+	
+	if ($thm.deviceWidthAtLeast($thm.deviceBreakpoints.desktop) && !$('html').hasClass('touch')){
+		$("ul.social li.more-social").mouseenter(function() {
+			$('ul.social > li').addClass('display-icon');
+		});
+		$("ul.social").mouseleave(function() {
+			$('ul.social > li').removeClass('display-icon');
+		});
+	};
+	
+	if($thm.deviceWidthAtLeast($thm.deviceBreakpoints.tablet) && $('html').hasClass('touch')){
+		$("ul.social li.more-social").click(function() {
+			$('ul.social > li').toggleClass('display-icon');
+		});
+	};
+	
+	$('.searchbox-input-class').each(function(){
+	    $(this).change(function(){
+	    	var qStr=$(this).val();
+	    	if($(this).val().indexOf('@')!=-1){
+	    		qStr=qStr.replace(/@/g,' ');
+	    		$(this).val(qStr);
+	    	}
+	    });
+	});
+	
+});
+
+function sticky_relocate() {
+	var headerHeight = $('header#banner').height(); // height for desktop	
+	//$('header#banner nav#sticky-nav.main').css("top", headerHeight);
+	
+	var winHeight = $(window).height();
+	// desktop
+	if ( $thm.deviceWidthAtLeast($thm.deviceBreakpoints.wide ) ){
+		winHeight = winHeight - 40;
+		if (window.orientation == 90 || window.orientation == -90) {
+			winHeight = winHeight + 50; // landscape tablet 1024
+		}
+	}// tablet
+	else if ( $thm.deviceWidthAtLeast($thm.deviceBreakpoints.tablet) && !$thm.deviceWidthAtLeast($thm.deviceBreakpoints.wide) ) {
+		winHeight = winHeight + 40;
+	} else { // mobile
+		winHeight = winHeight + 10;
+	}
+	
+	$('#banner nav#sticky-nav.main').css("height", winHeight); // flyout nav height
+
+	// tablet and desktop
+	if($thm.deviceWidthAtLeast($thm.deviceBreakpoints.tablet)){
+	    var window_top = $(window).scrollTop();
+	    var div_top = $('#sticky-anchor').offset().top;
+	    if (window_top > div_top) {
+	        $('#sticky-head').addClass('stick');
+	        $('#page-wrapper').addClass('top-pad');
+	        $('#banner .ad').addClass('top-margin');
+	    } else {
+	        $('#sticky-head').removeClass('stick');
+	        $('#page-wrapper').removeClass('top-pad');
+	        $('#banner .ad').removeClass('top-margin');
+	    }
+	}
+	// mobile
+	if(!$thm.deviceWidthAtLeast($thm.deviceBreakpoints.tablet)){
+		$('section.topics').addClass('stick-topics');
+		$('#sticky-head').addClass('stick-head');
+		$('#page-wrapper').addClass('top-pad');
+		$('#banner .ad').addClass('top-margin');
+		$('#banner section.tools-expand').addClass('search');
+		  
+		var window_top = $(window).scrollTop();
+		var div_top = $('#sticky-anchor').offset().top + 30;
+	    if (window_top > div_top) {
+	    	$('#sticky-head').addClass('stick');
+	    	$('.topics.stick-topics, #search-form').addClass('remove');
+	    	$('li.search-icon').fadeOut("fast");
+	    } else {
+	    	$('#sticky-head').removeClass('stick');
+	    	$('.topics.stick-topics, #search-form').removeClass('remove');
+	    	$('li.search-icon').fadeIn("fast");
+	    }
+	}// end mobile
+    
+	// tablet and desktop flyout nav
+	if($thm.deviceWidthAtLeast($thm.deviceBreakpoints.tablet)){
+	    if ($('#sticky-head').hasClass('stick')) {
+	    	var stickyHeaderHeight = $('section.main').height(); // height of the fixed header for tablet and desktop
+	    	stickyHeaderHeight = 52; // setting fixed height - same across all sites
+			$('header#banner nav#sticky-nav.main').css("top", stickyHeaderHeight);
+	        $('#sticky-nav').addClass('stick');
+	        $('#sticky-nav').removeClass('no-stick');
+	    } else {
+	    	stickyHeaderHeight = $('header#banner').height();
+	    	$('header#banner nav#sticky-nav.main').css("top", stickyHeaderHeight);
+	        $('#sticky-nav').removeClass('stick');
+	        $('#sticky-nav').addClass('no-stick');
+	    }
+	    
+	}// end tablet/desktop
+	
+	
+	// mobile flyout nav
+	if(!$thm.deviceWidthAtLeast($thm.deviceBreakpoints.tablet)){
+	    	
+    	var stickyHeaderHeight = $('section.topics').height() + $('#sticky-head.main.stick-head').height(); // height of the fixed header for mobile
+    	stickyHeaderHeight = stickyHeaderHeight - 8;  // 8 seems appropriate
+    	$('header#banner nav#sticky-nav.main').css("top", stickyHeaderHeight);
+        $('#sticky-nav').addClass('stick');
+
+        if ($('#sticky-head').hasClass('stick')) {
+        	$('#sticky-head.stick').siblings('#sticky-nav').addClass('nav-stick');
+        	$('#sticky-head').siblings('#sticky-nav').removeClass('no-stick');
+        } else {
+        	$('#sticky-head').siblings('#sticky-nav').removeClass('nav-stick');
+        	$('#sticky-head').siblings('#sticky-nav').addClass('no-stick');
+        }
+
+	}// end mobile
+	
+    
+} // end sticky_relocate
+
+$(function () {
+    $(window).scroll(sticky_relocate);
+    sticky_relocate();
+});
+</script>
+
+
+
+	<div id="insider-popup" class="modal-box " style="top: 10px; left: 0px;">
+	
+		<div class="insider-modal-wrapper">
+	  
+			<div class="modal-header-title">
+				<div class="modal-banner-insider"><span class="insider"></span></div>
+		    	<div class="modal-close close">×</div>
+		  	</div>
+		  	
+		  	<div class="modal-body short-desk">
+		  		
+		  			
+						<script>
+$(document).ready(function(){
+	$('a[data-link]').click(function() {
+		
+		  //get this link's dataLink value
+		  var dataLink = $(this).attr('data-link');
+
+		  //select the div with the same value
+		  var toKeep = 'div[data-link="'+dataLink+'"]';
+	
+		  //select data-link divs that are not the above div
+		  $('div[data-link]').not(toKeep).hide();
+		  
+		  if($(this).hasClass('link-transition')){
+			  $(toKeep).fadeIn(800);
+		  } else {
+			  $(toKeep).show();
+		  }
+	
+		  //prevent location change
+		  return false;
+	});
+	
+
+});
+</script>
+
+					
+					
+				
+		  	</div>
+		  	
+		  	<div class="modal-footer">
+		    	<div class="modal-close close-btn">Close</div>
+		  	</div>
+		</div>
+	  	
+	</div>
+
+	<script>
+		$(document).ready(function(){
+
+			var appendthis =  ("<div class='modal-overlay modal-close'></div>");
+			if($thm.deviceWidthAtLeast($thm.deviceBreakpoints.tablet)){
+				$('.modal-box').css({
+					//top: ($(window).height() - $(".modal-box").outerHeight()) / 2,
+					top: 10,
+					left: 0
+				});
+			}
+			
+			
+			if(!$thm.deviceWidthAtLeast($thm.deviceBreakpoints.tablet)){
+				$('.modal-box').height($(document).height());
+				$('.modal-box').css('top','0');
+			}
+			
+			var userAg = navigator.userAgent;
+
+			$('a[data-modal-id]').click(function(e) {
+				e.preventDefault();
+				$('body').append(appendthis);
+				$('.modal-overlay').fadeTo(500, 0.9);
+				$('.modal-overlay').height($(document).height());
+				var modalBox = $(this).attr('data-modal-id');
+				
+				if ($(".modal-box").hasClass('triggered') || (userAg.indexOf("Firefox")!=-1)) {
+					$('#'+modalBox).fadeIn($(this).data()); // triggered by something other than onclick of link such as scroll to point in window
+				} else {
+					if(!$thm.deviceWidthAtLeast($thm.deviceBreakpoints.tablet)){
+						$('#'+modalBox).toggle('slide', {direction: 'up'}, 800);
+					} else {
+				    	$('#'+modalBox).toggle('slide', {direction: 'left'}, 600);
+					}
+				}
+
+				if(!$thm.deviceWidthAtLeast($thm.deviceBreakpoints.tablet)){
+					$("html, body").animate({
+			            scrollTop: 0
+			        }, 700);
+			        
+			        
+			        $('a.btn.continue-on').click(function() {
+			        	$('html, body').animate({
+			        		scrollTop: 0
+			        	}, 500);
+			        });
+			        
+			        return false;
+			        
+				}
+				if (navigator.userAgent.match(/(iPad)/)) {
+					$("html, body").animate({
+			            scrollTop: 0
+			        }, 500);
+				}
+			});
+		  
+		  
+			$(".modal-close, .modal-overlay").click(function() {
+				$('.select2-drop').css('display','none');
+				$(".modal-overlay").fadeOut(500, function() {
+					$(".modal-overlay").remove();
+				});
+				if ($(".modal-box").hasClass('triggered') || (userAg.indexOf("Firefox")!=-1)) {
+					$(".modal-box").fadeOut(500);
+				} else {
+					if(!$thm.deviceWidthAtLeast($thm.deviceBreakpoints.tablet)){
+						$('.modal-box').toggle('slide', {direction: 'up'}, 800);
+					} else {
+						$('.modal-box').toggle('slide', {direction: 'left'}, 600);
+					}
+				}
+			});
+		
+		});
+	</script>
+
+
+<!-- END PAGE HEADER -->
+
+
+
+		
+		
+
+
+
+
+
+
+
+
+
+
+
+<div id="page-wrapper" class="page-wrapper top-pad">
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="skinAdTarget"></div>
+
+
+			
+		
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+	
+	
+ 	
+
+
+
+
+
+
+
+	
+	<section role="main">
+
+		<article itemscope="" itemtype="http://schema.org/BlogPosting" class="blog">
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+		
+		
+			<div class="ticker-ad ad">
+				
+					
+				
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+		
+			
+			
+			
+			
+			
+				<div id="ticker" class=" ad-container">					
+				</div>				
+				<script type="text/javascript">
+				
+					IDG.GPT.addDisplayedAd("ticker", "true");
+					$('#ticker').responsiveAd({screenSize:'971 1115', scriptTags: []});
+				
+				</script>
+			
+		
+	
+ 	
+ 
+			</div>
+		
+	
+	
+
+
+
+<!-- Events Header -->
+
+ 
+ 
+	
+		
+		
+		
+		
+		
+					    			
+		
+	
+	
+	
+	
+	
+
+ 
+ 
+ 
+ 
+  
+  
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+<!-- //end Events Header -->
+
+
+	
+	
+	
+	
+	
+	
+		
+	
+
+
+
+	
+		
+	
+	
+	
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+	
+		
+			
+		
+	
+
+
+
+<header class="cat">
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<nav class="breadcrumbs horiz">
+		<ul itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+			<li><a href="http://www.javaworld.com/" itemprop="url"><span itemprop="title">Home</span></a></li>
+			
+				
+				
+				
+					<li><a href="http://www.javaworld.com/category/java-se/" itemprop="url"><span itemprop="title">Java SE</span></a></li>
+				
+			
+		</ul>
+	</nav>
+	
+	
+	
+		<div class="blog-byline vcard author " itemscope="" itemtype="http://schema.org/Person" itemprop="author">
+			
+			<div class="brand ">
+				
+				
+					
+						
+							
+							
+							
+							
+						
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+					
+					
+					
+				
+				
+				<div class="blog-branding-text">
+					
+					
+					
+					<div class="blog-title"><a href="http://www.javaworld.com/blog/media-programming/">Media Programming</a></div>
+					
+					
+						<p class="name">
+							
+								
+							
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+By <span class="fn" itemprop="name">Bill Day&nbsp;and&nbsp;Jonathan Knudsen</span>
+							
+						</p>
+						
+						
+					
+				</div>
+			</div>
+			
+		</div>
+	
+	
+	
+	
+	
+		
+		
+			<div class="category"><a href="http://www.javaworld.com/howto" itemprop="genre">How-To</a></div>
+		
+	
+	
+
+	<h1 itemprop="headline">Image processing with Java 2D</h1>
+	
+	
+	
+		<section class="deck viewability">
+			<h2 itemprop="description">Sophisticated image processing support comes to Java in the 2D API</h2>
+		</section>
+	
+	
+		
+		    <div class="ad viewability">
+		  		
+					
+				
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+		
+			
+			
+			
+			
+			
+				<div id="topleaderboard" class=" ad-container">					
+				</div>				
+				<script type="text/javascript">
+				
+					IDG.GPT.addDisplayedAd("topleaderboard", "true");
+					$('#topleaderboard').responsiveAd({screenSize:'971 1115', scriptTags: []});
+				
+				</script>
+			
+		
+	
+ 	
+  
+		    </div>
+		
+	
+	
+	
+	
+</header>
+
+
+
+	
+	
+	
+		
+		<div class="cat byline">
+			<p class="dateline">
+				
+					
+				
+
+
+
+
+
+
+
+
+
+
+
+
+<span itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization"><span class="publisher" itemprop="name">JavaWorld</span></span> <span class="divider">|</span>
+				<span class="pub-date" itemprop="datePublished" content="1998-09-01T01:00-0700">Sep 1, 1998 1:00 AM
+					 PT
+				</span>
+			</p>
+		</div>
+	
+	
+
+	
+	
+		<div class="cat-social">
+			
+				
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+		
+	
+
+
+
+
+
+	
+
+
+<div id="sharer" class="cat sidecar show blog">
+<ul id="share-tool" class="expand">
+
+
+	<li class="sosh">
+		<a href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fwww.javaworld.com%2Farticle%2F2076764%2Fjava-se%2Fimage-processing-with-java-2d.html&amp;via=javaworldcom&amp;text=Image+processing+with+Java+2D" target="_blank" onclick="sharingTrack('Twitter-vert', 'twshare')">
+			<img class="sidecar-icon" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/twitter.svg">
+		</a>
+	</li>
+	<li class="sosh">
+		<a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.javaworld.com%2Farticle%2F2076764%2Fjava-se%2Fimage-processing-with-java-2d.html" target="_blank" onclick="sharingTrack('Facebook-vert', 'fblike')">
+			<img class="sidecar-icon" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/facebook.svg">
+		</a>
+	</li>
+	<li class="sosh">
+		<a href="http://www.linkedin.com/shareArticle?url=http%3A%2F%2Fwww.javaworld.com%2Farticle%2F2076764%2Fjava-se%2Fimage-processing-with-java-2d.html&amp;title=Image+processing+with+Java+2D" target="_blank" onclick="sharingTrack('LinkedIn-vert')">
+			<img class="sidecar-icon" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/linkedin.svg">
+		</a>
+	</li>
+	<li class="sosh">
+		<a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.javaworld.com%2Farticle%2F2076764%2Fjava-se%2Fimage-processing-with-java-2d.html" target="_blank" onclick="sharingTrack('GooglePlus-vert', 'googplus')">
+			<img class="sidecar-icon" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/gplus.svg">
+		</a>
+	</li>
+	<li class="sosh hide">
+		<a href="http://reddit.com/submit?url=http%3A%2F%2Fwww.javaworld.com%2Farticle%2F2076764%2Fjava-se%2Fimage-processing-with-java-2d.html&amp;title=Image+processing+with+Java+2D" target="_blank" onclick="sharingTrack('Reddit-vert')">
+			<img class="sidecar-icon" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/reddit.svg">
+		</a>
+	</li>
+	<li class="sosh hide">
+		<a href="http://www.stumbleupon.com/submit?url=http%3A%2F%2Fwww.javaworld.com%2Farticle%2F2076764%2Fjava-se%2Fimage-processing-with-java-2d.html" target="_blank" onclick="sharingTrack('ShareStumbleupPrint-vert')">
+			<img class="sidecar-icon" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/stumbleupon.svg">
+		</a>
+	</li>
+	<li class="sosh hide">
+		<a href="#email" id="email-icon">
+			<img class="sidecar-icon" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/mail.svg">
+		</a>
+	</li>
+	<li class="sosh hide print">
+		<a href="javascript:window.print();">
+			<img class="sidecar-icon" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/print.svg">
+		</a>
+	</li>
+	<li class="more">
+		<div class="more-icon" onclick="document.getElementById('share-tool').className = 'expand';"></div>
+	</li>
+
+
+
+
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- Begin Eloqua Tracking -->
+<script type="text/javascript" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/elqCfg.js"></script>
+<script type="text/javascript" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/elqImg.js"></script><layer hidden="true"><img src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/svrGP_002.gif" width="1" height="1" border="0"></layer>
+<script type="text/javascript" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/elqFCS.js"></script><iframe name="elqFCSFra" style="display: none" src="/elqNow/elqBlank.htm" border="0" noresize="" scrolling="no" width="1" height="1" frameborder="0"></iframe>
+<script type="text/javascript" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/elqScr.js"></script><script type="text/javascript" language="JavaScript" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/svrGP_002.js"></script>
+<script type="text/javascript" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/elqIDG.js"></script>
+
+
+
+	
+		
+			
+			
+			
+		
+		
+			
+			
+		
+	
+	
+
+	
+	
+
+<script type="text/javascript">
+	IDG = window.IDG || {};
+	IDG.PageInfo = IDG.PageInfo || {};
+	IDG.PageInfo = function() {
+		return {
+			eloqua_type: "blogpost", 
+			eloqua_topic: "development"
+		};
+	}();
+	var elqCustomerGUID = "";
+	if (this.GetElqCustomerGUID && typeof GetElqCustomerGUID === "function") {
+	        elqCustomerGUID = GetElqCustomerGUID();
+	}
+	IDG.Eloqua.invoke_flash();
+</script>
+<!-- End Eloqua Tracking -->
+<script type="text/javascript">
+var isValidEmailAddress = isValidEmailAddress || function(emailAddress) {
+    var pattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$/i);
+    return pattern.test(emailAddress);
+};
+function encodeQueryData(params) {
+	var ret = [];
+	for (var paramKey in params) {
+		ret.push(encodeURIComponent(paramKey) + "=" + encodeURIComponent(params[paramKey]));
+	}
+	return ret.join("&");
+}	
+function bindEmailModal() {
+	$('#emailModal').on("click",".close-btn",function(event) {
+		event.preventDefault();
+        $('#emailModal').hide();
+        $("#emailModal .eml-friend").show();
+        $(".eml-friend-success").hide();
+        $(".eml-friend-error").hide();
+		$('#emailModal').fadeOut(200);
+		$('#email-to').val('');
+		$('#email-from').val('');
+		$('#name').val('');
+		$('#personalization').val('');
+		$('#eml-from-address-message').html("");
+		$('#eml-to-address-message').html("");
+		$('#eml-friend-captcha-message').html("");
+	});
+
+	$('#emailModal').on("submit","form",function(event) {
+		event.preventDefault();
+		var $form = $(this);
+		var action = $form.attr('action');
+		var formData = $form.serialize();
+		var emailFrom = $('#email-from').val();
+		var emailTo = $('#email-to').val();
+		var uresponse=$('#recaptcha_response_field').val()
+		$('#eml-from-address-message').html("");
+		$('#eml-to-address-message').html("");
+		$('#eml-friend-captcha-message').html("");
+		if (isValidEmailAddress(emailFrom) && isValidEmailAddress(emailTo) && uresponse !="") {
+			// eloqua
+			var eloquaParam = {
+				AssetCountforCurrentCampaign : "1",
+				AssetName : "",
+				AssetTopic : "",
+				AssetType : "",
+				BuyingCycle : "",
+				C_Address1 : "",
+				C_Address2 : "",
+				C_BusPhone : "",
+				C_City : "",
+				C_Company_Size1 : "",
+				C_Country : "",
+				C_EmailAddress : "",
+				C_FirstName : "",
+				C_Industry1 : "",
+				C_Job_Role1 : "",
+				C_LastName : "",
+				C_State_Prov : "",
+				C_Zip_Postal : "",
+				ClientName : "",
+				ProgramName : "",
+				brand : "",
+				elqFormName : "CentralRegistrationMasterForm",
+				formId : "3062313",
+				elqSiteId : 1856,
+				elqCustomerGUID : elqCustomerGUID,
+				elqCookieWrite : 0,
+				friend_email : emailFrom,
+				friend_article_title : "Image processing with Java 2D",
+				
+				friend_source : "JavaWorld",
+				friend_article_url : "http://www.javaworld.com/article/2076764/java-se/image-processing-with-java-2d.html", 
+				device_platform : navigator.userAgent
+			};
+			$.ajax("http://now.eloqua.com/e/f2.aspx", {
+				type: 'GET',
+				data: eloquaParam,
+				success: function(data, textStatus, xhr) {
+				},
+				error: function(xhr, textStatus, errorThrown) {
+				}
+			});
+			// eloqua
+			var eloquaParamMini = {
+				elqCustomerGUID : elqCustomerGUID,
+				
+				friend_source : "JavaWorld",
+				device_platform : navigator.userAgent
+			};
+			formData += "&" +encodeQueryData(eloquaParamMini);
+
+			// email
+			$.ajax(action, {
+				type: 'POST',
+				data: formData,
+				success: function(data, textStatus, xhr) {
+					if(data=='no-match') {
+						Recaptcha.reload();
+						$('#eml-friend-captcha-message').html("Invalid recaptcha - please re-enter the text below.");
+					}
+					else {
+						$("#emailModal .eml-friend").hide();
+						$(".eml-friend-success").fadeIn(800);	
+					}
+				},
+				error: function(xhr, textStatus, errorThrown) {
+					$("#emailModal .eml-friend").hide();
+					$(".eml-friend-error").fadeIn(800);						
+				}
+			});
+		}
+		else {	
+			if(uresponse==""){
+				$('#eml-friend-captcha-message').html("Please type the text below.");	
+			}
+			if(!isValidEmailAddress(emailTo)){
+			  $('#eml-to-address-message').html("Please enter a valid email address.");		
+			}
+			if(!isValidEmailAddress(emailFrom)){
+			  $('#eml-from-address-message').html("Please enter a valid email address.");		
+			}
+		}
+	});
+} //bindEmailModal() end
+
+$(document).ready(function() {
+	$(document).on("click","#email-icon",function(event) {
+		event.preventDefault();
+		if (typeof Recaptcha == 'undefined') {
+			$.ajax({
+				url: "//www.google.com/recaptcha/api/js/recaptcha_ajax.js",
+				dataType: 'script',
+				cache: true,
+				success: function() {
+					Recaptcha.create("6LdPbfsSAAAAAB89GpzHsyYe-AGzZXYy9K_4KAnF",
+						"recaptcha_widget_div", { 
+							theme: "clean",
+							callback: Recaptcha.focus_response_field
+					});
+					bindEmailModal();
+					sharingTrack('Email-vert');
+					$('#emailModal').fadeIn(800);
+				}
+			});
+		} else {
+			Recaptcha.reload();
+			sharingTrack('Email-vert');
+			$('#emailModal').fadeIn(800);
+		}
+	});
+});
+</script>
+<div class="modal eml-friend-wrapper" id="emailModal" style="display:none;">	
+	<form class="eml-friend" action="/eloquaemail/article?eloqua=true&amp;id=2076764">
+		<input name="title" value="Image processing with Java 2D" type="hidden">
+		<input name="url" value="http://www.javaworld.com/article/2076764/java-se/image-processing-with-java-2d.html" type="hidden">
+		<a href="#" class="close-btn"><i class="ss-icon ss-delete"></i></a>
+		<h3>Email a friend</h3>
+
+		<div class="input-row">
+			<div id="eml-to-address-message" class="error-msg"></div>
+			<h4 class="input-label">To</h4>
+			<input id="email-to" placeholder="Email address (required)" name="recipients" tabindex="1" type="email">
+			<p class="addl-text">Use commas to separate multiple email addresses</p>
+		</div>
+		<hr>
+		<div class="input-row">
+			<div id="eml-from-address-message" class="error-msg"></div>
+			<h4 class="input-label">From</h4>
+			<input id="name" placeholder="Name (optional)" name="name" tabindex="2" type="text">
+		</div>
+		<div class="input-row">
+			<input id="email-from" placeholder="Email address (required)" name="sender" tabindex="3" type="email">
+		</div>
+		<div class="input-row">
+			<textarea name="message" placeholder="Check out this article I found on JavaWorld." id="personalization" tabindex="4"></textarea>
+		</div>
+		<hr>
+		<div class="input-row">
+			<div id="eml-friend-captcha-message" class="error-msg"></div>
+		</div>
+		<div id="recaptcha_widget_div"></div>
+		<noscript>
+			<iframe src="http://www.google.com/recaptcha/api/noscript?k=6LdPbfsSAAAAAB89GpzHsyYe-AGzZXYy9K_4KAnF"
+		         height="300" width="500" frameborder="0"></iframe><br>
+		     <textarea id="recaptcha_challenge_field" name="recaptcha_challenge_field" rows="3" cols="40">
+		     </textarea>
+		     <input id="recaptcha_response_field" type="hidden" name="recaptcha_response_field"
+		         value="manual_challenge">
+ 		</noscript>
+		<hr>
+		<div class="submit">
+			<input value="Send" class="input-submit" tabindex="5" type="submit">
+			<a href="http://www.javaworld.com/about/privacy.html" class="submit-privacy" target="_blank">Privacy Policy</a>
+		</div>
+	</form>
+
+	<div class="eml-ty eml-friend-success" style="display:none;">
+		<a href="#" class="close-btn"><i class="ss-icon ss-delete"></i></a>
+		<h3>Thank you</h3>
+		<p class="msg-sent">Your message has been sent.</p>
+	</div>
+	<div class="eml-friend-error" style="display:none;">
+		<a href="#" class="close-btn"><i class="ss-icon ss-delete"></i></a>
+		<h3>Sorry</h3>
+		<p class="msg-sent">There was an error emailing this page.</p>
+	</div>
+</div>
+
+		</div>
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+		
+	
+
+
+<section class="epo cat-narrow" id="drr-top-ad">
+
+	
+	
+		
+   	
+   	
+   	
+   		
+   			
+   		
+
+
+
+
+
+
+
+
+
+
+
+<!-- Related -->
+
+
+
+
+
+
+
+
+
+	<div class="related-promo-wrapper">
+		<div class="promo apart">
+			<div class="hed">More like this</div>
+	    	<ul class="">
+		    	
+		    		
+						
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="clearfix ">
+	
+	<div class="item">
+		
+		<div class="title"><a href="http://www.javaworld.com/article/2076733/java-se/antialiasing--images--and-alpha-compositing-in-java-2d.html">Antialiasing, images, and alpha compositing in Java 2D</a></div>
+	</div>
+</li>
+		    	
+		    		
+						
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="clearfix ">
+	
+	<div class="item">
+		
+		<div class="title"><a href="http://www.javaworld.com/article/2076715/java-se/getting-started-with-java-2d.html">Getting started with Java 2D</a></div>
+	</div>
+</li>
+		    	
+		    		
+						
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="clearfix ">
+	
+	<div class="item">
+		
+		<div class="title"><a href="http://www.javaworld.com/article/2076696/learn-java/draw-textured-spheres.html">Draw textured spheres</a></div>
+	</div>
+</li>
+		    	
+		    	
+					
+					
+						
+						
+						
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+						
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+					
+				
+		    </ul>
+		</div>
+	</div>
+
+   	
+
+
+		
+<div class="ad">
+	
+		
+		
+			
+				
+				
+				
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+		
+			
+			
+			
+			
+			
+				<div id="topimu" class="adunit ad-container">					
+				</div>				
+				<script type="text/javascript">
+				if($(window).width() >= 930) {
+					IDG.GPT.addDisplayedAd("topimu", "true");
+					$('#topimu').responsiveAd({screenSize:'971 1115', scriptTags: []});
+				}
+				</script>
+			
+		
+	
+ 	
+ 
+		
+	
+</div>
+
+	
+   
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		
+
+
+
+		<section class="bodee">
+
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+	<div class="ad placement">
+		
+			
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+		
+			
+			
+				<!--  Begin gpt-skin/gpt-pin/inread -->
+				<div id="inread" class=" ad-container">					
+				</div>
+				<script type="text/javascript">
+					IDG.GPT.addDisplayedAd("inread", "true");
+					IDG.GPT.displayGoogleTagSlot('inread');
+				</script>
+				<!--  End gpt-skin/gpt-pin/inread -->	
+			
+			
+			
+			
+		
+	
+ 	
+ 
+	</div>
+
+
+
+
+
+
+
+
+	
+	
+		
+		
+		
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	$('.articleBloxAd').filter( ":visible" ).each(function(index, item) {
+		var id = $(item).attr('id');
+		var divClass = $(item).attr('class');
+		var adString = IDG.GPT.getLazyAdCode();
+		$(item).replaceWith("<div id=\"" + id + "\" class=\"lazyload_blox_ad " + divClass + "\">" + adString + "</div>");
+	});
+	try {
+		$("div.lazyload_blox_ad").lazyLoadAd({
+	        threshold    : 0,         // You can set threshold on how close to the edge ad should come before it is loaded. Default is 0 (when it is visible).
+	        forceLoad    : false,       // Ad is loaded even if not visible. Default is false.
+	        onLoad       : false,       // Callback function on call ad loading
+	        onComplete   : false,       // Callback function when load is loaded
+	        timeout      : 1500,        // Timeout ad load
+	        debug        : false,       // For debug use : draw colors border depends on load status
+	        xray         : false        // For debug use : display a complete page view with ad placements
+		}) ;
+	}
+	catch (exception){
+		console.log("error loading lazyload_ad " + exception);
+	}
+});
+
+</script>
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+
+
+<script type="text/javascript">
+$(function() {
+	var MOBILE_BREAK = 929;
+	if ($(window).width() <= MOBILE_BREAK) {
+		executeDRRMobile();
+	} else {
+		// Desktop
+		executeDRRDesktop();
+	}
+});
+
+function executeDRRMobile() {
+	var TOP_IMU_HEIGHT = 250,
+		INTERMODULE_HEIGHT = 400,
+		GRAF_HEIGHT = 25,
+		MODULE_HEIGHT_BUFFER = 350,
+		AD_HEIGHT_BUFFER = 350,
+		RIGHT_PIXEL_WINDOW = 300,
+		DEBUG = false;
+	
+	var articleDRRModuleList = ["dealposts","insider.promo.direct"],
+		moduleUrls = [],
+		modules = [],
+		placementIndex = [],
+		moduleCounter = 0,
+		adPositions = new Array(0,1,3); // IMU, IMU, module, IMU, module 
+		cumulativeHeight = 0,
+		loopCounter = 0,
+		placementTarget = TOP_IMU_HEIGHT + MODULE_HEIGHT_BUFFER + GRAF_HEIGHT + INTERMODULE_HEIGHT; // IMU, IMU, module, IMU, module 
+	
+	if (false) {
+		var dealpostsIdx = articleDRRModuleList.indexOf("dealposts");
+		if (dealpostsIdx > -1) {
+			articleDRRModuleList.splice(dealpostsIdx, 1);
+			adPositions = [0, 1, 2];
+		}
+	}
+	for (var i=0; i<articleDRRModuleList.length; i++) {
+		var articleDRRModuleName = articleDRRModuleList[i];
+		if (articleDRRModuleName == "products.latest-reviews") {
+			articleDRRModuleName += "&pageSize=3";
+			
+			articleDRRModuleName += "&categoryId=3205";
+			
+		} else if (articleDRRModuleName == "articles.latest-reviews") {
+			
+			articleDRRModuleName += "&categoryId=3646";
+			
+		} else if (articleDRRModuleName == "insider.promo.direct") {
+			var isPremium = false;//,
+			//showPromo = isPremium && (document.cookie.indexOf("nsdr") == -1);
+			showPromo = false;
+			articleDRRModuleName += "&pageSize=3&showPromo=" + showPromo;
+			
+			articleDRRModuleName += "&categoryId=3646";
+			
+		}
+		moduleUrls.push("/napi/tile?def=" + articleDRRModuleName + "&excludeCurrentArticle=true&excludeIds=2076764");
+	}
+	
+	if ($("figure.hero-img").height()) {
+		placementTarget += $("figure.hero-img").height();
+	}
+	// Add heights of all elements up through read these next (which is placed after eighth p tag) 
+	var firstModIndex = $("#drr-container > p:eq(7)").index();
+	$("#drr-container").children().slice(0, firstModIndex).each(function() {
+		placementTarget += $(this).height();
+	});
+	// Define first mobile ad here so imu counter shows imu1 first imu2 second, etc.
+	var firstMobileAdHtml = getLazyLoadAdHtml();
+
+	// Place Right-rail div containers 
+	$("#drr-container").children().each(function(index,value) {
+		//ignore any hidden elements in the body, like the mobile-only "read this next" module
+		if ($(this).is(':visible')) {
+			if (DEBUG) {
+				console.log($(this));
+			}
+			if (cumulativeHeight >= placementTarget) {
+				if (DEBUG) {
+					console.log("cumulativeHeight >= placementTarget and cumulativeHeight is " + cumulativeHeight + " and placementTarget is " + placementTarget);
+				}
+				var placementDiff = 0;
+				if ($.inArray(loopCounter, adPositions) != -1) {
+					IDG.GPT.addExtIMU();
+					var adDivString;
+					if (true) {
+						adDivString = getLazyLoadAdHtml();
+					} else {
+						IDG.GPT.IMUCounter = IDG.GPT.IMUCounter + 1;
+						var slotName = IDG.GPT.getIMUSlotName(),
+							adString = "<div id='" + slotName + "'></div><script>$('#" + slotName + "').responsiveAd({screenSize:'971 1115', scriptTags: []});if (Object.keys(IDG.GPT.companions).length > 0) {IDG.GPT.refreshAd('" + slotName + "');}<\/script>";
+						adDivString = "<div class='apart ad'>" + adString + "</div>";
+						IDG.GPT.defineGoogleTagSlot(slotName ,[[320,50],[300,250],[300,50]]);
+					}
+					placementDiff = applyInsert($(this), adDivString);
+					if (DEBUG) {
+						console.log("Just placed an ad and the placementDiff is: " + placementDiff);
+					}
+					placementTarget = cumulativeHeight + placementDiff + INTERMODULE_HEIGHT + AD_HEIGHT_BUFFER;
+				} 
+				else if (moduleCounter < articleDRRModuleList.length){
+					var elementId = "drr-mod-"+moduleCounter;
+					var moduleDivString = "<div id=\"" + elementId + "\" />";
+					modules.push(elementId);
+					
+					placementDiff = applyInsert($(this), moduleDivString);
+					if (DEBUG) {
+						console.log("Just placed a module and the placementDiff is: " + placementDiff);
+					}
+					placementTarget = cumulativeHeight + placementDiff + INTERMODULE_HEIGHT + MODULE_HEIGHT_BUFFER;
+					moduleCounter++;
+				}
+				loopCounter++;
+			}
+			// Avoid placing elements too soon due to non-large figures inflating the cumulative height
+			if ($(this).is("figure") && !$(this).is("figure.large")) {
+				cumulativeHeight += GRAF_HEIGHT;
+			}
+			else {
+				cumulativeHeight += $(this).height() + GRAF_HEIGHT;
+			}
+		}
+	});	// end $("#drr-container").children().each()
+		
+	// clone Related Stories module to come in after eighth para in article body for mobile breakpoint display
+	var $relatedStories = $('.related-promo-wrapper');
+	if ($relatedStories.length) {		
+		var $relatedStoriesClone = $relatedStories.clone();
+		$relatedStoriesClone.insertAfter( "#drr-container > p:eq(7)");	
+	}
+		
+	// For mobile only, place ad after second paragraph.
+	if (firstMobileAdHtml) {
+		$(firstMobileAdHtml).insertAfter("#drr-container > p:eq(1)");
+	}
+		
+	var $insiderPromo = $('.insider-promo-wrapper');
+	if ($insiderPromo.length) {		
+		var $insiderPromoClone = $insiderPromo.clone();
+		$insiderPromoClone.insertAfter( "#drr-container > p:eq(1)");
+	}
+		
+	IDG.GPT.trackOmniture();
+
+	// Add Right rail module content
+	var placeModule = function( data ) {
+		var placementId = $(data).attr("data-placement-id");
+		$( "#"+placementId ).html( data );
+	};
+	for (i=0; i<modules.length; i++) {
+		if (moduleUrls[i] !== undefined) {
+			$.get(moduleUrls[i]+"&divId="+modules[i], placeModule);
+		}
+	}
+	
+	$("div.lazyload_ad_article").lazyLoadAd({
+		threshold    : 0,
+		forceLoad    : false,       // Ad is loaded even if not visible. Default is false.
+		onLoad       : false,       // Callback function on call ad loading
+		onComplete   : false,       // Callback function when load is loaded
+		timeout      : 1500,        // Timeout ad load
+		debug        : false,       // For debug use : draw colors border depends on load status
+		xray         : false      // For debug use : display a complete page view with ad placements
+	});
+		
+	/*
+	* Increments imu counter and generates a 'name' based on count like imu2, imu3, etc.
+	* Returns the html and code script needed for the lazy load ad js.
+	*/
+	function getLazyLoadAdHtml() {
+		var adString = IDG.GPT.getLazyAdCode();
+		return "<div class=\"apart ad lazyload_ad_article\">" + adString + "</div>";
+	}
+	
+	/** 
+	 * @param jqo Original jquery object target
+	 * @param divString The div to be inserted.
+	 * @return Difference in height between original placement target and final target.
+	 * Checks first 6 elements for an allowable placement (600 pixel window).
+	 * If none, place element in first location that does not follow a reject element.
+	 */
+	function applyInsert(jqo, divString) { 
+		if (DEBUG) {
+			console.log("applyInsert at top and jqo index is: " + jqo.index());
+		}
+		
+		for (var i=0; i<=6; i++) {
+			$thisElement = jqo.nextAll().andSelf().slice(i, i+1);
+			if (DEBUG) {
+				console.log("Checking first six and i is: " + i + " and this element index is " + $thisElement.index() );
+			}
+			if ($thisElement.index() < 0) {
+				break;
+			}
+			if (allowPlacement($thisElement)) {
+				return addElement(jqo, $thisElement, divString);
+			}  
+		}
+		if (DEBUG) {
+			console.log("No nearby allows so just place in first spot that is not after reject.");
+		}
+		var numElements = jqo.nextAll().length;
+		var startIndex = jqo.index();
+		for (var i=startIndex; i<=numElements; i++) {
+			var $element = $("#drr-container").children().eq(i);
+			// This element is eligible when not null, not in placement index, and previous element is not reject
+			if ($element != null && (placementIndex == null || placementIndex.indexOf(i) == -1) && !isReject($element.prev())) {
+				return addElement(jqo, $element, divString);
+			}
+		}
+		if (DEBUG) {
+			console.log("Not going to place element: return 0.");
+		}
+		return 0; 
+	}
+		
+	/**
+	 * @param jqo Original jquery object
+	 * @param allowElement Element that is good placement for module/ad
+	 * @param divString The div to be inserted before the good element
+	 * @return placementHeightDiff Diff in height between original placement target and current target.
+	 *
+	 * If element is not too close to the end the insert the div before allowable element. 
+	 * Add element index to placementIndex to keep track of which elements already have placements
+	 */
+	function addElement(jqo, allowElement, divString) {
+		var offset = allowElement.index() - jqo.index();
+		if (DEBUG) {
+			console.log("addElement: jqo index is " + jqo.index() + " allowElement index is " + allowElement.index());
+		}
+		
+		if (elementNotNearEnd(allowElement, RIGHT_PIXEL_WINDOW)) {
+			allowElement.before(divString);
+			if (DEBUG) {
+				console.log("addElement: Adding " + allowElement.index() + " to placementIndex.");
+			}
+			placementIndex.push(allowElement.index());
+			if (offset == 0) {
+				return 0;
+			}
+			else {
+				return getHeightDifference(jqo,allowElement);
+			}
+
+		}
+		else {
+			if (DEBUG) {
+				console.log("addElement: Near the end so do NOT add.");
+			}
+			return 0;
+		} 
+	}
+	
+	function getHeightDifference(jqo,allowElement) {
+		var offset = allowElement.index() - jqo.index(),
+			height = 0,
+			children = null;
+		if (offset > 0) {
+			children = $("#drr-container").children().slice(jqo.index(), allowElement.index());
+		}
+		else {
+			children = $("#drr-container").children().slice(allowElement.index(), jqo.index());
+		
+		}
+		if (children != null) {
+			children.each(function(i) {
+				if (DEBUG) {
+					console.log("About to add this element's height to heigh diff offset");
+					console.log($(this));
+				}
+	   			height += $(this).height() + GRAF_HEIGHT;
+			});
+		}
+		if (offset < 0) {
+			height *= -1;
+		}
+		if (DEBUG) {
+			console.log("getHeightDifference: offset was " + offset + " and height diff is : " + height);
+		}		
+		return height;
+	}
+	
+	function allowPlacement(jqo) {
+		if (jqo.prev() != null && isReject(jqo.prev())) {
+			return false;
+		}
+		return true;
+	}
+	
+	function isReject(jqo) {
+		if (jqo != null) {
+			if (jqo.is('h2') || jqo.is('h3') || jqo.is('h4') || jqo.is('h5')) {
+				if (DEBUG) {
+					console.log("isReject: found header");
+				}
+				return true;
+			}
+		}
+		return false;
+	}
+		 
+	// Returns true if height of all elements after this one is more than 500; false otherwise 
+	function elementNotNearEnd(element, pixelWindow) {
+		if (pixelWindow === null) {
+			pixelWindow = 500;
+		}
+		if (element === null) {
+			return false;
+		}
+		var remainingHeight = 0,
+			children = $("#drr-container").children().slice(element.index());
+		if (children === null) {
+			return false;
+		}
+		children.each(function(i){
+		   remainingHeight += $(this).height();
+		});
+		if ( remainingHeight > pixelWindow) {
+			return true;
+		}
+		else {
+			if (DEBUG) {
+				console.log("Element too close to end. Remaining height is: " + remainingHeight + " and window is " + pixelWindow);	 
+			}
+			return false;
+		}
+	}		
+} // end function executeDRRMobile()
+
+
+function executeDRRDesktop() {
+	
+	var heroImgHeight = $('figure.hero-img').outerHeight(true);
+	if (heroImgHeight === null) {
+		heroImgHeight = 0;
+	}
+	var galleryItemHeight = $('figure.thm-gallery').outerHeight(true);
+	if (galleryItemHeight === null) {
+		galleryItemHeight = 0;
+	}
+	var atAglanceTop = $('.at-a-glance.top').height();
+	if (atAglanceTop === null) {
+		atAglanceTop = 0;
+	}
+	
+	var drrContainerHeight = $('div#drr-container').outerHeight(true);
+
+	var topIMUheight = $('#topimu').height();
+	if (topIMUheight === 0) {
+		topIMUheight = 600;
+	}
+	var relatedPromoHeight = $('div.related-promo-wrapper').outerHeight(true);
+	if (relatedPromoHeight === null) {
+		relatedPromoHeight = 0;
+	}
+	var videoHowtoHeight = $('div#video-howto-wrapper').outerHeight(true);
+	if (videoHowtoHeight === null) {
+		videoHowtoHeight = 0;
+	}
+	var teadsInreadHeight = $('div.teads-inread').height();
+	if (teadsInreadHeight === null) {
+		teadsInreadHeight = 0;
+	}
+	var unrulyAdHeight = $('.unruly_in_article_placement').height();
+	if (unrulyAdHeight === null) {
+		unrulyAdHeight = 0;
+	}
+	//just in case the in article ads are picked up...
+	var collapsibleAdHeight = unrulyAdHeight + teadsInreadHeight;
+
+	var workingRRheight = ( (heroImgHeight + galleryItemHeight + atAglanceTop + drrContainerHeight) - (topIMUheight + relatedPromoHeight + videoHowtoHeight) );
+	
+	workingRRheight = workingRRheight - collapsibleAdHeight;
+	// if there is a gallery video remove the amount of space used to push the right rail down to accommodate the video in the RR (CAT-102)
+	if (galleryItemHeight > 0) {
+		workingRRheight = workingRRheight - 1400;
+	}
+	
+	var DEBUG = false;
+	
+	if (DEBUG) {
+		console.log('-----working RR height = ' + workingRRheight);
+	}
+	
+	var articleDRRModuleList = ["dealposts","insider.promo.direct"],
+		moduleUrls = [],
+		modules = [],
+		moduleCounter = 0,
+		loopCounter = 0;
+	var adPositions = new Array(0,1,3); // IMU, IMU, module, IMU, module 
+	
+	if (false) {
+		var dealpostsIdx = articleDRRModuleList.indexOf("dealposts");
+		if (dealpostsIdx > -1) {
+			articleDRRModuleList.splice(dealpostsIdx, 1);
+			adPositions = [0, 1, 2];
+		}
+	}
+	for (var i=0; i<articleDRRModuleList.length; i++) {
+		var articleDRRModuleName = articleDRRModuleList[i];
+		if (articleDRRModuleName == "products.latest-reviews") {
+			articleDRRModuleName += "&pageSize=3";
+			
+			articleDRRModuleName += "&categoryId=3205";
+			
+		} else if (articleDRRModuleName == "articles.latest-reviews") {
+			
+			articleDRRModuleName += "&categoryId=3646";
+			
+		} else if (articleDRRModuleName == "insider.promo.direct") {
+			var isPremium = false;//,
+				//showPromo = isPremium && (document.cookie.indexOf("nsdr") == -1);
+			showPromo = false;
+			articleDRRModuleName += "&pageSize=3&showPromo=" + showPromo;
+			
+			articleDRRModuleName += "&categoryId=3646";
+			
+		}
+		moduleUrls.push("/napi/tile?def=" + articleDRRModuleName + "&excludeCurrentArticle=true&excludeIds=2076764");
+	}
+	
+	// Place Right-rail div containers 
+	var numItems = 0;
+	
+	if (workingRRheight > 650) {
+		numItems = 1;
+	} 
+	if (workingRRheight > 1350) {
+		numItems = 2;
+	} 
+	if (workingRRheight > 2300) {
+		numItems = 3;
+	}
+	if (workingRRheight > 2950) {
+		numItems = 4;
+	} 
+	if (workingRRheight > 3650) {
+		numItems = 5;
+	} 
+
+
+	for (var currIndex=0;currIndex<numItems;currIndex++) {
+
+		if ($.inArray(currIndex, adPositions) != -1) {
+			IDG.GPT.addExtIMU();
+			var adDivString;
+			if (true) {
+				adDivString = getLazyLoadAdHtml();
+			} else {
+				IDG.GPT.IMUCounter = IDG.GPT.IMUCounter + 1;
+				var slotName = IDG.GPT.getIMUSlotName(),
+					adString = "<div id='" + slotName + "'></div><script>$('#" + slotName + "').responsiveAd({screenSize:'971 1115', scriptTags: []});if (Object.keys(IDG.GPT.companions).length > 0) {IDG.GPT.refreshAd('" + slotName + "');}<\/script>";
+				adDivString = "<div class='apart ad'>" + adString + "</div>";
+				IDG.GPT.defineGoogleTagSlot(slotName ,[[320,50],[300,250],[300,50]]);
+			}
+
+			//$('#drr-container > p').first().before(adDivString);
+			//$('#drr-top-ad').append(adDivString);
+			$(adDivString).appendTo('#drr-top-ad');
+			if (DEBUG) {
+				console.log("-----Just placed an AD currIndex = " + currIndex);
+			}
+		} 
+		else if (moduleCounter < articleDRRModuleList.length){
+			var elementId = "drr-mod-"+moduleCounter;
+			var moduleDivString = "<div id=\"" + elementId + "\" />";
+			modules.push(elementId);
+			
+			//$('#drr-container > p').first().before(moduleDivString);
+			$('#drr-top-ad').append(moduleDivString);
+			if (DEBUG) {
+				console.log("-----Just placed a MODULE and currIndex =  " + currIndex);
+			}
+			moduleCounter++;
+		}
+
+	} //end for loop	
+		
+	IDG.GPT.trackOmniture();
+	
+	// Add Right rail module content
+	var placeModule = function( data ) {
+		var placementId = $(data).attr("data-placement-id");
+		$( "#"+placementId ).html( data );
+	};
+	for (i=0; i<modules.length; i++) {
+		if (moduleUrls[i] !== undefined) {
+			$.get(moduleUrls[i]+"&divId="+modules[i], placeModule);
+		}
+	}
+	
+	
+	$("div.lazyload_ad_article").lazyLoadAd({
+		threshold    : 0,
+		forceLoad    : false,       // Ad is loaded even if not visible. Default is false.
+		onLoad       : false,       // Callback function on call ad loading
+		onComplete   : false,       // Callback function when load is loaded
+		timeout      : 1500,        // Timeout ad load
+		debug        : false,       // For debug use : draw colors border depends on load status
+		xray         : false      // For debug use : display a complete page view with ad placements
+	});
+		
+	/*
+	* Increments imu counter and generates a 'name' based on count like imu2, imu3, etc.
+	* Returns the html and code script needed for the lazy load ad js.
+	*/
+	function getLazyLoadAdHtml() {
+		var adString = IDG.GPT.getLazyAdCode();
+    	return "<div class=\"apart ad lazyload_ad_article\">" + adString + "</div>";
+	}
+
+} // end function executeDRRDesktop()
+</script>
+
+
+
+
+
+	
+	
+		
+	
+
+
+
+
+
+	
+		
+			
+				
+			
+			
+			
+			
+		
+	
+	
+
+<div id="drr-container" class="cat no-primary-image" itemprop="articleBody">
+
+	
+	
+		
+		
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+ 	
+ 		
+		<div class="lazyload_ad">
+		<code type="text/javascript">
+			<!--
+			document.write('<div id="gpt-pin" class=" ad-container">');
+			IDG.GPT.addDisplayedAd("gpt-pin", "true");
+			IDG.GPT.addLazyloadedAd("gpt-pin", "true");
+			document.write('</div>');
+			
+				
+					IDG.GPT.displayGoogleTagSlot('gpt-pin');
+				
+				
+			
+			if (Object.keys(IDG.GPT.companions).length > 0) {
+				IDG.GPT.refreshAd('gpt-pin');
+			}
+			//-->
+		</code>
+		</div>
+ 	
+ 
+
+	
+		
+			
+		
+			
+				<div id="article-top-page-number">Page 2 of 2</div>
+			
+		
+	
+	<p>The thresholding process is performed for each color component of 
+each pixel. When the operation is complete, the color components of the 
+destination image pixels will contain either the minimum value or the 
+maximum value. For example, consider what happens to an image when a 
+thresholding operation is performed with a minimum of 0 and a maximum of
+ 255. After the image is processed, the red, green, and blue values of 
+the pixels will be either 0 or 255. Thus, the processed image can only 
+contain the following colors:</p><ol><li>black (red = 0, green = 0, blue = 0)</li><li>white (red = 255, green = 255, blue = 255)</li><li>red (red = 255, green = 0, blue = 0)</li><li>green (red = 0, green = 255, blue = 0)</li><li>blue (red = 0, green = 0, blue = 255)</li><li>yellow (red = 255, green = 255, blue = 0)</li><li>magenta (red = 255, green = 0, blue = 255)</li><li>cyan (red = 0, green = 255, blue = 255)</li></ol><p>Note that through 1.2 Beta 3 the Java 2D API included a specific operator, <code>java.awt.image.ThresholdOp</code>, for thresholding. The operator has been removed in the Java 1.2 Beta 4 release, but you can still do thresholding using a <code>LookupOp</code>.</p><p>Let's
+ do a simple threshold operation with a threshold value of 128, a 
+minimum of 0, and a maximum of 255. Example code for performing 
+thresholding using <code>LookupOp</code>createThresholdOp() method in <a href="http://images.techhive.com/downloads/idge/imported/article/jvw/1998/09/imagedicer.java"><code>ImageDicer.java</code></a>.</p><figure class="center"><img src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/figure09-100158279-orig.jpg" width="329" height="420"><figcaption>Thresholding with threshold = 128, minimum = 0, and maximum = 255</figcaption></figure><h3>Take ImageDicer out for a spin</h3><p>This month's column features a single example, <a href="http://images.techhive.com/downloads/idge/imported/article/jvw/1998/09/imagedicer.java">ImageDicer</a>,
+ that encompasses all the operators we've talked about. This application
+ illustrates a lot of the nuts and bolts of working with buffered 
+images.</p><p>It's fairly easy to add more operators to this example application, and we encourage you to work with the code. <code>ImageDicer</code>
+ also enables you to try something we haven't yet discussed: combining 
+operations. Try a thresholding operation followed by an edge detection 
+operation for some interesting results.</p><p>Let's take a look at the most important methods of <code>ImageDicer</code>.</p><p><code>createOps()</code> is called from <code>ImageDicer</code>'s constructor. It simply creates a bunch of image operators (the same operators described earlier) and places them in a <code>Hashtable</code>, keyed by simple names. If you get ambitious, this is the place to add more image operators.</p><p><code>createUI()</code> sets up the application's window. It creates a combo box (a <code>Choice</code>) that contains the names from the operator <code>Hashtable</code>.
+ Whenever one of these names is selected, the corresponding operator is 
+used to process the current image. This code is quite simple:</p><pre class="prettyprint">001 String key = processChoice.getSelectedItem();
+002 statusLabel.setText("Working...");
+003 BufferedImageOp op = (BufferedImageOp)mOps.get(key);
+004 mBufferedImage = op.filter(mBufferedImage, null);
+005 statusLabel.setText("");
+006 repaint();
+</pre><p>First we retrieve the operator name from the <code>Choice</code> (line 001) and display a status message to the user. Then we retrieve the corresponding <code>BufferedImageOp</code> from the <code>Hashtable</code> (line 003) and call <code>filter()</code> (line 004) to process the image.</p><p>Note that the processed image replaces the current image; the image operators are applied cumulatively.</p><p><code>adjustToImageSize()</code> adjusts the size of the <code>ImageDicer</code>
+ window so that the image just fits inside it. It takes the insets of 
+the window into consideration as well as the application controls.</p><p><code>loadImage()</code> loads a new image from a file. It illustrates two useful techniques. First, this method uses a <code>MediaTracker</code> to wait for the image data to be fully loaded. Even though <code>Toolkit</code>'s <code>getImage()</code> method returns a valid <code>Image</code> object, the image data may not be loaded yet. Using the <code>MediaTracker</code> ensures that the image is fully loaded before we try to use it.</p><p>As we stated above, <code>Toolkit</code>'s <code>getImage()</code> method returns an <code>Image</code>; however, the image processing classes operate on <code>BufferedImage</code>s, so we need to convert the <code>Image</code> to a <code>BufferedImage</code>. This just so happens to be the second handy technique illustrated in the <code>loadImage()</code>.</p><p>First, we create a new <code>BufferedImage</code> that's the same size as the <code>Image</code> we just loaded:</p><pre class="prettyprint">001 mBufferedImage = new BufferedImage( 
+002 image.getWidth(null), image.getHeight(null), 
+003 BufferedImage.TYPE_INT_RGB);
+</pre><p>The <code>getWidth()</code> and <code>getHeight()</code> methods accept an <code>ImageObserver</code>. But we know that the image is fully loaded. Therefore, we pass <code>null</code> as the <code>ImageObserver</code>, knowing that <code>getWidth()</code> and <code>getHeight()</code> will return valid values.</p><p>Next, we obtain the <code>Graphics2D</code> corresponding to the new <code>BufferedImage</code> and render the loaded <code>Image</code> on it.</p><pre class="prettyprint">    
+001 Graphics2D g2 = mBufferedImage.createGraphics(); 
+002 g2.drawImage(image, null, null); 
+</pre><p>The <code>drawImage()</code> version we're using here accepts an <code>Image</code>, an <code>AffineTransform</code>, and an <code>ImageObserver</code>. We don't want to transform the image as it's rendered (if you are interested in doing this, please refer to <a href="http://www.javaworld.com/javaworld/jw-08-1998/jw-08-media.html">last month's column</a>), so we pass <code>null</code> for the second parameter. Because we also know the image is fully loaded, we pass <code>null</code> for the <code>ImageObserver</code> parameter as well.</p><h3>Conclusions</h3><p>We've
+ covered a lot of 2D graphics territory over the last three columns on 
+programming using Java 2D. I hope this information has helped you to 
+understand the usefulness of these new Java 1.2 core features and maybe 
+even inspired you to check them out for use in your own programs.</p><p>Next month, I'll shift my attention to a discussion of the state of the art in 2D and 3D computer graphics, as discussed at <a href="http://www.siggraph.org/s98/">Siggraph '98</a>
+ last month (July 1998). We'll use this discussion to springboard into 
+our next major topic: Java 3D and competing 3D APIs for Java.</p><p>See you next month!</p><section class="authorbio">Bill Day is a software engineer at Silicon
+Graphics Computer Systems. In addition to writing for
+JavaWorld, Bill is authoring a book entitled Java Media
+Players for O'Reilly &amp; Associates. When Bill is not writing
+or programming, he loves to mountain bike, travel with his wife,
+and speak French. Java, c'est magnifique! Jonathan Knudsen is a staff writer for O'Reilly &amp; Associates. His
+current project is (surprise!) a book about the 2D
+API. His first book, Java
+Cryptography, was published in May. He also writes a
+monthly column called "Bite-Size Java".
+Jonathan enjoys spending time with his family, playing the piano,
+and inline skating.</section><section class="resources"><a name="resources"><h3>Learn more about this topic</h3><ul><li>Carol
+ Gerten's Fine Art site is the source of the Sargent painting used as a 
+sample image. This site has a comprehensive collection of fine art 
+images, carefully organized and cleanly scanned. 
+http://sunsite.unc.edu/cjackson/</li><li>Take a cheap art history tour 
+of Florence with the Virtual Uffizi. It has descriptions and images for 
+every painting in the Uffizi. http://www.arca.net/uffizi/</li><li>Clifford
+ Watson has written a nice introduction to image processing for the 
+University of Washington. It offers a light treatment of the mathematics
+ of convolution and includes some good sample images. 
+http://www.cs.washington.edu/research/metip/tutor/tutor.html</li><li>If 
+you're curious about Fourier transforms, which seem to pop up all over 
+the place when you peak under the covers of image processing algorithms,
+ check out this tutorial hosted by the University of Strathclyde. 
+http://www.spd.eee.strath.ac.uk/~interact/fourier/fourier.html</li><li>Download the complete source for this column. http://www.javaworld.com/jw-09-1998/media/jw-09-media.jar</li><li>If you would like to perform the example image manipulations using the same source image, the <em>Lady</em> is available directly from <em>JavaWorld</em>'s site, filename <code>figure02.jpg</code>. http://www.javaworld.com/jw-09-1998/media/figure02.jpg</li><li>Be sure to read Bill Day's other <strong>Media Programming</strong> columnsmin <em>JavaWorld.</em> /javaworld/topicalindex/jw-ti-media.html</li><li>I've archived <strong>Media Programming</strong>
+ resources on my Web site. This archive contains the up-to-date 
+media.jar file with code fixes for all of the examples in the column. 
+http://reality.sgi.com/bday/Work/index.html</li></ul></a></section><a name="resources">
+
+	
+	
+	
+	
+	
+		
+		
+		
+		
+
+
+
+
+
+
+
+
+
+
+<div class="end-note">
+	
+		
+	
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+</div>
+	
+	
+</a></div><a name="resources">
+
+
+
+
+
+
+
+    </a><div class="apart-alt tags"><a name="resources">
+    <span class="related">Related: </span>
+    </a><ul><a name="resources">
+		
+			</a><li><a name="resources"></a><a href="http://www.javaworld.com/category/java-se">Java SE</a></li>
+		
+			<li><a href="http://www.javaworld.com/category/learn-java">Learn Java</a></li>
+		
+			<li><a href="http://www.javaworld.com/category/application-development">Java App Dev</a></li>
+		
+			<li><a href="http://www.javaworld.com/category/client-side-java">Client-side Java</a></li>
+		
+			<li><a href="http://www.javaworld.com/category/apis">Java APIs</a></li>
+		
+			<li><a href="http://www.javaworld.com/category/java-language">Java Language</a></li>
+		 
+		
+			
+			
+				 
+					 
+			    				
+				
+			
+				
+		
+    </ul>
+   
+	</div>
+
+
+
+
+
+
+
+
+
+		
+   		
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<div class="brand-social">
+		<div class="follow-text">Follow everything from JavaWorld</div>
+		<ul class="social-links">
+			
+			<li>
+				<a href="https://twitter.com/javaworldcom" class="twitter-follow" target="_blank">
+					<i class="ss-icon ss-social ss-twitter"></i>
+				</a>
+			</li>
+			
+			
+			<li>
+				<a href="https://www.facebook.com/pages/JavaWorld/107993545895326" class="facebook-follow" target="_blank">
+					<i class="ss-icon ss-social ss-facebook"></i>
+				</a>
+			</li>
+			
+			
+			<li>
+				<a href="http://www.linkedin.com/company/javaworld-com" class="linkedin-follow" target="_blank">
+					<i class="ss-icon ss-social ss-linkedin"></i>
+				</a>
+			</li>
+			
+			
+			<li>
+				<a href="https://plus.google.com/117974570132126965756/posts" class="googleplus-follow" target="_blank">
+					<i class="ss-icon ss-social ss-googleplus"></i>
+				</a>
+			</li>
+			
+			
+			<li>
+				<a href="http://www.javaworld.com/about/rss/" class="rss">
+					<i class="ss-icon ss-social ss-rss"></i>
+				</a>
+			</li>
+			
+		</ul>
+	</div>
+
+
+   		
+   		
+		
+
+
+
+
+
+
+
+
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="pagination">
+	
+		<a href="http://www.javaworld.com/article/2076764/java-se/image-processing-with-java-2d.html" class="page-link prev" rel="prev"><i class="ss-icon ss-navigateleft"></i> Previous</a> |
+	
+    
+   		
+	    <span class="page-numbers">
+		    
+		    	<a href="http://www.javaworld.com/article/2076764/java-se/image-processing-with-java-2d.html" class="page-link ">1</a>
+		    
+		    	<a href="http://www.javaworld.com/article/2076764/java-se/image-processing-with-java-2d.html?page=2" class="page-link current">2</a>
+		    
+	    </span>
+	    <span class="current-page">
+	    	Page 2
+	    </span>
+	
+	
+</section>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.pagination .page-link').click(function(e){
+		oClickTrack("Article Detail:Pagination");
+	});
+});
+</script>
+
+
+
+ 
+
+
+
+
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/embedder.js"></script>
+
+	
+	
+	
+	
+
+
+
+
+					
+
+
+
+
+
+
+
+
+
+
+				
+			
+		
+		</section><!-- /.bodee -->
+
+		
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+			
+				
+				
+					
+						
+							
+						
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="six-column" id="recommended">
+	<div class="head">Recommended</div>
+	<ul>
+		
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+			
+			
+				
+					
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class=" first">
+	
+		
+			
+			
+			
+			
+			
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+	
+		
+
+
+
+ 
+
+	
+	
+	
+		
+				
+				<figure class="well-img">
+					
+						
+						
+							<a href="http://www.javaworld.com/article/3114167/development-tools/choosing-your-java-ide.html"><img class="lazy carousel.idgeImage  imgId100681048 " data-original="http://core4.staticworld.net/images/article/2016/09/jw-java-ides-100681048-carousel.idge.jpg" alt="JavaWorld Java IDEs review, September 2016"></a>
+						
+					
+					
+					
+				</figure>
+				
+		
+		
+	
+
+	
+	
+		
+		
+		
+			
+		
+		
+	
+	
+	<div class="post-cont">
+		
+			
+								
+			
+			
+		
+		<div class="title">
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+    	
+    		<a href="http://www.javaworld.com/article/3114167/development-tools/choosing-your-java-ide.html">Eclipse, NetBeans, or IntelliJ? Choose your Java IDE</a>
+    	
+	
+</div>
+    </div>
+    
+	    
+    
+</li>
+
+				
+				
+			
+		
+			
+			
+				
+					
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class=" ">
+	
+		
+			
+			
+			
+			
+			
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+	
+		
+
+
+
+ 
+
+	
+	
+	
+		
+				
+				<figure class="well-img">
+					
+						
+						
+							<a href="http://www.javaworld.com/article/3104621/mobile-java/android-studio-for-beginners-part-2-explore-and-code-the-app.html"><img class="lazy smallImage  imgId100678712 " data-original="http://core2.staticworld.net/images/article/2016/08/android-beginners2-100678712-small.jpg" alt="android beginners2"></a>
+						
+					
+					
+					
+				</figure>
+				
+		
+		
+	
+
+	
+	
+		
+		
+		
+			
+		
+		
+	
+	
+	<div class="post-cont">
+		
+			
+								
+			
+			
+		
+		<div class="title">
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+    	
+    		<a href="http://www.javaworld.com/article/3104621/mobile-java/android-studio-for-beginners-part-2-explore-and-code-the-app.html">Android Studio for beginners: Code the app</a>
+    	
+	
+</div>
+    </div>
+    
+	    
+    
+</li>
+
+				
+				
+			
+		
+			
+			
+				
+					
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class=" ">
+	
+		
+			
+			
+			
+			
+			
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+	
+		
+
+
+
+ 
+
+	
+	
+	
+		
+				
+				<figure class="well-img">
+					
+						
+						
+							<a href="http://www.javaworld.com/article/3103442/learn-java/immutable-empty-collections-and-iterators.html"><img class="lazy smallImage  imgId100675026 " data-original="http://core1.staticworld.net/images/article/2016/08/2838388152_66648d96ff_z-100675026-small.jpg" alt="A collection of marigolds."></a>
+						
+					
+					
+					
+				</figure>
+				
+		
+		
+	
+
+	
+	
+		
+		
+		
+			
+		
+		
+	
+	
+	<div class="post-cont">
+		
+			
+								
+			
+			
+		
+		<div class="title">
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+    	
+    		<a href="http://www.javaworld.com/article/3103442/learn-java/immutable-empty-collections-and-iterators.html">Immutable empty collections and iterators</a>
+    	
+	
+</div>
+    </div>
+    
+	    
+    
+</li>
+
+				
+				
+			
+		
+			
+			
+				
+					
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class=" ">
+	
+		
+			
+			
+			
+			
+			
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+	
+		
+
+
+
+ 
+
+	
+	
+	
+		
+				
+				<figure class="well-img">
+					
+						
+						
+							<a href="http://www.javaworld.com/article/3094782/open-source-tools/open-source-java-projects-docker-swarm.html"><img class="lazy carousel.idgeImage  imgId100671315 " data-original="http://core0.staticworld.net/images/article/2016/07/jw-dockerswarm-100671315-carousel.idge.jpg" alt="jw dockerswarm"></a>
+						
+					
+					
+					
+				</figure>
+				
+		
+		
+	
+
+	
+	
+		
+		
+		
+			
+		
+		
+	
+	
+	<div class="post-cont">
+		
+			
+								
+			
+			
+		
+		<div class="title">
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+    	
+    		<a href="http://www.javaworld.com/article/3094782/open-source-tools/open-source-java-projects-docker-swarm.html">Open source Java projects: Docker Swarm</a>
+    	
+	
+</div>
+    </div>
+    
+	    
+    
+</li>
+
+				
+				
+			
+		
+	
+
+
+		
+		
+		
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+			
+			
+				
+					
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+							
+						
+						
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="sponsored first">
+	
+		
+			
+			
+			
+			
+			
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+	
+	
+		
+			<div class="item-eyebrow">
+			
+	   			
+	   			Video/Webcast 
+			   		
+				   		<br><span class="sponsored">Sponsored</span>
+					
+	   			
+	   		
+	   		</div>
+		
+		
+		
+		
+	
+	
+	<div class="post-cont">
+		
+			
+			
+		
+		<div class="title">
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+			
+				
+				
+					
+				
+				
+			
+			
+				
+					<a href="http://resources.javaworld.com/ccd/assets/126995/detail">Building Cognitive IoT-Robotics-Mobile Messaging with Java, Watson and MobileFirst on Bluemix</a>
+				
+				
+			
+		
+    	
+	
+</div>
+    </div>
+    
+	    
+	    	<p>Extending the value of your Java applications means more than just moving to the cloud. Business...</p>
+	    
+    
+</li>
+
+				
+				
+			
+		
+			
+			
+				
+					
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+							
+						
+						
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="sponsored ">
+	
+		
+			
+			
+			
+			
+			
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+	
+		
+
+
+
+ 
+
+	
+	
+	
+		
+		
+			
+			<figure class="well-img">
+				  <div class="sized-img-teaser">
+					
+					  
+					    
+					    <a href="http://resources.javaworld.com/ccd/assets/126761/detail"><img class="lazy smallImage  imgId100258790 " data-original="http://core5.staticworld.net/images/idge/imported/imageapi/2014/04/ast-0097842_coding_with_jrebel-100258790-small.png"></a>
+					  
+					  
+					
+				  </div>
+				</figure>
+			
+		
+	
+
+	
+	
+		
+			<div class="item-eyebrow">
+			
+	   			White Paper
+	   			
+	   		
+	   		</div>
+		
+		
+		
+		
+	
+	
+	<div class="post-cont">
+		
+			
+			
+		
+		<div class="title">
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+			
+				
+				
+					
+				
+				
+			
+			
+				
+					<a href="http://resources.javaworld.com/ccd/assets/126761/detail">Coding with JRebel: Java Forever Changed</a>
+				
+				
+			
+		
+    	
+	
+</div>
+    </div>
+    
+	    
+    
+</li>
+
+				
+				
+			
+		
+	
+
+
+		
+	</ul>
+</div><!-- /.six-column -->
+					
+
+				
+			
+			
+		
+		
+		
+		
+			<section id="comments" class="bodee">
+				
+					<div class="comments-hed clearfix">
+						<div class="head">Notice to our Readers</div>
+						<div class="subhead">We're now using social media to take your comments and feedback. <a href="http://www.javaworld.com/article/3136162/change-to-comments.html">Learn more about this here</a>.</div>
+					</div>
+				
+			</section>
+		
+
+		
+		
+		
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section id="funnel">
+    <section class="popular-brand-cols">
+
+
+
+
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="popular-col">
+
+
+   
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+			
+			
+				
+					
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+							
+						
+						
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+	
+	
+			
+
+	
+	 	<div class="promo with-eyebrow with-image">
+    		<div class="eyebrow">Popular on JavaWorld</div>
+    		
+	  			<div class="sized-img"><a href="http://www.javaworld.com/article/3114167/development-tools/choosing-your-java-ide.html"><img class="lazy carousel.idgeImage  imgId100681048 " data-original="http://core4.staticworld.net/images/article/2016/09/jw-java-ides-100681048-carousel.idge.jpg" alt="JavaWorld Java IDEs review, September 2016" itemprop="image"></a></div>
+	 		
+	 		
+			
+			
+	 		
+	 		<div class="hed featured"><a href="http://www.javaworld.com/article/3114167/development-tools/choosing-your-java-ide.html">Eclipse, NetBeans, or IntelliJ? Choose your Java IDE</a></div>
+	 		
+				<p>Find out what to look for in a Java IDE and get tips for deciding which of the top three--Eclipse,...</p>
+			
+	
+	
+	
+	
+	
+
+
+
+
+				
+				
+			
+		
+			
+			
+				
+					
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+							
+						
+						
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+	
+	
+			
+
+	
+	
+		<ul>
+			<li class="clearfix">
+				
+	  				<a href="http://www.javaworld.com/article/3104621/mobile-java/android-studio-for-beginners-part-2-explore-and-code-the-app.html"><img class="lazy smallImage  imgId100678712 " data-original="http://core2.staticworld.net/images/article/2016/08/android-beginners2-100678712-small.jpg" alt="android beginners2" itemprop="image"></a>
+	 			
+	 			
+				
+				
+	 			
+	    		<div class="hed"><a href="http://www.javaworld.com/article/3104621/mobile-java/android-studio-for-beginners-part-2-explore-and-code-the-app.html">Android Studio for beginners: Code the app</a></div>
+	 		</li>
+	
+	
+	
+	
+
+
+
+
+				
+				
+			
+		
+			
+			
+				
+					
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+							
+						
+						
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+	
+	
+			
+
+	
+	
+	
+			<li class="clearfix">
+				
+	  				<a href="http://www.javaworld.com/article/3094782/open-source-tools/open-source-java-projects-docker-swarm.html"><img class="lazy carousel.idgeImage  imgId100671315 " data-original="http://core0.staticworld.net/images/article/2016/07/jw-dockerswarm-100671315-carousel.idge.jpg" alt="jw dockerswarm" itemprop="image"></a>
+	 			
+	 			
+				
+				
+	 			
+	    		<div class="hed"><a href="http://www.javaworld.com/article/3094782/open-source-tools/open-source-java-projects-docker-swarm.html">Open source Java projects: Docker Swarm</a></div>
+	 		</li>
+	 	</ul>
+	 	</div><!-- /.promo -->	
+	 	<div class="promo newsletter with-eyebrow">
+     		
+				
+				
+			
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		
+		<!-- blx4 #680 blox4.html  -->
+			
+		
+		
+			
+				
+					
+					
+					
+						
+							
+					
+						
+					
+					
+					
+						
+					
+					
+					
+				
+				
+			
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+			<div class="eyebrow">Newsletters</div> <div class="hed">Stay up to date on the latest tutorials and Java community news posted on JavaWorld</div> <p>Get our Enterprise Java newsletter</p> <form action="/newsletters/signup.html" method="post"> <input name="email" placeholder="Enter your email address" type="email"> <button class="btn" type="submit">GO</button> </form> 
+		
+		
+	
+
+		
+	
+
+
+		</div><!--  ./promo newsletter -->
+	
+	
+	
+
+
+
+
+				
+				
+			
+		
+			
+			
+				
+					
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+							
+						
+						
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+	
+	
+			
+
+	
+	
+	
+	
+		<div class="promo with-image">
+    		
+	  			<div class="sized-img"><a href="http://www.javaworld.com/article/3062899/big-data/lightning-fast-nosql-with-spring-data-redis.html"><img class="lazy carousel.idgeImage  imgId100662713 " data-original="http://core3.staticworld.net/images/article/2016/05/rollercoaster-100662713-carousel.idge.jpg" alt="Redis NoSQL" itemprop="image"></a></div>
+	 		
+	 		
+			
+			
+	 		
+	 		<div class="hed"><a href="http://www.javaworld.com/article/3062899/big-data/lightning-fast-nosql-with-spring-data-redis.html">Lightning fast NoSQL with Spring Data Redis</a></div>
+			
+			   <p>Redis isn't your typical NoSQL data store, and that's exactly why it hits the sweet spot for certain...</p>
+			
+		</div>
+	
+	
+
+
+
+
+				
+				
+			
+		
+			
+			
+				
+					
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+							
+						
+						
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+	
+	
+			
+
+	
+	
+	
+	
+		<div class="promo with-image">
+    		
+	  			<div class="sized-img"><a href="http://www.javaworld.com/article/3114167/development-tools/choosing-your-java-ide.html"><img class="lazy carousel.idgeImage  imgId100681048 " data-original="http://core4.staticworld.net/images/article/2016/09/jw-java-ides-100681048-carousel.idge.jpg" alt="JavaWorld Java IDEs review, September 2016" itemprop="image"></a></div>
+	 		
+	 		
+			
+			
+	 		
+	 		<div class="hed"><a href="http://www.javaworld.com/article/3114167/development-tools/choosing-your-java-ide.html">Choosing your Java IDE</a></div>
+			
+			   <p>Find out what to look for in a Java IDE and get tips for deciding which of the top three--Eclipse,...</p>
+			
+		</div>
+	
+	
+
+
+
+
+				
+				
+			
+		
+	
+
+
+
+
+
+</section>
+
+
+        <section class="brand-col">
+
+	
+	
+			
+			
+				
+				
+				
+				
+				
+				
+				
+				
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+		
+	
+		
+	  		
+ 		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="ad">
+
+
+	
+		<div class="lazyload_ad">
+			<code type="text/javascript">
+			<!--
+				IDG.GPT.IMUCounter = IDG.GPT.IMUCounter + 1;
+				document.write('<div class="ad-container" id="' + IDG.GPT.getIMUSlotName() + '">'); 
+				IDG.GPT.defineGoogleTagSlot(IDG.GPT.getIMUSlotName(), IDG.GPT.slots["topimu"], false);
+				document.write('</div>');
+				$('#' + IDG.GPT.getIMUSlotName()).responsiveAd({screenSize:'971 1115', scriptTags: []});
+				if (Object.keys(IDG.GPT.companions).length > 0) {
+					IDG.GPT.refreshAd(IDG.GPT.getIMUSlotName());
+				}
+			//-->
+			</code>
+		</div>
+	
+	
+	
+
+
+
+</div>
+
+	
+		
+ 		
+ 			
+ 			
+ 		
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+		
+			
+		
+	
+
+
+
+
+
+             
+<div class="promo list" data-placement-id="">
+    <div class="eyebrow">
+    
+    
+    Popular Resources
+    
+    </div>
+    
+    
+    	
+    	
+    		
+			
+				
+			
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<ul>
+		
+			
+			
+				
+					
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+							
+						
+						
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	
+		
+		
+		
+		
+		
+		
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+	
+		<div class="item-eyebrow"></div>
+	
+	<div class="title">
+		
+			
+			
+				<a href="http://resources.javaworld.com/ccd/assets/126992/detail">IBM Bluemix - From Idea to Application</a>
+			
+		
+	</div>
+</li>
+				
+				
+			
+		
+			
+			
+				
+					
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+							
+						
+						
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	
+		
+		
+		
+		
+		
+		
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+	
+		<div class="item-eyebrow"></div>
+	
+	<div class="title">
+		
+			
+			
+				<a href="http://resources.javaworld.com/ccd/assets/126985/detail">Microservices Without the Hassle of Infrastructure</a>
+			
+		
+	</div>
+</li>
+				
+				
+			
+		
+			
+			
+				
+					
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+							
+						
+						
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	
+		
+		
+		
+		
+		
+		
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+	
+		<div class="item-eyebrow"></div>
+	
+	<div class="title">
+		
+			
+			
+				<a href="http://resources.javaworld.com/ccd/assets/126988/detail">OpenWhisk Hello World Demonstration</a>
+			
+		
+	</div>
+</li>
+				
+				
+			
+		
+			
+			
+				
+					
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+							
+						
+						
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	
+		
+		
+		
+		
+		
+		
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+	
+		<div class="item-eyebrow"></div>
+	
+	<div class="title">
+		
+			
+			
+				<a href="http://resources.javaworld.com/ccd/assets/126997/detail">PointSource Shortens Scrum Meetings by 50 Percent with IBM DevOps Services for Bluemix</a>
+			
+		
+	</div>
+</li>
+				
+				
+			
+		
+	</ul>
+
+
+	
+	<form action="/resources/search" method="get">
+		<input name="query" placeholder="Search Resources" class="searchbox-input-class" type="text">
+		<!--  add additional dto options here -->
+		<input name="rid" value="2" type="hidden">
+		<input name="chld" value="true" type="hidden">
+		<button class="btn" type="submit">Go</button>
+	</form>
+</div>
+
+
+	
+		
+		
+		
+	        
+
+        </section>
+    </section>
+
+    <section class="featured-col">
+    	
+			
+			
+			
+			
+		
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		
+		<!-- blx4 #676 blox4.link_list  -->
+			
+		
+		
+			
+				
+					
+					
+					
+						
+							
+					
+						
+					
+					
+					
+					
+						
+					
+					
+				
+				
+			
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		 
+
+<div class="promo with-eyebrow with-image">
+	<div class="eyebrow">Featured Stories</div>
+	
+		<div class="sized-img"><a href="http://www.javaworld.com/article/3154881/internet-of-things/ibm-next-5-years-ai-iot-and-nanotech-will-literally-change-the-way-we-see-the-world.html"><img class="lazy medium.3x2Image  imgId100697449 " data-original="http://core4.staticworld.net/images/article/2016/12/artificial-intelligence-elon-musk-hawking-100697449-medium.3x2.jpeg" alt="artificial intelligence AI machine learning brain circuit" itemprop="image"></a></div>
+	
+	
+	<div class="hed featured"><a href="http://www.javaworld.com/article/3154881/internet-of-things/ibm-next-5-years-ai-iot-and-nanotech-will-literally-change-the-way-we-see-the-world.html">IBM's 5-year report highlights AI, IoT, and nanotech </a></div>
+	<p>IBM offers its annual, eye-opening predictions for how technology will transform everyday life in the...</p>
+</div>
+		
+	
+
+		
+	
+
+
+
+		
+		
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+			
+			
+				
+					
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+					 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<div class="promo with-image">
+ 		
+ 		<div class="sized-img">
+	  		<a href="http://www.javaworld.com/article/3154858/careers/department-of-labor-sues-google-over-wage-data.html"><img class="lazy mediumImage  imgId100601298 " data-original="http://core3.staticworld.net/images/idgnsImport/2015/08/id-2957906-img_3819-100601298-medium.jpg" alt="Google's Mountain View, California headquarters" itemprop="image"></a>
+	  	</div>
+	 	 
+	 	
+	 	
+		<div class="hed">
+			<a href="http://www.javaworld.com/article/3154858/careers/department-of-labor-sues-google-over-wage-data.html">Department of Labor sues Google over wage data</a>
+		</div>
+		<p>Google says it's provided hundreds of thousands of records to the agency, but called a handful of data...</p>
+	</div>
+
+				
+				
+			
+		
+			
+			
+				
+					
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+					 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<div class="promo with-image">
+ 		
+ 		<div class="sized-img">
+	  		<a href="http://www.javaworld.com/article/3154882/application-development/developers-pick-up-new-git-code-hosting-option.html"><img class="lazy medium.3x2Image  imgId100696511 " data-original="http://core2.staticworld.net/images/article/2016/11/technology-1283624-100696511-medium.3x2.jpg" alt="code programming software bugs cybersecurity" itemprop="image"></a>
+	  	</div>
+	 	 
+	 	
+	 	
+		<div class="hed">
+			<a href="http://www.javaworld.com/article/3154882/application-development/developers-pick-up-new-git-code-hosting-option.html">Developers pick up new Git code-hosting option</a>
+		</div>
+		<p>The open source, multiplatform Gitea project for lightweight code-hosting is written in Go  </p>
+	</div>
+
+				
+				
+			
+		
+			
+			
+				
+					
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+					 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<div class="promo with-image">
+ 		
+ 		<div class="sized-img">
+	  		<a href="http://www.javaworld.com/article/3153938/internet-of-things/data-breaches-through-wearables-put-target-squarely-on-iot-in-2017.html"><img class="lazy medium.3x2Image  imgId100700259 " data-original="http://core4.staticworld.net/images/article/2016/12/wearable_smart_watch-100700259-medium.3x2.jpg" alt="wearable smart watch" itemprop="image"></a>
+	  	</div>
+	 	 
+	 	
+	 	
+		<div class="hed">
+			<a href="http://www.javaworld.com/article/3153938/internet-of-things/data-breaches-through-wearables-put-target-squarely-on-iot-in-2017.html">Data breaches through wearables to target IoT in 2017</a>
+		</div>
+		<p>Security needs to be baked into IoT devices for there to be any chance of halting a DDoS attack,...</p>
+	</div>
+
+				
+				
+			
+		
+	
+
+
+    </section>
+</section>
+		
+		
+		
+		
+			
+			
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+ 	
+ 		
+		<div class="lazyload_ad">
+		<code type="text/javascript">
+			<!--
+			document.write('<div id="ciu" class=" ad-container">');
+			IDG.GPT.addDisplayedAd("ciu", "true");
+			IDG.GPT.addLazyloadedAd("ciu", "true");
+			document.write('</div>');
+			
+				
+				
+					$('#ciu').responsiveAd({screenSize:'971 1115', scriptTags: []});
+				
+			
+			if (Object.keys(IDG.GPT.companions).length > 0) {
+				IDG.GPT.refreshAd('ciu');
+			}
+			//-->
+		</code>
+		</div>
+ 	
+  
+						
+		
+	
+	
+
+
+	
+		<section id="resources-sponsored-links">
+	
+	
+ 	<section class="sponsored-links">
+ 	  <div class="head">Sponsored Links</div>
+	 	
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 	</section>
+</section>
+	
+	
+
+
+		</article>
+
+	</section><!-- /role=main -->
+
+</div><script type="text/javascript" id="" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/radbacon.js"></script>
+<script type="text/javascript" id="">function showAppeal(){blockStatus=!0;if("undefined"===typeof detectVisit){var a=new Date;a.setTime(a.getTime()+864E5);makeCookie(a,"detectVisit",!0);dataLayer.push({event:"onRadBaconComplete",blockStatus:blockStatus})}else dontShowAppeal()}function dontShowAppeal(){dataLayer.push({event:"onRadBaconComplete",blockStatus:blockStatus})}function makeCookie(a,b,c){a="expires\x3d"+a.toGMTString();document.cookie=b+"\x3d"+c+"; "+a+"; path\x3d/"}
+function detectBlockerAndRoute(){"undefined"===typeof blockAdBlock?showAppeal():(blockAdBlock.onDetected(showAppeal),blockAdBlock.onNotDetected(dontShowAppeal))}if(767<$(window).width()){var detectVisit=google_tag_manager["GTM-MMJKZ9"].macro('gtm1484055464002'),blockStatus=!1;detectBlockerAndRoute()};</script><!-- /#page-wrapper -->
+		
+		
+
+
+
+
+
+
+
+
+
+
+
+<footer>
+    <section class="brand" itemscope="" itemtype="http://schema.org/Organization">
+   	
+   		<link itemprop="url" href="http://www.javaworld.com/"> 
+        <a href="http://www.javaworld.com/"><span class="logo">JavaWorld</span></a>
+		<span class="tagline"> JavaWorld is the original independent resource for Java developers, architects, and managers.</span>
+        
+        <span class="follow">
+			<label>Follow us</label>
+            	<ul>
+            		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<li><a href="https://twitter.com/javaworldcom" itemprop="sameAs" rel="nofollow" target="_blank" onclick="brandFollowTrack('Twitter')"><i class="ss-icon ss-social-circle ss-twitter"></i></a></li>
+
+
+
+	<li><a href="http://www.linkedin.com/company/javaworld-com" itemprop="sameAs" rel="nofollow" target="_blank" onclick="brandFollowTrack('LinkedIn')"><i class="ss-icon ss-social-circle brand ss-linkedin"></i></a></li>
+
+
+
+	<li><a href="https://www.facebook.com/pages/JavaWorld/107993545895326" itemprop="sameAs" rel="nofollow" target="_blank" onclick="brandFollowTrack('Facebook')"><i class="ss-icon ss-social-circle brand ss-facebook"></i></a></li>				
+
+
+
+	<li><a href="https://plus.google.com/117974570132126965756/posts" itemprop="sameAs" rel="publisher" target="_blank" onclick="brandFollowTrack('Google+')"><i class="ss-icon ss-social-circle brand ss-googleplus"></i></a></li>                	
+
+
+
+
+
+
+
+	<li><a href="http://www.javaworld.com/about/rss/" target="_blank"><i class="ss-icon ss-social-circle ss-rss"></i></a></li>
+
+
+
+            	</ul>
+        </span>
+        
+    </section>
+    	
+    <section class="topics">
+    	
+			
+		        
+		        <nav id="ft1">
+		            <ul>
+						
+							
+							
+		    			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+			
+				<li><a href="http://www.javaworld.com/category/core-java/">Core Java</a>
+					
+				</li>
+			
+				<li><a href="http://www.javaworld.com/category/enterprise-java/">Enterprise Java</a>
+					
+				</li>
+			
+				<li><a href="http://www.javaworld.com/category/learn-java/">Learn Java</a>
+					
+				</li>
+			
+				<li><a href="http://www.javaworld.com/category/mobile-java/">Mobile Java</a>
+					
+				</li>
+			
+		
+	
+	
+	
+
+		            </ul>
+		        </nav>
+		        
+	        
+        
+        
+        <nav id="ft2">
+            <ul>
+           		
+           		
+
+
+
+
+
+
+
+
+
+
+<li><a href="http://www.javaworld.com/howto">How-Tos</a></li>
+<li><a href="http://www.javaworld.com/feature">Features</a></li>
+<li><a href="http://www.javaworld.com/news">News</a></li>
+<li><a href="http://www.javaworld.com/blogs">Blogs</a></li>
+<li><a href="http://www.javaworld.com/resources">Resources</a></li>
+<li><a href="http://www.javaworld.com/newsletters/signup.html">Newsletters</a></li>
+           		
+            </ul>
+        </nav>
+        
+        
+			
+		
+    </section>
+    
+    
+    <section class="about">
+		<div class="wrapper"> 
+        	<nav class="tertiary" id="ft3">
+            	<ul>
+            		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="http://www.javaworld.com/about/about.html">About Us</a>
+
+</li><li><a href="http://www.javaworld.com/about/contactus.html">Contact</a>
+
+</li><li><a href="http://www.javaworld.com/about/privacy.html">Privacy Policy</a>
+
+</li><li><a href="http://www.idgenterprise.com/reach/javaworld/" target="_blank" rel="nofollow">Advertising</a>
+
+</li><li><a href="http://careers.idg.com/" target="_blank" rel="nofollow">Careers at IDG</a>
+
+</li><li><a href="http://www.javaworld.com/about/sitemap.html">Site Map</a>
+
+</li><li><a href="http://www.javaworld.com/about/adchoices.html">Ad Choices</a>
+
+</li><li><a href="http://www.javaworld.com/about/affiliates.html">E-commerce Affiliate Relationships</a>
+
+
+
+
+            	</li></ul>
+        	</nav>
+		</div>
+	</section>
+	
+    <section class="copyright">
+        <div class="wrapper">
+        	
+        	<p><a href="http://www.javaworld.com/about/copyright.html">Copyright</a> © 2017 IDG Communications, Inc.</p>
+			<div class="network">
+				<div id="network-selector">
+                <div class="label">Explore the IDG Network <i class="ss-icon tick">descend</i></div>
+                <ul>
+                	
+                		
+                		
+                	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		<li><a href="http://www.cio.com/" target="_blank" rel="nofollow">CIO</a></li>
+	
+		<li><a href="http://www.computerworld.com/" target="_blank" rel="nofollow">Computerworld</a></li>
+	
+		<li><a href="http://www.csoonline.com/" target="_blank" rel="nofollow">CSO</a></li>
+	
+		<li><a href="http://www.greenbot.com/" target="_blank" rel="nofollow">Greenbot</a></li>
+	
+		<li><a href="http://www.idc.com/" target="_blank" rel="nofollow">IDC</a></li>
+	
+		<li><a href="http://www.idg.com/" target="_blank" rel="nofollow">IDG</a></li>
+	
+		<li><a href="http://www.idgconnect.com/" target="_blank" rel="nofollow">IDG Connect</a></li>
+	
+		<li><a href="http://www.idgknowledgehub.com/" target="_blank" rel="nofollow">IDG Knowledge Hub</a></li>
+	
+		<li><a href="http://www.idgtechnetwork.com/" target="_blank" rel="nofollow">IDG TechNetwork</a></li>
+	
+		<li><a href="http://www.idg.tv/" target="_blank" rel="nofollow">IDG.TV</a></li>
+	
+		<li><a href="http://www.idgventures.com/" target="_blank" rel="nofollow">IDG Ventures</a></li>
+	
+		<li><a href="http://www.infoworld.com/" target="_blank" rel="nofollow">Infoworld</a></li>
+	
+		<li><a href="http://www.itnews.com/" target="_blank" rel="nofollow">IT News</a></li>
+	
+		<li><a href="http://www.itwhitepapers.com/" target="_blank" rel="nofollow">ITwhitepapers</a></li>
+	
+		<li><a href="http://www.itworld.com/" target="_blank" rel="nofollow">ITworld</a></li>
+	
+		<li><a href="http://www.javaworld.com/" target="_blank" rel="nofollow">JavaWorld</a></li>
+	
+		<li><a href="http://www.linuxworld.com/" target="_blank" rel="nofollow">LinuxWorld</a></li>
+	
+		<li><a href="http://www.macworld.com/" target="_blank" rel="nofollow">Macworld</a></li>
+	
+		<li><a href="http://www.networkworld.com/" target="_blank" rel="nofollow">Network World</a></li>
+	
+		<li><a href="http://www.pcworld.com/" target="_blank" rel="nofollow">PC World</a></li>
+	
+		<li><a href="http://www.techconnect.com/" target="_blank" rel="nofollow">TechConnect</a></li>
+	
+		<li><a href="http://www.techhive.com/" target="_blank" rel="nofollow">TechHive</a></li>
+	
+
+                </ul>
+				</div><!-- /#network-selector -->
+			</div><!-- /.network -->
+		</div><!-- /.wrapper -->
+    </section>
+</footer>
+
+<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/mouse_down.js"></script> 
+<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/jquery-ui.js"></script>
+<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/jquery_006.js"></script>
+
+<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/FTScroller_plugins.js"></script>
+<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/shortstack_nav.js"></script>
+<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/jt-scrollable.js"></script>
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+		
+			
+			
+			
+			
+			
+				<div id="mobilewelcomead" class=" ad-container">					
+				</div>				
+				<script type="text/javascript">
+				
+					IDG.GPT.addDisplayedAd("mobilewelcomead", "true");
+					$('#mobilewelcomead').responsiveAd({screenSize:'971 1115', scriptTags: []});
+				
+				</script>
+			
+		
+	
+ 	
+ 
+
+
+<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/tracking.js"></script>
+<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/autocomplete.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	var listItems = $('#scrollable ul li');
+	var listWidth = 0;
+	for (var i=0;i < listItems.length; i++) {
+		listWidth = listWidth + $(listItems[i]).outerWidth();
+	}
+
+	$('#scrollable ul').width(listWidth+100); //adding an extra 100px of buffer	
+
+
+	//we need to disable this for IE10 for now - link clicks don't work!
+	var trackPointerEvents = window.navigator.msPointerEnabled;
+	
+	if (!trackPointerEvents) {
+		//set up the FT Scroller for the topics
+		var scroller = new FTScroller(document.getElementById('scrollable'), {
+			scrollingY: false,
+			bouncing: false,
+			updateOnWindowResize: true,
+			scrollbars: false
+		});	
+	}
+
+});
+</script>
+
+
+	<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/social_sidecar.js"></script>
+	<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/carousel-extend.js"></script>
+	<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/jquery_003.js"></script>
+	<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/article.js"></script>
+	
+	<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/prettify.js"></script>
+	<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/responsive-tables.js"></script>
+	<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/jquery.js"></script>
+	<script>
+	$(document).ready(function() {
+		$("table.tablesorter").tablesorter({
+			widgets: ['zebra']
+		});
+		
+		$("table.tablesorter tbody tr").hover(function() {
+			$(this).toggleClass("selected");
+		});
+		
+		$("table.tablesorter thead tr th").each(function(){			
+			if ($(this).find('.ss-icon').length < 1) {
+				$(this).append('<i class="ss-icon"></i>');
+			}
+		});
+		
+	});
+	</script>
+
+
+<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/jquery_004.js"></script>
+<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/global.js"></script>
+<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/ss-social.js"></script>
+<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/ss-standard.js"></script>
+<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/brandAnalytics.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Begin BlueKai Tag -->
+<iframe name="__bkframe" src="javascript:void(0)" width="0" height="0" frameborder="0"></iframe>
+<script type="text/javascript" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/bk-coretag.js"></script>
+<script type="text/javascript" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/jquery_cookie.js"></script>
+<!-- CryptoJS -->
+<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/md5.js"></script>
+<script type="text/javascript" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/idg_bk_coreapi.js"></script>
+	
+<script type="text/javascript">
+bk_allow_multiple_calls=true;
+var blueKaiId=14349;
+var blueKaiPort=10;
+var brandCode = "jvw";
+var regUrl="http://regdev.idge.int/api/"
+var daysToRefresh=30;
+var bk_debug_log=false;
+
+
+
+	 regUrl="http://reg.idgenterprise.com/api/";
+
+
+
+	daysToRefresh=30;
+
+
+	
+
+
+	
+
+if ( typeof(s) != 'undefined' ) {
+	bk_addPageCtx("pageType", (typeof(s.pageType)!='undefined')?s.pageType:'');
+}
+
+
+//CMS-Specific
+bk_addPageCtx("cmscatids", "[3205,3187,3646,3213,3895,3469]");
+
+
+
+	
+
+
+
+
+bk_addPageCtx("cmpy", "[]");
+
+
+bk_addPageCtx('tid', '4');
+
+	
+	
+
+
+
+
+
+
+
+
+
+// Add the list name and email address hash params to bluekai tracking
+// If the user came from a newsletter clickthru, also set the isnl pagectx
+params = getUrlParams('phint');
+if(Object.keys(params).length > 0)
+	{
+	bk_addPageCtx("idg_eid", params['idg_eid']);
+	bk_addPageCtx("newt", params['newt']);
+	bk_addPageCtx("isnl", "1");	
+	}
+
+	try{
+		IDG.bkCoreApi.start();
+	}
+	catch(e){
+		//alert("Triggering catch")
+		bk_doJSTag(blueKaiId ,blueKaiPort);
+		if (window.console && window.console.log){
+			window.console.log("Error Occured While Processing Profile Siubmission")
+		}
+	}
+	
+	$('article, #slideshowCarousel').on('click', '.product-list-price, .btn-amazon, .productLink', function(e) {
+	var $linkEl = $(e.target);
+	var po = $linkEl.data('po');
+	if (po == 'amazon') {
+		var prCat = $linkEl.data('bkc');
+		if (typeof prCat != 'undefined') {
+			bk_addPageCtx('event', 'AmazonClick'+prCat);
+		}console.log("Sending Amazon info to BK");
+		
+		bk_addPageCtx('event', 'AmazonClickJavaSE');
+		
+		bk_addPageCtx('event', 'AmazonClickLearnJava');
+		
+		bk_addPageCtx('event', 'AmazonClickJavaAppDev');
+		
+		bk_addPageCtx('event', 'AmazonClickClient-sideJava');
+		
+		bk_addPageCtx('event', 'AmazonClickJavaAPIs');
+		
+		bk_addPageCtx('event', 'AmazonClickJavaLanguage');
+		
+		bk_doJSTag(34202, 1);
+	}
+});
+</script>
+
+
+
+<!-- End BlueKai Tag -->
+
+
+
+
+
+		
+		
+			
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+		
+			
+			
+				<!-- Begin welcome ad overlay - gpt-overlay position  -->
+				
+					<div id="superadunit" class="hidden">
+						<div class="ad">
+							<a href="javascript:unhide('superadunit');" id="superstitial-text">This ad will close in 20 seconds. Continue to site »</a>
+							<div id="gpt-overlay" class=" ad-container">
+								<script type="text/javascript">
+									//console.log("SHOW");
+									IDG.GPT.addDisplayedAd("gpt-overlay", "true");
+									IDG.GPT.displayGoogleTagSlot('gpt-overlay');
+								</script>
+							</div>
+						</div>
+					</div>
+				
+				
+				<!--  End welcome ad overlay - gpt-overlay position -->
+				
+			
+			
+			
+			
+			
+		
+	
+ 	
+ 
+		
+			
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+		
+			
+			
+			
+			
+			
+				<div id="catfish" class=" ad-container">					
+				</div>				
+				<script type="text/javascript">
+				
+					IDG.GPT.addDisplayedAd("catfish", "true");
+					$('#catfish').responsiveAd({screenSize:'971 1115', scriptTags: []});
+				
+				</script>
+			
+		
+	
+ 	
+ 
+		
+			
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+		
+			
+			
+				<!--  Begin gpt-skin/gpt-pin/inread -->
+				<div id="gpt-skin" class=" ad-container">					
+				</div>
+				<script type="text/javascript">
+					IDG.GPT.addDisplayedAd("gpt-skin", "true");
+					IDG.GPT.displayGoogleTagSlot('gpt-skin');
+				</script>
+				<!--  End gpt-skin/gpt-pin/inread -->	
+			
+			
+			
+			
+		
+	
+ 	
+ 
+	
+
+
+
+<script type="text/javascript" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/jquery_005.js"></script>
+
+
+<script type="text/javascript">
+// -- Load Lazy Advertisement placement as deferred
+$("div.lazyload_ad").lazyLoadAd({
+        threshold    : 0,         // You can set threshold on how close to the edge ad should come before it is loaded. Default is 0 (when it is visible).
+        forceLoad    : false,       // Ad is loaded even if not visible. Default is false.
+        onLoad       : false,       // Callback function on call ad loading
+        onComplete   : false,       // Callback function when load is loaded
+        timeout      : 1500,        // Timeout ad load
+        debug        : false,       // For debug use : draw colors border depends on load status
+        xray         : false        // For debug use : display a complete page view with ad placements
+}) ;
+</script>
+
+
+
+<script type="text/javascript">
+g_arrModules[''] = true;
+g_arrModules['Article Detail:Top:Breadcrumb'] = true;
+g_arrModules['Article Detail:Social Sharing Vertical'] = true;
+g_arrModules['Article Detail:Pagination'] = true;
+g_arrModules['Article Detail:Left:Recommended'] = true;
+g_arrModules['Article Detail:Funnel:Popular Articles'] = true;
+g_arrModules[''] = true;
+g_arrModules['Article Detail:Funnel:Sponsored Blog Posts'] = true;
+g_arrModules['Article Detail:Funnel:Module Resources'] = true;
+g_arrModules['Article Detail:Funnel:Homepage Top Story'] = true;
+g_arrModules['Article Detail:Funnel:Funnel Crawl'] = true;
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+	
+	
+		
+	
+	
+
+<!-- Begin comScore Tag -->
+<script>
+var _comscore = _comscore || [];
+_comscore.push(
+{ c1: "2", c2: "6035308", c3: "", c5: "Java SE", c6: "Article: How-To", c15: "2076764" });
+(function()
+{
+	var s = document.createElement("script"), el = document.getElementsByTagName("script")[0];
+	s.async = true; s.src = (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js";
+	el.parentNode.insertBefore(s, el);
+})();
+</script>
+<noscript>
+<img src="http://b.scorecardresearch.com/p?c1=2&c2=6035308&cv=2.0&cj=1" />
+</noscript>
+<!-- End comScore Tag -->
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script language="JavaScript" type="text/javascript">
+	
+	var omniture_account="idgjavaworld";
+	
+	var omniture_trackingServer = "idgenterprise.d1.sc.omtrdc.net";
+	
+	g_sOmnitureReportSuite = "idgjavaworld";
+	
+
+$(document).ready(function(){
+	
+	if(!!$('.sharing-tools').length || !!$('#ss-share').length || (!!$('#sharer').length && !!!$('#sharer.sidecar').length)){
+		Socialite.load();
+		Socialite.setup({
+			twitter: {
+				lang      : 'en',
+		        onclick   : function(e) {socialTrack("Article","Twitter","Click");},
+		        ontweet   : function(e) {
+		        	socialTrack("Article","Twitter","Tweet");
+		        	$thm.logPlEvent({"b":"jvw","e":"twshare","t":"article","id":"2076764"});
+			    },
+		        onretweet : function(e) {socialTrack("Article","Twitter","Retweet");},
+		        onfavorite: function(e) {socialTrack("Article","Twitter","Favorite");},
+		        onfollow  : function(e) {socialTrack("Article","Twitter","Follow");followTrack();}
+		    },
+		    facebook: {
+		    	lang	: 'en_US',
+		    	appId	: '196366870381968',
+		    	onlike	: function(url){
+		    		socialTrack("Article","Facebook","Like");
+		    		$thm.logPlEvent({"b":"jvw","e":"fblike","t":"article","id":"2076764"});
+		    	},
+		    	onunlike: function(url){socialTrack("Article","Facebook","Unlike");},
+		    	xfbml	: true,
+		    	version	:  'v2.1'
+		    },
+		    googleplus: {
+		        lang	: 'en-US',
+		        callback: function(el, e) {
+		        	socialTrack("Article","Googleplus","Click");
+		        	$thm.logPlEvent({"b":"jvw","e":"googplus","t":"article","id":"2076764"});
+		        }
+		    }
+		});
+		
+		//$('.sharing-tools').show();
+		$('#ss-share').show();
+		
+	}
+	
+	$('a.pinterest-pinit').click(function(e){
+		socialTrack('Article','Pinterest','share');
+	});
+	$('li.redditShare').click(function(e) {
+		socialTrack('Article','Reddit','share');
+	});
+	
+	$('li.stumbleUponShare').click(function(e) {
+		socialTrack('Article','StumbleUpon','share');
+	});
+
+	$('.banner-tw').click(function(e){
+		brandFollowTrack("twitter");
+		
+	});
+	$('.banner-fb').click(function(e){
+		brandFollowTrack("facebook");
+	});
+	$('.mediaresource #download-asset').click(function(e){
+		Analytics.logAssetDownload($(this).data('id'));
+	});
+
+	if (typeof(FB)!='undefined') {
+		FB.Event.subscribe('edge.create', function(response){
+			s = s_gi(g_sOmnitureReportSuite);
+			s.linkTrackEvents = s.events = "event36";
+			s.prop48="facebook share";
+			s.linkTrackVars = "prop48,events";
+			s.tl(true, 'o', 'Social Media share');
+		});
+	}
+
+	if (typeof(digMag) != 'undefined'){
+		if(typeof(digLogin) != 'undefined'){
+			DigAnalytics.logSignIn(digLogin);
+		}
+	}
+
+
+});
+
+var Analytics = new Object();
+Analytics.logArticleComment = function(){
+	s = s_gi(g_sOmnitureReportSuite);
+	s.linkTrackVars="prop25,eVar25,events";
+	s.linkTrackEvents="event19";
+	s.events="event19";
+	s.prop25 = 'Article Comment';
+	s.tl(this,'o','Article Comments');
+};
+Analytics.logSocialSignin = function(provider){
+	s = s_gi(g_sOmnitureReportSuite);
+
+	s.linkTrackEvents = s.events = "event32";
+	s.prop19=provider;
+	s.linkTrackVars = "prop19,events";
+	s.tl(true, 'o', provider);
+};
+Analytics.logInternalSignin = function(){
+	s = s_gi(g_sOmnitureReportSuite);
+	s.linkTrackEvents = s.events = "event32";
+	s.prop19="Internal Login";
+	s.linkTrackVars = "prop19,events";
+	s.tl(true, 'o', 'Login');
+};
+Analytics.logAssetDownload = function(assetname){ 
+	s = s_gi(g_sOmnitureReportSuite); 
+	s.linkTrackVars="prop52,eVar37,events"; 
+	s.linkTrackEvents="event49"; 
+	s.pagename = 'filetype:'+s.pagename;
+	s.events="event49"; 
+	s.prop52 = 'asset:'+assetname;
+	eVar37= s.prop52;
+	s.tl(this,'o','Asset Download'); 
+} 
+
+/**
+ * Trigger Omniture and Google Analytics tracking code
+ * loc - Home, Footer, Header, Article
+ * network - Facebook, Twitter, LinkedIn, Googleplus 
+ * socialAction - Like, Unlike, Share, Follow, Tweet, Retweet, Favorite, Click
+ */
+function socialTrack(loc,network,socialAction) {
+	//Omniture
+	var trackString = network + ":" + loc + ":" + socialAction;
+	console.log("socialTrack() "+trackString);
+	s.prop48 = trackString;
+	s.eVar27 = "D=c48";
+	s.event36 = trackString;
+	s.linkTrackEvents=s.events="event36";
+	s.linkTrackVars = "prop48,eVar27,events";
+	s.tl(true, 'o', 'Social media');
+}
+
+function linkedInTrack() {
+	socialTrack("Article","LinkedIn","Share");
+};
+
+function followTrack() {
+	console.log("followTrack()");
+	s = s_gi(g_sOmnitureReportSuite);
+	s.linkTrackEvents = s.events = "event37";
+	s.prop49="social media";
+	s.linkTrackVars = "prop49,events";
+	s.tl(true, 'o', 'Social media follow');
+}
+function brandFollowTrack(network){
+	console.log("brandFollowTrack()");
+	s = s_gi(g_sOmnitureReportSuite);
+	s.eVar16="followed on:"+network;
+	s.linkTrackEvents = s.events = "event37";
+	s.prop49="social media";
+	s.linkTrackVars = "prop49,eVar16,events";
+	s.tl(true, 'o', 'Social media brand follow');
+    if (typeof IDG.Eloqua != "undefined") {
+        IDG.Eloqua.invoke_flash("social-" + network);
+	}
+}
+function sharingTrack(type, pixelLogString) {
+	s = s_gi(g_sOmnitureReportSuite);
+	s.eVar16="Sharing on: " + type;
+	s.linkTrackEvents = s.events = "event37";
+	s.prop49="social media sharing";
+	s.linkTrackVars = "prop49,eVar16,events";
+	s.tl(true, 'o', 'Social Media Sharing');
+    if (typeof IDG.Eloqua != "undefined") {
+        IDG.Eloqua.invoke_flash("social-" + type);
+	}
+    // Record Social Event in pixel logger
+    if (pixelLogString !== undefined) {
+    	$thm.logPlEvent({"b":"jvw","e":pixelLogString,"t":"article","id":"2076764"});
+    }   
+}
+function moduleTrack(moduleName,loc) {
+	console.log("moduleTrack()");
+	s = s_gi(g_sOmnitureReportSuite);
+	s.eVar42=moduleName;
+	s.eVar44=loc;
+	s.linkTrackEvents=s.events='event31';
+	s.list3=s.prop42+","+s.eVar42;
+	s.tl(true, 'o', 'Module click');
+}
+function trackSlideshow(articleId, slideTitle, slideNumber) {
+	s = s_gi(g_sOmnitureReportSuite);
+	s.prop15="page number:" + slideNumber;
+	s.eVar15="D=c15";
+	s.tl(true, 'o', 'Track Slideshow: articleId:' + articleId + ' title:' + slideTitle + " Slide No.:" + slideNumber);
+}
+function oClickTrack(key) {
+	// test for empty key and don't log if empty
+	if (typeof(key) != 'undefined' && key.length > 0){
+		s = s_gi(g_sOmnitureReportSuite);
+
+		s.linkTrackVars="eVar42,events";
+	    s.events="event49";
+	    s.linkTrackEvents="event49";
+	
+		s.eVar42 = key;
+		s.list3=s.prop42+","+s.eVar42;
+		s.tl(true,'o','module click');
+	}
+};
+</script>
+<!-- SiteCatalyst code version: H.26.2.
+Copyright 1996-2013 Adobe, Inc. All Rights Reserved
+More info available at http://www.omniture.com -->
+
+<script language="JavaScript" type="text/javascript" src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/s_code.js"></script>
+<script language="JavaScript" type="text/javascript" id="omniVars"><!--
+g_sOmnitureReportSuite = typeof g_sOmnitureReportSuite != 'undefined' && g_sOmnitureReportSuite ? g_sOmnitureReportSuite : "idgjavaworld"; 
+
+/* You may give each page an identifying name, server, and channel on
+the next lines. */
+//BEGIN OMNITURE VARS 
+s.pageName="JavaWorld:article:howto:Java SE:2076764:Image processing with Java 2D";
+
+s.pageType="";
+if (typeof omnitureChannel != 'undefined'){
+s.channel=omnitureChannel;
+}
+s.prop1="source:javaworld";s.eVar1="D=c1";
+s.prop2="content type:howto";s.eVar2="D=c2";
+s.prop3="display type:article:howto";s.eVar3="D=c3";
+s.prop4="6706 days";s.eVar4="D=c4";
+s.prop5="blog";
+s.prop6="";
+s.prop7="blogs:media programming";s.eVar7="D=c7";
+s.prop9="category:java se";s.eVar9="D=c9";
+s.prop11="published:01-Sep-98";s.eVar11="D=c11";
+s.prop12="aid:2076764";s.eVar12="D=c12";
+s.prop13="";s.eVar13="D=c13";
+s.prop14="author:bill day and jonathan knudsen";s.eVar14="D=c14";
+s.prop15="page number:2";s.eVar15="D=c15";
+s.prop17="uri:/article/2076764/java-se/image-processing-with-java-2d.html?page=2";s.eVar17="D=c17";
+s.prop18="";s.eVar18="D=c18";
+s.prop24=getLoginStatusForOmniture();s.eVar24="D=c24";
+s.prop28=getTrackingToken('tk') ? "tokens:"+getTrackingToken('tk') : "";s.eVar28="D=c28";
+
+s.prop37="rpn:jvw:howto:javaworld:article:howto:java se:2076764:image processing with java 2d";
+
+s.eVar37="D=c37";
+s.prop39="";s.eVar39="D=c39";
+s.prop40="";
+try {
+	s.prop41=IDG.GPT.getDisplayedAds(',') + ',' + IDG.GPT.getOtherAds(',');
+	s.prop42=IDG.GPT.getModules(',');s.eVar42="D=c42";
+}
+	catch(e) {
+		console.log("error in setting omniture vars: "+e);
+	}
+
+
+s.prop53="3205";s.eVar53="D=c53";
+s.prop54="java se,learn java,application development,client-side java,apis,java";s.eVar30="D=c54";
+s.eVar33=s.prop55="3205,3187,3646,3213,3895,3469";s.eVar33="D=c55";
+s.prop56="";s.eVar40="D=c56";
+s.prop61="";s.eVar10="D=c61";
+
+
+
+
+
+
+
+
+s.prop74="architecture";s.eVar58="D=c74";
+s.prop75="development-tools";s.eVar60="D=c75";
+s.prop58="architecture:development-tools";s.eVar59="D=c58";
+
+
+//module tracking
+var sModules = '';
+for(var i in g_arrModules){
+	if(g_arrModules[i] && i != ''){
+		sModules += i+',';
+	}
+}
+sModules = sModules.replace(/,$/,'');
+s.prop42 = sModules;
+s.eVar42="D=c42";
+//now set events
+s.events="";
+
+
+	//article view
+	s.events=s.apl(s.events,'event33',',');
+	s.eVar41="01-Sep-98";
+
+s.list3=s.prop42+","+s.eVar42;
+//force all values to lower case for reporting consistency
+for(var p in s){
+	if(s[p] && p.match(/^(prop|ceVar)\d+$/)){
+		//console.log(p+": "+s[p]);
+		s[p] = s[p].toLowerCase();
+		//console.log(p+": "+s[p]);
+	}
+}
+//END OMNITURE VARS 
+
+/* Conversion Variables */
+s.campaign=getTrackingToken('tk') ? "tokens:"+getTrackingToken('tk') : "";
+
+/************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+var s_code=s.t();if(s_code)document.write(s_code)//--></script>
+<script language="JavaScript" type="text/javascript"><!--
+if(navigator.appVersion.indexOf('MSIE')>=0)document.write(unescape('%3C')+'\!-'+'-')
+//--></script><noscript><img src="http://idgenterprise.d1.sc.omtrdc.net/b/ss/idgjavaworld/1/H.25--NS/0"
+height="1" width="1" border="0" alt="" /></noscript><!--/DO NOT REMOVE/-->
+<!-- End SiteCatalyst code version: H.26.2. -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+$thm.logPlEvent({"b":"jvw","e":"view","t":"article","id":"2076764"});
+</script>
+
+
+
+		<div id="loginModal"></div>
+		<div id="logoffModal"></div>
+
+		
+
+    				
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+	<script type="text/javascript">
+	
+	(function(){
+		
+		function loadHorizon(){
+			var s = document.createElement('script');
+			s.type = 'text/javascript';
+			s.async = true;
+			s.src = location.protocol + '//ak.sail-horizon.com/horizon/v1.js';
+			var x = document.getElementsByTagName('script')[0];
+			x.parentNode.insertBefore(s, x);
+		}
+		
+		loadHorizon();
+		var oldOnLoad = window.onload;
+		window.onload = function(){
+	          	if (typeof oldOnLoad === 'function'){
+		             	oldOnLoad();
+		        }
+		        
+				Sailthru.setup({
+		        	domain: 'horizon.javaworld.com',
+		            useStoredTags: false
+				});
+		};
+		if(console!=undefined){
+			console.log('SAIL-23 fired Horizon');
+		}
+	
+	})();
+	</script>
+				
+	
+<div style="display: none; visibility: hidden;"><script>(function(){function f(a,g,h,d){var e=$.cookie(g);if(null!=e&&"undefined"!=e&&""!=e)h(e.toLowerCase());else return $.getJSON(a,function(a){"undefined"!=a[d]&&$.cookie(g,a[d]);h(a[d].toLowerCase())})}function l(a){f("//freegeoip.net/json/"+a,"idg_client_cc",n,"country_code")}function n(a){var g={gb:{affCode:"1100lmNh",countryCode:"/uk"},au:{affCode:"1100lmSq",countryCode:"/"+a},ca:{affCode:"1011lmUe",countryCode:"/"+a},ie:{affCode:"1101lmYW",countryCode:"/"+a},nl:{affCode:"1100lmYX",countryCode:"/"+
+a},de:{affCode:"1100lmUh",countryCode:"/"+a},us:{affCode:"1100laKZ",countryCode:""}},h='[href^\x3d"https://apple.com"],[href*\x3d"store"],[href*\x3d"www"],[href^\x3d"http://apple.com"]',d="(http(s)?://((www|store)(.))?apple.com)(/(uk|au|ca|ie|nl|se|de))?",e=new RegExp(d+"(/.*)","i"),f=new RegExp(d+"(/)(macbook|macbook-air|macbook-pro|imac|mac-pro|mac-mini|osx|ipad|ipad-pro|ipad-air-2|ipad-mini-4|ipad-mini-2|apple-pencil|smart-keyboard|watch|tv|music|shop)(/.*)","i"),l=/(\/browse\/home\/specialdeals)|(\/shop\/buy-watch\/apple-watch)|(\/shop\/buy-iphone\/iphone-7)|(\/shop\/iphone\/iphone-upgrade-program)/i;
+$("*").find('a[href*\x3d"apple.com"]').filter(h).each(function(d,h){var b=$(this).attr("href");if(e.test(b)&&!l.test(b)){var c=b,k=100,m="http://aos.prf.hn/click/camref:"+g[a].affCode+"/destination:$1"+g[a].countryCode+"$8";0<=c.indexOf("store.")?(c=b.replace(e,m),k=11):f.test(b)&&(c=b.replace(f,m+"$9$10"),k=10,0<=c.indexOf("/shop/")&&(k+=3));"us"==a&&--k;b="/";c=c.split(b).slice(0,k);c=c.join(b);$(this).attr("href",c)}})}f("//jsonip.com/","idg_client_ip",l,"ip")})();</script></div><div style="display: none; visibility: hidden;">
+<script src="Image%20processing%20with%20Java%202D%20_%20JavaWorld2_files/oct.js" type="text/javascript"></script></div><div style="display: none; visibility: hidden;"></div><div style="display: none; visibility: hidden;"></div><div style="display: none; visibility: hidden;"></div><div style="display: none; visibility: hidden;"></div><div style="display: none; visibility: hidden;"></div><div style="display: none; visibility: hidden;"></div></body></html>

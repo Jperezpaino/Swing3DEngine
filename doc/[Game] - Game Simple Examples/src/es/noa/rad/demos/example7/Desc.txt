@@ -1,0 +1,7 @@
+Moving sprites
+
+In this part of the Java 2D games tutorial we will work with sprites.
+
+The term sprite has several meanings. It is used to denote an image or an animation in a scene.
+
+It is also used to represent any movable object in a game. Also one of the meanings is the code that encapsulates a character in a game. In our tutorial by using sprite we refer to a movable object or its Java class. 

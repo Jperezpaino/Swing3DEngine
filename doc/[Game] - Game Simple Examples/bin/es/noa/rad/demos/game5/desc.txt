@@ -1,0 +1,12 @@
+Pacman
+
+In this part of the Java 2D games tutorial we will create a simple Pacman game clone.
+
+Pacman is an arcade game originally developed by a Japanese company Namco in 1980. Pacman became one of the most popular arcade games ever created.
+Development
+
+The following code example is a remake of a Pacman game by Brian Postma available at http://www.brianpostma.com. The code is modified and simplified so that it is easier to understand.
+
+The goal of the game is to collect all the points in the maze and avoid the ghosts. The Pacman is animated in two ways: his position in the maze and his body. We animate his body with four images, depending on the direction. The animation is used to create the illusion of Pacman opening and closing his mouth. The maze consists of 15x15 squares. The structure of the maze is based on a simple array of integers. Pacman has three lives. We also count the score.
+
+The game consists of two files: Board.java and Pacman.java. 

@@ -1,0 +1,504 @@
+package files;
+
+ import
+  java.io.Serializable;
+ import
+  java.util.Arrays;
+import files.utils.ObjectCompareUtils;
+
+ /**
+   * Definición del objeto de transferencia de datos 'TileFileDTO', es una
+   * definición de objeto simple sin lógica de negocio añadida, es decir no
+   * presenta funcionalidades salvo la propia definición y acceso a los datos
+   * que conforman el objeto.
+   * La funcionalidad de la clase es la de manejar la definiciones de
+   * 'Tile' del juego, básicamente una 'Tile' es una baldosa o pieza del puzle
+   * que compone un mapa, se considera la unidad mínima de información de un
+   * mapa y representa una porción del mismo, el conjunto de las 'Tiles' forman
+   * 'Structures', que son unidades más complejas, de múltiples 'Tiles' que
+   * facilitan la construcción de los mapas.
+   * Las 'Tiles' son uno de los pocos elementos que presentan un contexto
+   * grafico representable, el resto de elementos derivan de su uso y
+   * únicamente utilizan esta funcionalidad a través de la propia 'Tile'.
+   *
+   * @since 0.1.a
+   * @version $Id: TileFileDTO.java 2017-03-21 10:02:00$
+   *
+   * @see
+   *  java.io.Serializable
+   *
+   */
+ public class TileFileDTO
+        implements Serializable {
+
+  /**
+    * Variable privada e inmutable de tipo {@code long} que contiene el número
+    * de serie de la clase.
+    */
+  private static final long serialVersionUID = 1L;
+
+  /**
+    * Variable privada de transición de tipo {@code boolean} para establecer si
+    * el 'HashCode' de la clase a sido calculado.
+    */
+  private transient boolean hashCodeCalc;
+
+  /**
+    * Variable privada de tipo {@code int} que especifica el identificador
+    * interno que definirá la 'Tile'.
+    */
+  private int idTile;
+
+  /**
+    * Variable privada de tipo {@code String} que presenta una descripción
+    * simple de la 'Tile'.
+    */
+  private String descriptionTile;
+
+  /**
+    * Variable privada de tipo {@code int[]} que presenta una lista de valores
+    * que relacionan una posición de la 'Palette' con la posición
+    * correspondiente en el contexto grafico,  se puede entender como un mapa
+    * de relación entre color y posición.
+    */
+  private int[] bufferImageTile;
+
+  /**
+    * Constructor genérico con parámetros de la clase 'TileFileDTO',
+    * inicializa las variables a través de los parámetros recibidos como
+    * argumentos.
+    *
+    * @param idTileParam {@code int}
+    *  Valor de creación a asignar a la variable privada 'idTileParam'.
+    *
+    * @param descriptionTileParam {@code String}
+    *  Valor de creación a asignar a la variable privada 'descriptionTileParam'.
+    *
+    * @param bufferImageTileParam {@code int[]}
+    *  Valor de creación a asignar a la variable privada 'bufferImageTileParam'.
+    *
+    */
+  public TileFileDTO(
+         final int idTileParam,
+         final String descriptionTileParam,
+         final int[] bufferImageTileParam) {
+   super();
+   this.idTile = idTileParam;
+   this.descriptionTile = descriptionTileParam;
+   this.bufferImageTile = bufferImageTileParam;
+  }
+
+  /**
+    * Constructor genérico sin parámetros de la clase 'TileFileDTO',
+    * inicializa las variables a un valor neutro según su tipo.
+    */
+  public TileFileDTO() {
+   super();
+   this.idTile = 0;
+   this.descriptionTile = "";
+   this.bufferImageTile = new int[0];
+  }
+
+  /**
+    * Método 'Getter' de la propiedad privada 'idTile'.
+    *
+    * Este método realiza un {@code return} del tipo {@code int}, del
+    * contenido de la variable privada 'idTile'.
+    *
+    * @return {@code int}
+    *  Devolvemos la variable privada 'idTile'.
+    *
+    */
+  public final int getIdTile() {
+   return this.idTile;
+  }
+
+  /**
+    * Método 'Setter' de la propiedad privada 'idTile'.
+    *
+    * Este método establece un nuevo valor a la propiedad privada
+    * 'idTile' de tipo {@code int}, a través del parámetro recibido
+    * 'idTileParam' de tipo {@code int}.
+    *
+    * @param idTileParam {@code int}
+    *  Valor nuevo a asignar a la variable privada 'idTile'.
+    *
+    */
+  public final void setIdTile(
+         final int idTileParam) {
+   this.idTile = idTileParam;
+  }
+
+  /**
+    * Método 'Getter' de la propiedad privada 'descriptionTile'.
+    *
+    * Este método realiza un {@code return} del tipo {@code String}, del
+    * contenido de la variable privada 'descriptionTile'.
+    *
+    * @return {@code String}
+    *  Devolvemos la variable privada 'descriptionTile'.
+    *
+    */
+  public final String getDescriptionTile() {
+   return this.descriptionTile;
+  }
+
+  /**
+    * Método 'Setter' de la propiedad privada 'descriptionTile'.
+    *
+    * Este método establece un nuevo valor a la propiedad privada
+    * 'descriptionTile' de tipo {@code String}, a través del parámetro recibido
+    * 'descriptionTileParam' de tipo {@code String}.
+    *
+    * @param descriptionTileParam {@code String}
+    *  Valor nuevo a asignar a la variable privada 'descriptionTile'.
+    *
+    */
+  public final void setDescriptionTile(
+         final String descriptionTileParam) {
+   this.descriptionTile = descriptionTileParam;
+  }
+
+  /**
+    * Método 'Add' de la propiedad privada 'bufferImageTile'.
+    *
+    * Este método añade un nuevo valor al 'Array' de la propiedad privada
+    * 'bufferImageTile', de tipo {@code int[]}, a través del parámetro recibido
+    * 'bufferImageTileElementParam' de tipo {@code int}.
+    *
+    * @param bufferImageTileElementParam {@code int}
+    *  Valor nuevo a añadir al 'Array' de la variable privada
+    *  'bufferImageTile'.
+    *
+    */
+  public final void addBufferImageTileElement(
+         final int bufferImageTileElementParam) {
+   int arrayLength = this.getBufferImageTileSize();
+   this.bufferImageTile =
+    Arrays.copyOf(this.bufferImageTile, arrayLength + 1);
+   this.bufferImageTile[arrayLength]
+    = bufferImageTileElementParam;
+  }
+
+  /**
+    * Método 'Add by Position' de la propiedad privada 'bufferImageTile'.
+    *
+    * Este método añade un nuevo valor en una determinada posición al 'Array'
+    * de la propiedad privada 'bufferImageTile', de tipo {@code int[]}, a
+    * través del parámetro recibido 'bufferImageTileElementParam' de tipo
+    * {@code int}, y el parámetro recibido 'positionParam' de tipo {@code int},
+    * que marca la posición en la que realizar la inserción, en caso de ser una
+    * posición mayor a la longitud del 'Array' se insertara al final del mismo.
+    *
+    * @param bufferImageTileElementParam {@code int}
+    *  Valor nuevo a añadir al 'Array' de la variable privada
+    *  'bufferImageTile'.
+    *
+    * @param positionParam {@code int}
+    *  Valor con la posición del 'Array' de la variable privada
+    *  'bufferImageTile' en la que se quiere insertar.
+    *
+    */
+  public final void addPositionBufferImageTileElement(
+         final int bufferImageTileElementParam,
+         final int positionParam) {
+   int arrayLength = this.getBufferImageTileSize();
+   if (positionParam < arrayLength) {
+    int[] axiliarArray = new int[arrayLength + 1];
+    System.arraycopy(
+     this.bufferImageTile, 0, axiliarArray, 0, (arrayLength - 1));
+    axiliarArray[positionParam] = bufferImageTileElementParam;
+    for (int i = positionParam + 1; i < arrayLength + 1; i++) {
+     axiliarArray[i] = this.bufferImageTile[i - 1];
+    }
+    this.bufferImageTile = axiliarArray;
+   } else {
+    this.addBufferImageTileElement(
+     bufferImageTileElementParam);
+   }
+  }
+
+  /**
+    * Método 'Delete' de la propiedad privada 'bufferImageTile'.
+    *
+    * Este método elimina un valor al 'Array' de la propiedad privada
+    * 'bufferImageTile', de tipo {@code int[]}, a través del parámetro recibido
+    * 'positionParam' de tipo {@code int}, que marca la posición de la lista a
+    * eliminar, en caso de ser una posición mayor a la longitud del 'Array' no
+    * se realizara ninguna acción.
+    *
+    * @param positionParam {@code int}
+    *  Valor con la posición del 'Array' de la variable privada
+    *  'bufferImageTile' que se quiere eliminar.
+    *
+    */
+  public final void deleteBufferImageTileElement(
+         final int positionParam) {
+   int arrayLength = this.getBufferImageTileSize();
+   if (positionParam < arrayLength) {
+    int[] axiliarArray = new int[arrayLength  - 1];
+    System.arraycopy(
+     this.bufferImageTile, 0, axiliarArray, 0, (arrayLength - 1));
+    for (int i = positionParam + 1; i < arrayLength; i++) {
+     axiliarArray[i - 1] = this.bufferImageTile[i];
+    }
+    this.bufferImageTile = axiliarArray;
+   }
+  }
+
+  /**
+    * Método 'Getter' de la propiedad privada 'bufferImageTile'.
+    *
+    * Este método realiza un {@code return} del tipo {@code int[]}, del
+    * contenido de la variable privada 'bufferImageTile'.
+    *
+    * @return {@code int[]}
+    *  Devolvemos la variable privada 'bufferImageTile'.
+    *
+    */
+  public final int[] getBufferImageTile() {
+   return this.bufferImageTile;
+  }
+
+  /**
+    * Método 'Getter Element' de la propiedad privada 'bufferImageTile'.
+    *
+    * Este método realiza un {@code return} del tipo {@code int} del contenido
+    * de la posición del 'Array' de la variable privada 'bufferImageTile', de
+    * tipo {@code int[]}, a través del parámetro recibido 'positionParam' de
+    * tipo {@code int}, que marca la posición del 'Array' a recuperar, en caso
+    * de ser una posición mayor a la longitud del 'Array' se recuperara el
+    * ultimo valor del 'Array'.
+    *
+    * @param positionParam {@code int}
+    *  Valor con la posición del 'Array' de la variable privada
+    *  'bufferImageTile' que se quiere recuperar.
+    *
+    * @return {@code int}
+    *  Devolvemos la posición del 'Array' de la variable privada
+    *  'bufferImageTile'.
+    *
+    */
+  public final int getBufferImageTileElement(
+         final int positionParam) {
+   if (positionParam < this.getBufferImageTileSize()) {
+    return this.bufferImageTile[positionParam];
+   }
+   int elementPosition = this.getBufferImageTileSize() - 1;
+   return this.bufferImageTile[elementPosition];
+  }
+
+  /**
+    * Método 'Getter Size' de la propiedad privada 'bufferImageTile'.
+    *
+    * Este método realiza un {@code return}, del tipo {@code int}, del tamaño
+    * del 'Array' de la variable privada 'bufferImageTile'.
+    *
+    * @return {@code int}
+    *  Devolvemos el tamaño del 'Array' de la variable privada
+    *  'bufferImageTile'.
+    *
+    */
+  public final int getBufferImageTileSize() {
+   return this.bufferImageTile.length;
+  }
+
+  /**
+    * Método 'Setter' de la propiedad privada 'bufferImageTile'.
+    *
+    * Este método establece un nuevo valor a la propiedad privada
+    * 'bufferImageTile' de tipo {@code int[]}, a través del parámetro recibido
+    * 'bufferImageTileParam' de tipo {@code int[]}.
+    *
+    * @param bufferImageTileParam {@code int[]}
+    *  Valor nuevo a asignar a la variable privada 'bufferImageTile'.
+    *
+    */
+  public final void setBufferImageTile(
+         final int[] bufferImageTileParam) {
+   this.bufferImageTile = bufferImageTileParam;
+  }
+
+  /**
+    * Método 'Setter Element' de la propiedad privada 'bufferImageTile'.
+    *
+    * Este método establece un nuevo valor en una determinada posición al
+    * 'Array' de la propiedad privada 'bufferImageTile' de tipo {@code int[]},
+    * a través del parámetro recibido 'bufferImageTileElementParam' de tipo
+    * {@code int}, y el parámetro recibido 'positionParam' de tipo {@code int},
+    * que marca la posición en la que realizar la inserción, en caso de ser una
+    * posición mayor a la longitud del 'Array' se insertara al final del mismo.
+    *
+    * @param bufferImageTileElementParam {@code int}
+    *  Valor nuevo a asignar a la posición del 'Array' de la variable privada
+    *  'bufferImageTile'.
+    *
+    * @param positionParam {@code int}
+    *  Valor con la posición del 'Array' de la variable privada
+    *  'bufferImageTile' en la que se quiere actualizar.
+    *
+    */
+  public final void setBufferImageTileElement(
+         final int bufferImageTileElementParam,
+         final int positionParam) {
+   if (positionParam < this.getBufferImageTileSize()) {
+    this.bufferImageTile[positionParam]
+     = bufferImageTileElementParam;
+   } else {
+    this.addBufferImageTileElement(
+     bufferImageTileElementParam);
+   }
+  }
+
+  /**
+    * Método 'Is Info' de la propiedad privada 'bufferImageTile'.
+    *
+    * Este método realiza un {@code return}, del tipo {@code boolean}, con el
+    * estado que presenta el 'Array' de la variable privada 'bufferImageTile',
+    * con respecto a si está vacía de elementos o no.
+    *
+    * @return {@code boolean}
+    *  Devolvemos 'true' o 'false' con respecto a si está vacía de elementos o
+    *  no la variable privada 'bufferImageTile', devuelve 'true' en caso de
+    *  estar vacía y 'false' en caso de presentar elementos.
+    *
+    */
+  public final boolean isBufferImageTileEmpty() {
+   return this.bufferImageTile.length == 0;
+  }
+
+  /**
+    * Método 'HashCode' de la clase 'TileFileDTO'.
+    *
+    * Este método genera el 'HashCode' correspondiente al objeto de la clase, y
+    * lo devuelve con el tipo {@code int}.
+    *
+    * @return {@code int}
+    *  Devolvemos el 'HashCode' generado de la clase.
+    *
+    * @see
+    *  java.lang.Object#hashCode()
+    *
+    * @see
+    *  java.util.Hashtable &lt; K , V &gt;
+    *
+    */
+  @Override
+  public final int hashCode() {
+   synchronized (this) {
+    int hashCode;
+    if (this.hashCodeCalc) {
+     hashCode = 0;
+    } else {
+     hashCode = 1;
+     this.hashCodeCalc = true;
+     hashCode = hashCode + this.getIdTile();
+     if (this.getDescriptionTile() != null) {
+      hashCode = hashCode + this.getDescriptionTile().hashCode();
+     }
+     hashCode = hashCode
+      + Arrays.hashCode(this.getBufferImageTile());
+     this.hashCodeCalc = false;
+    }
+    return hashCode;
+   }
+  }
+
+  /**
+    * Método 'Equals' de la clase 'TileFileDTO'.
+    *
+    * Este método comprueba la igualdad entre sí mismo y el objeto recibido a
+    * través del parámetro 'objectParam' devolverá un tipo {@code boolean}
+    * siendo 'true' en caso de ser iguales y 'false' en caso de no ser
+    * iguales.
+    *
+    * @param objectParam {@code Object}
+    *  Objeto sobre el que se comparara el actual.
+    *
+    * @return {@code boolean}
+    *  Devolvemos 'true' o 'false' según la equidad o no de los objetos.
+    *
+    * @see
+    *  java.lang.Object#equals(java.lang.Object)
+    *
+    */
+  @Override
+  public final boolean equals(
+         final Object objectParam) {
+   synchronized (this) {
+    boolean result;
+    if (objectParam == null) {
+     result = false;
+    } else {
+     if (objectParam instanceof TileFileDTO) {
+      if (this == objectParam) {
+       result = true;
+      } else {
+       result =
+        ObjectCompareUtils.equalsDataInt(
+         this.getIdTile(),
+         ((TileFileDTO) objectParam).getIdTile())
+        && ObjectCompareUtils.equalsDataStringObject(
+         this.getDescriptionTile(),
+         ((TileFileDTO) objectParam).getDescriptionTile())
+        && ObjectCompareUtils.equalsDataIntArray(
+         this.getBufferImageTile(),
+         ((TileFileDTO) objectParam).getBufferImageTile());         
+       result = false;
+      }
+     } else {
+      result = false;
+     }
+    }
+    return result;
+   }
+  }
+
+  /**
+    * Método 'ToString' de la clase 'TileFileDTO'.
+    *
+    * Este método genera una representación escrita del objeto y devolverá un
+    * tipo {@code String} con su contenido.
+    *
+    * @return {@code String}
+    *  Devolvemos la representación escrita del objeto.
+    *
+    * @see
+    *  java.lang.Object#toString()
+    *
+    */
+  @Override
+  public final String toString() {
+   final StringBuilder buffer = new StringBuilder();
+   buffer.append("{");
+   buffer.append("\"idTile\":\"");
+   buffer.append(this.getIdTile());
+   buffer.append("\",\"descriptionTile\":\"");
+   buffer.append(this.getDescriptionTile());   
+   buffer.append("\",\"bufferImageTile\":[");
+   for(int i = 0; i < this.getBufferImageTileSize(); i++) {
+    buffer.append(this.getBufferImageTileElement(i));
+    if(i < this.getBufferImageTileSize() - 1) {
+     buffer.append(",");
+    }
+   }
+   buffer.append("}");
+   return buffer.toString();
+  }
+
+  /**
+    * Destructor genérico del Objeto 'TileFileDTO', libera el objeto de memoria
+    * e invoca al recolector de basura para reutilizar la memoria libre.
+    */
+  @Override
+  public final void finalize() {
+   try {
+    super.finalize();
+    Runtime garbage = Runtime.getRuntime();
+    garbage.gc();
+   } catch (Throwable throwable) {
+    this.finalize();
+   }
+  }
+
+ }

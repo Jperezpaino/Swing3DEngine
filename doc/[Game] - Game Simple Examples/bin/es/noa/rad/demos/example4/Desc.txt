@@ -1,0 +1,10 @@
+Animation
+
+In this part of the Java 2D games tutorial, we will work with animation.
+
+Animation is a rapid display of sequence of images which creates an illusion of movement. We will animate a star on our Board. We will implement the movement in three basic ways. We will use a Swing timer, a standard utility timer, and a thread.
+
+Animation is a complex subject in game programming. Java games are expected to run on multiple operating systems with different hardware specifications. Threads give the most accurate timing solutions. However, for our simple 2D games, other two options can be an option too.
+Swing timer
+
+In the first example we will use a Swing timer to create animation. This is the easiest but also the least effective way of animating objects in Java games. 

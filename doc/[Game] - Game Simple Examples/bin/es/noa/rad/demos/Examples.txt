@@ -1,0 +1,32 @@
+basic
+01 - Game Window
+02 - simple drawing // algo echo
+ antialias Algo echo
+ game cicle
+ doble buffer
+ 
+ 
+ 
+
+
+0? - Game Controls
+Mouse control (Dibujamos un raton y segun se pulsa se ilumina) // Algo echo
+keyboard control  (Dibujamos un raton y segun se pulsa se ilumina) // Algo echo
+externalice controls // Algo echo, igual a los anteriores
+
+
+mejor el pong simple
+
+juego mas basico asteroides (rotaciones) no no
+
+
+
+0?- Use images
+cargar imagenes
+imagen traslation, un background conbinado
+imagen mask
+
+use sounds
+
+
+sprites

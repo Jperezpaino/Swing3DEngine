@@ -1,0 +1,1218 @@
+ Particles Tutorial: Foundation
+
+Greetings!
+
+So this will be part 2 of my particle tutorial series. We will be changing the particle class and adding a new class to make things cleaner. We will talk about the many different attributes a particle can have and the many reasons behind these attributes and why we may or may not need them. Let’s just get started.
+
+Requirements:
+
+    Finished and understood part 1
+    A few minutes to read this tutorial
+
+What you get:
+
+    A much more complex paritlce
+    A better example to play with
+
+Now before we write code or change anything we need to talk about particles. Creating effects with particles is very much an art form. You use particles or images that when rendered together, (on top of or next to each other) create some type of effect.  Fire. Smoke. Explosions. The problem is that the more particles you have the more processing time it takes to render the effect. Therefor, the goal is to get the best looking effects with the least amount of particles or processing time.  Now we need to think of how we want to do this. I like the idea of a fat particle. A big, really fluffy, complex particle that can do a whole lot of stuff. I like this because, you don’t need as many fat particles to create the same effect that would take double or triple the amount of lightweight particles and you don’t need to worry about creating a complex component or inheritance system to make sure you are using the right particle for the job. This is not the best way as there is no “best” way of doing anything really.
+
+Before we change are particle we are going to create a new class. This class will basically be holding two doubles and have a few operations for these two doubles. Sounds very unnecessary right now but it will make everything work a whole lot cleaner as we add more attributes to the particles. The class will be named Vector2d. No, we will not be doing any 3d programming and no we will not do any hard math. We call it Vector2d because it is a vector that holds 2 doubles. Why doubles? Well we want to have more accuracy when it comes to our particles. We want to be able to move them by less than 1. So why not floats? This is because java be default converts everything to doubles when it does math operation. There is no performance boost but it saves us a little time so we don’t have to write that “f” at the end of all our numbers 1f , .045f , 2.5f. If you really want to change it, all it takes is a few Ctrl+fs.
+
+Note: All major 3D languages (like opengl) use floats and not doubles when you need floating point precision. Doubles use a lot more memory and are really not necessary.
+
+Here is the class
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+	
+public class Vector2d {
+ 
+    public double x;
+    public double y;
+ 
+    public Vector2d(double num1, double num2){
+        this.x = num1;
+        this.y = num2;
+    }
+ 
+    public void add(double num){
+        x += num;
+        y += num;
+    }
+ 
+    public void sub(double num){
+        x -= num;
+        y -= num;
+    }
+ 
+    public void div(double num){
+        x /= num;
+        y /= num;
+    }
+ 
+    public void mult(double num){
+        x *= num;
+        y *= num;
+    }
+ 
+    public void add(Vector2d other){
+        x += other.x;
+        y += other.y;
+    }
+ 
+    public void sub(Vector2d other){
+        x -= other.x;
+        y -= other.y;
+    }
+ 
+    public void div(Vector2d other){
+        x /= other.x;
+        y /= other.y;
+    }
+ 
+    public void mult(Vector2d other){
+        x *= other.x;
+        y *= other.y;
+    }
+}
+
+We have our 2 doubles x and y. We named them that because x refers to width and y height. We can use them for things other than width and height.
+
+We make the 2 doubles public so we can access them faster (not in terms of speed but typing). If you want, you can make them private and have a getter.
+
+We have the basic fundamental arithmetic operations. We can pass a number to be applied to the 2 numbers in our Vector2d or by giving an other Vector2d in which case we use that Vectors x for the x value and the y for the y value.
+
+So lets use this in our particle class and see what it looks like.
+1
+2
+3
+4
+5
+6
+7
+	
+public class Particle {
+ 
+    private Vector2d loc;
+    private Vector2d vel;
+    private Vector2d size;
+    private Vector2d life;
+    private Color color;
+
+X and y are now one variable called loc which is short for location, dx and dy are now vel which is short for velocity, (getting physicsy there), size is still named size but now we have a width and height, and life is life but we can have a max life and current life.
+
+Let’s add some more stuff to our particle. I want acceleration. Wind/gravity. I want it so our particle can grow or shrink and I want to have a max size our particle can be.
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+	
+public class Particle {
+ 
+    private Vector2d loc;
+    private Vector2d vel;
+    private Vector2d acc;
+    private Vector2d size;
+    private Vector2d maxSize;
+    private Vector2d growth;
+    private Vector2d life;
+    private Color color;
+
+Nice. Lets change the update and render methods. First, the hard one, updating. Now we need to know what happens when our particles do certain things. What happens when they reach maxSize? What happens when their size is 0?  When the max size is hit we could stop growing, start shrinking, or die. Or…we could do all of them. Yeah, lets do all of them. We will have 2 booleans,  ultSize and default. If default is true, we simply kill particles if they hit max size or 0. If ultSize is true and we reach max size, we stop growing and if we hit 0, stop shrinking. If false and we reach max size, we will reverse our growth and shrink and if we reach 0, we reverse and grow. Simple. Now lets actually implement all this.
+And here is the new update()
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+	
+public boolean update(){
+    vel.add(acc);
+    loc.add(vel);
+    size.add(growth);
+    life.x--;
+ 
+    if(life.x <= 0)
+        return true;
+ 
+    if(defaultSize){
+        if(size.x >= maxSize.x){
+            if(size.y >= maxSize.y)
+                return true;
+            else
+                size.x = maxSize.x;
+        }
+        if(size.y >= maxSize.y) //Note: we already checked if both x and y are bigger.
+            size.y = maxSize.y;
+        if(size.x <= 0)
+            if(size.y <= 0)
+                return true;
+            else
+                size.x = 1;
+        if(size.y <= 0)
+            size.y = 1;
+        return false; // we are done
+    }
+ 
+    if(ultSize){ // We will shrink and grow back and forth
+        if(size.x > maxSize.x){
+            size.x = maxSize.x;
+            growth.x *= -1;
+        }
+        if(size.y > maxSize.y){
+            size.y = maxSize.y;
+            growth.y *= -1;
+        }
+        if(size.x <= 0){
+            size.x = 1;
+            growth.x *= -1;
+        }
+        if(size.y <= 0){
+            size.y = 1;
+            growth.y *= -1;
+        }
+    }
+    else{ //We stop growing or shrinking.
+        if(size.x > maxSize.x)
+            size.x = maxSize.x;
+        if(size.y > maxSize.y)
+            size.y = maxSize.y;
+        if(size.x <= 0)
+            size.x = 1;
+        if(size.y <= 0)
+            size.y = 1;
+    }
+    return false;
+}
+
+Finally, lets change the render code. We just need to make it use the new Vector2d size and cast to ints.
+
+Here is render()
+1
+2
+3
+4
+5
+6
+7
+8
+	
+public void render(Graphics g){
+    Graphics2D g2d = (Graphics2D) g.create();
+ 
+    g2d.setColor(color);
+    g2d.fillRect((int)(loc.x-(size.x/2)), (int)(loc.y-(size.y/2)), (int)size.x, (int)size.y);
+ 
+    g2d.dispose();
+}
+
+Not bad. Now lets add some setters and getters for our particle variables.
+
+Here is our new and improved Particle.
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+	
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+ 
+public class Particle {
+ 
+    private Vector2d loc;
+    private Vector2d vel;
+    private Vector2d acc;
+    private Vector2d size;
+    private Vector2d maxSize;
+    private Vector2d growth;
+    private Vector2d life;
+    private Color color;
+ 
+    private boolean ultSize = false;
+    private boolean defaultSize = false;
+ 
+    public Particle(double x, double y, double dx, double dy, double size, double life, Color c){
+        this.loc = new Vector2d(x,y);
+        this.vel = new Vector2d(dx,dy);
+        this.acc = new Vector2d(0,0);
+        this.life = new Vector2d(life,life);
+        this.size = new Vector2d(size,size);
+        this.growth = new Vector2d(0,0);
+        this.maxSize = new Vector2d(0,0);
+        this.color = c;
+    }
+ 
+    public boolean update(){
+        vel.add(acc);
+        loc.add(vel);
+        size.add(growth);
+        life.x--;
+ 
+        if(life.x <= 0)
+            return true;
+ 
+        if(defaultSize){
+            if(size.x >= maxSize.x){
+                if(size.y >= maxSize.y)
+                    return true;
+                else
+                    size.x = maxSize.x;
+            }
+            if(size.y >= maxSize.y) //Note: we already checked if both x and y are bigger.
+                size.y = maxSize.y;
+            if(size.x <= 0)
+                if(size.y <= 0)
+                    return true;
+                else
+                    size.x = 1;
+            if(size.y <= 0)
+                size.y = 1;
+            return false; // we are done
+        }
+ 
+        if(ultSize){ // We will shrink and grow back and forth
+            if(size.x > maxSize.x){
+                size.x = maxSize.x;
+                growth.x *= -1;
+            }
+            if(size.y > maxSize.y){
+                size.y = maxSize.y;
+                growth.y *= -1;
+            }
+            if(size.x <= 0){
+                size.x = 1;
+                growth.x *= -1;
+            }
+            if(size.y <= 0){
+                size.y = 1;
+                growth.y *= -1;
+            }
+        }
+        else{ //We stop growing or shrinking.
+            if(size.x > maxSize.x)
+                size.x = maxSize.x;
+            if(size.y > maxSize.y)
+                size.y = maxSize.y;
+            if(size.x <= 0)
+                size.x = 1;
+            if(size.y <= 0)
+                size.y = 1;
+        }
+        return false;
+    }
+ 
+    public void render(Graphics g){
+        Graphics2D g2d = (Graphics2D) g.create();
+ 
+        g2d.setColor(color);
+        g2d.fillRect((int)(loc.x-(size.x/2)), (int)(loc.y-(size.y/2)), (int)size.x, (int)size.y);
+ 
+        g2d.dispose();
+    }
+ 
+    public void setLoc(double x,  double y){
+        loc.x = x;
+        loc.y = y;
+    }
+ 
+    public void setVel(double x,  double y){
+        vel.x = x;
+        vel.y = y;
+    }
+ 
+    public void setAcc(double x,  double y){
+        acc.x = x;
+        acc.y = y;
+    }
+ 
+    public void setSize(double x,  double y){
+        size.x = x;
+        size.y = y;
+    }
+ 
+    public void setMaxSize(double x,  double y){
+        maxSize.x = x;
+        maxSize.y = y;
+    }
+ 
+    public void setGrowth(double x,  double y){
+        growth.x = x;
+        growth.y = y;
+    }
+ 
+    public void setLife(double num){
+        life.x = num;
+        life.y = num;
+    }
+ 
+    public void setSizeDeault(boolean c){
+        defaultSize = c;
+    }
+ 
+    public void setUltSize(boolean c){
+        defaultSize = false;
+        ultSize = c;
+    }
+ 
+    public Vector2d getLoc(){
+        return loc;
+    }
+ 
+    public Vector2d getVel(){
+        return vel;
+    }
+ 
+}
+
+Me like. So now it is time to test it. I have edited the test program a little. I have added some random methods. One returns a positive or negative number and the other returns just a positive. I have added a Color, c, so we can change the color of the spawned particles. I have added a boolean so we can pause the test. I have added a KeyListener that we can change stuff with. Pressing “p” pauses and pressing space will change the color. I made the window realizable and finally made it so the particle will bounce off the sizes of the window. Look at it a few times and then run it. After that play with it and the particles. Try changing the way they grow or shrink. Mess around. And think about some other things you want a particle to do and how you would go about making emitters to emit the particles.
+
+The test program
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+	
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
+import java.util.Random;
+ 
+import javax.swing.JFrame;
+ 
+public class Window extends JFrame {
+ 
+    private ArrayList<Particle> particles = new ArrayList<Particle>(500);
+ 
+    private int x = 0;
+    private int y = 0;
+    private BufferStrategy bufferstrat = null;
+    private Canvas render;
+ 
+    private Random rnd = new Random(); //used to generate random numbers
+    private Color c = Color.blue; // the default particle color
+    private boolean running = true; // should we update?
+ 
+    public static void main(String[] args)
+    {
+        Window window = new Window(450, 280, "Particles: ");
+        window.pollInput();
+        window.loop();
+    }
+ 
+    public Window( int width, int height, String title){
+        super();
+        setTitle(title);
+        setIgnoreRepaint(true);
+        setResizable(true);
+ 
+        render = new Canvas();
+        render.setIgnoreRepaint(true);
+        int nHeight = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+        int nWidth = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+        nHeight /= 2;
+        nWidth /= 2;
+ 
+        setBounds(nWidth-(width/2), nHeight-(height/2), width, height);
+        render.setBounds(nWidth-(width/2), nHeight-(height/2), width, height);
+ 
+        add(render);
+        pack();
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+ 
+        render.createBufferStrategy(2);
+        bufferstrat = render.getBufferStrategy();
+    }
+ 
+    public void pollInput()
+    {
+        render.addMouseListener(new MouseListener(){
+ 
+            public void mouseClicked(MouseEvent e) {
+                addParticle();addParticle();addParticle();
+                addParticle();addParticle();addParticle();
+            }
+ 
+            public void addParticle(){//play with this method
+                Particle p = new Particle(x,y,0,0,0,0,c);
+                p.setVel(random(7),random(7));
+                p.setAcc(random(.02),random(.02));
+                p.setLife(randomPlus(150)+150);
+                p.setSize(randomPlus(25)+25, randomPlus(25)+25);
+                p.setMaxSize(50,50);
+                p.setGrowth(random(2), random(2));
+                p.setUltSize(true);
+                particles.add(p);
+            }
+ 
+            public void mouseEntered(MouseEvent e) {
+ 
+            }
+ 
+            public void mouseExited(MouseEvent e) {
+ 
+            }
+ 
+            public void mousePressed(MouseEvent e) {
+ 
+            }
+ 
+            public void mouseReleased(MouseEvent e) {
+ 
+            }
+ 
+        });
+ 
+        render.addKeyListener(new KeyListener(){//keylistener
+ 
+            public void keyPressed(KeyEvent e) {
+                int code = e.getKeyCode();
+                if(code == 'P'){
+                    if(running)
+                        running = false;
+                    else
+                        running = true;
+                }
+                if(code == ' '){//new random color
+                    c = new Color((int)randomPlus(255),(int)randomPlus(255),(int) randomPlus(255));
+                }
+            }
+ 
+            public void keyReleased(KeyEvent e) {
+ 
+            }
+ 
+            public void keyTyped(KeyEvent e) {
+ 
+            }
+ 
+        });
+    }
+ 
+    public double random( double num ){//random method may not be the best
+        return (num * 2)  * rnd.nextDouble() - num;
+    }
+ 
+    public double randomPlus( double num ){//return only a positive number
+        double temp = ((num * 2)  * rnd.nextDouble()) - num;
+        if( temp < 0 )
+            return temp * -1;
+        else
+            return temp;
+    }
+ 
+    //This is a bad game loop example but it is quick to write and easy to understand
+    //If you want to know how to do a good one use the all knowing google.
+    public void loop(){
+        while(true){
+            if(running)
+                update();
+            render();
+ 
+            try {
+                Thread.sleep(1000/60);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+ 
+    public void update(){
+        Point p = render.getMousePosition();
+        if(p !=null ){
+            x = p.x;
+            y = p.y;
+        }
+        for(int i = 0; i <= particles.size() - 1;i++){
+            Particle part = particles.get(i);
+            if(part.update())
+                particles.remove(i);
+            if(part != null){
+                if(part.getLoc().x <= 0){
+                    part.getLoc().x = 0;
+                    part.getVel().x *= -1;
+                }
+                if(part.getLoc().x >= render.getWidth()){
+                    part.getLoc().x = render.getWidth();
+                    part.getVel().x *= -1;
+                }
+                if(part.getLoc().y <= 0){
+                    part.getLoc().y = 0;
+                    part.getVel().y *= -1;
+                }
+                if(part.getLoc().y >= render.getHeight()){
+                    part.getLoc().y = render.getHeight();
+                    part.getVel().y *= -1;
+                }
+            }
+        }
+    }
+ 
+    public void render(){
+        do{
+            do{
+                Graphics2D g2d = (Graphics2D) bufferstrat.getDrawGraphics();
+                g2d.fillRect(0, 0, render.getWidth(), render.getHeight());
+ 
+                renderParticles(g2d);
+ 
+                g2d.dispose();
+             }while(bufferstrat.contentsRestored());
+              bufferstrat.show();
+        }while(bufferstrat.contentsLost());
+    }
+ 
+    public void renderParticles(Graphics2D g2d){
+        for(int i = 0; i <= particles.size() - 1;i++){
+            particles.get(i).render(g2d);
+        }
+    }
+}
+
+Here are some screens of these particles in action.
+
+Here are a few fun settings for your particles. Just copy it over the addParticle method.
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+	
+public void addParticle(){//play with this method
+                Particle p = new Particle(x,y,0,0,0,0,c);
+                p.setVel(random(4),random(4));
+                p.setAcc(0,randomPlus(.2)+.1);
+                p.setLife(randomPlus(150)+150);
+                p.setSize(25, 25);
+                p.setMaxSize(25,25);
+                p.setGrowth(-randomPlus(.2)-.5, -randomPlus(.2)-.5);
+                p.setSizeDeault(true);
+                //p.setUltSize(false);
+                particles.add(p);
+            }
+
+ 
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+	
+public void addParticle(){//play with this method
+            Particle p = new Particle(x+random(32),y+random(32),0,0,0,0,c);
+            p.setVel(random(1),random(1));
+            p.setAcc(0,-randomPlus(.04)-.02);
+            p.setLife(randomPlus(150)+550);
+            p.setSize(16, 16);
+            p.setMaxSize(25,25);
+            p.setGrowth(-.1, -.1);
+            p.setSizeDeault(true);
+            //p.setUltSize(false);
+            particles.add(p);
+        }
+Share this:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ Particles Tutorial: Motion
+
+Because I have learned quite a bit since I started this tutorial series, I have found that I really should have explained some theory about creating effects because we ever started writing code as we may have made some different design choices. This next part will focus on some heavy particle effect theory on how to get convincing effects using what I call senses of motion.
+
+I also, would like to give a brief rundown of what is to come. Part 4 will be revamping what was done in parts 1 and 2. Part 4 and 5 will focus on management of particle systems/emitters. Then 6 will show how to port what we have done to run with opengl. Finally, anything else will be showing how to use the system to do different effects such as trails.
+
+Requirements:
+
+    Finished parts 1-2.
+
+What you get:
+
+    A solid foundation on how particles create an effect.
+    A better understanding on how you would go about coding a particle library.
+
+I absolutely love games with awesome effects. However, even with AAA titles I still find effects that look like crap. Ones that I know I could make look better without any additional art resources or increasing budgets. Indie games also have huge problems with effects looking very bad. Spawning 500, 1000, or more particles with a smoke texture does not make billowing smoke. Using any particle system to create believable effects is an art form. An art that is actually easy to pick up.
+
+Creating believable effects is all about using motion. Pick your favorite game or games. Look at some of the coolest effects in the game. Seriously pause reading this and go look at them. How were they? Cool, right. Now think of how they were done. Why they looked real or cool. I bet no effect was a single just sitting there in the scene. The key to good effects is using motion. There are many forms of motion. I am going to mention a several common ones.
+
+Movement:
+
+This is the most common. A static image just is not convincing. Moving adds to the illusion of an effect.
+
+Rotation:
+
+Rotation helps create the illusion. Make sure to have particles not all rotate clockwise or counter-clockwise but both.
+
+Scaling:
+
+Scaling is another common sense of motion. Yet this is not simply growing or shrinking there are many forms. You can grow/shrink each x,y, or z axis independently.
+
+Color:
+
+Changing the color over the life of a particle is a nice effect and one that is very important to have.
+
+Transparency: 
+
+Fading particles in, out, and back again. This is one some would bundle into color but it is a completely different sense of motion and one that I think is very important.
+
+Emittion Shape:
+
+The shape or way the particle are emitted into the scene. Circle, box, cone, angle, and any other from that changes how the particles enter the world.
+
+Compositing Particles:
+
+One particle moving across another or on top of another is integral to creating an illusion that all the particles or one entity. This sense of motion is key to keeping the viewer from noticing that most particles are a single image.
+
+Multiple Images
+
+Instead of using one smoke image, use 4 or 10. This adds a variety to the effect. Particles will no longer all have the same image making it hard to tell they are not the effect trying to be produced.
+
+Animated Image:
+
+One step above multiple images. This is having an animation playing for each particle independently. This can add a huge sense of realism and motion but cost more memory.
+
+Complex Forces:
+
+This is where we add things like gravity, forces, wind, and other physics type of effects to the particles to enhance their basic movement.
+
+Complex Composition:
+
+Additive blending, Multiplicative blending, and various alpha composition. This is where we using different and advanced forms of image composites when rendering the particles to help produce an effect. Google additive blending.
+
+Multiple System Composition:
+
+Compositing many particle effects together to make an effect. A system to launch dirt into the air, spawn smoke, spawn little bits of debris, spawn spars, delayed black smoke, delayed embers, shock wave, spawn huge billowing fire, spawn shrapnel with trails, and others are just a few systems that would make up a nice explosion.
+
+Shaders:
+
+Can add many effects to the way particles are rendered and a must in any advanced particle system.
+
+These are some of the most common senses of motion. Sure particles can also have some physics for world collision and maybe some other things but these really are core.
+
+With that being said. Go look at that game/s effects again and think of these sense of motion. I bet you dissected the effect for more effectively now that you knew some things to look for. It is like listening to music, the more instruments you know and the longer you have studied them, the easy it is to pick a song apart.
+
+So why look at other games effects? To learn. I strongly recommend pausing gameplay and just looking around and see if you can figure out how they developers did things or even look at the actual textures used.
+
+Lets look at a few examples of bad or lacking effects.
+
+Mass Effect 3 was a great game for me. The effects looked great when you did not look at them. If you look at most effects such as smoke or explotions. you quickly see that there are only a few images that creates the effect. Some only have one. One particular one that you see all the time is the Centurion smoke grenade.
+
+Smoke
+
+It looks fancy but when you move around you can tell it is a single image billboarded (google this term) to face the camera. There is a shader effect on it to make it “wobble”. This is not a bad effect but one that could use work.
+
+I recently started tinkering with unity and was browsing their asset store and came across “Ultra Realistic Fire and Some” or something. Look at the demo here The effects just look quite bad. The fire seems kinda “real” as it is using some realistic textures but they do not move enough at all. The smoke is horrible. It is like 1000 particles. The 1000 isn’t the problem but that you can tell it is 1000.
+
+We could go on and on looking at games or apps but now we will go over effectively using some of these senses of motion.
+
+Here are a few particle editors out for you to play with.
+
+Unity3D: Their editor is easy to get into and has a very nice UI. Play with it.
+
+Libgdx: Their particle editor is similar to Unity’s as they both like curves instead of numbers.
+
+SystemX: This is my custom editor. It is a little wonky and is missing some features but I think it is the easiest for loading images/sprite sheets/animations for particles. It also has some textures for you to use.
+
+Here, here, and here are some additional free particle animations to try out.
+
+Play with composting particle on one another with motion and rotation. While particles move across one another you get a very nice illusion of an effect. Also, composite multiple emitters/particle systems on each other for a similar effect. Try to use as few particles as possible. With the unity and libgdx editors have the particles fade in and fade out to eliminate popping. Popping is where a particle just “pops” into the world or “pops” out of the world. This never happens in real life. Also, try some animate, multiple textures, and single texture particle effects to see how much better/worse the effect is.
+
+Next time we will refactor old code and write some new stuff to make things better.
+
+Here is a screen using my editor and one of the provided textures.

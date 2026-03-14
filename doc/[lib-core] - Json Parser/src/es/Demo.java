@@ -1,0 +1,393 @@
+package es;
+
+import es.noa.rad.core.json.Json;
+import es.noa.rad.core.json.JsonArray;
+import es.noa.rad.core.json.JsonObject;
+import es.noa.rad.core.json.JsonValue;
+import es.noa.rad.util.core.exception.AbstractException;
+import es.noa.rad.util.file.UtilFile;
+import es.noa.rad.util.file.data.dto.FileDTO;
+
+public class Demo {
+
+ public static void main(String[] args) {
+  // TODO Auto-generated method stub
+  FileDTO file = new FileDTO();
+  file.setDirectoryFile("C:\\Desarrollo\\Workspace-core\\[lib-core] - Json Parser\\res\\");
+  file.setNameFile("base");
+  file.setExtensionFile("json");
+  try {
+   file = UtilFile.loadFile(file);
+  } catch (AbstractException e) {
+   // TODO Auto-generated catch block
+   e.printStackTrace();
+  }
+  System.out.println(new String(file.getDataFile()));
+  JsonObject documentoData = Json.parse(new String(file.getDataFile())).asObject();
+  JsonArray demosObject = documentoData.get("demos").asArray();
+  for (JsonValue demoObject : demosObject) {   
+   JsonObject xmlDemoObject = demoObject.asObject().get("demoXml").asObject(); 
+   System.out.println(xmlDemoObject.getString("name", null));
+   JsonArray xmlDemoImports = xmlDemoObject.get("import").asArray();
+   for (JsonValue xmlDemoImportObject : xmlDemoImports) {
+    System.out.println(xmlDemoImportObject.asString());
+   }
+   JsonArray xmlDemoSchemas = xmlDemoObject.get("schema").asArray();
+   for (JsonValue xmlDemoSchemaObject : xmlDemoSchemas) {
+    System.out.println(xmlDemoSchemaObject.asObject().getString("prefix", null));
+    System.out.println(xmlDemoSchemaObject.asObject().getBoolean("useTagPrefix", false));    
+    System.out.println(xmlDemoSchemaObject.asObject().getBoolean("useFilePrefix", false));
+    System.out.println(xmlDemoSchemaObject.asObject().getString("package", null));
+    System.out.println(xmlDemoSchemaObject.asObject().getString("dataPackage", null));
+    System.out.println(xmlDemoSchemaObject.asObject().getString("creatorPackage", null));
+    System.out.println(xmlDemoSchemaObject.asObject().getString("nameSpace", null));
+    System.out.println(xmlDemoSchemaObject.asObject().getBoolean("useNameSpace", false));
+   }
+  }
+ }
+
+// public final void parserJSON(String jsonParametros) {
+//  logger.debug(">> Contenido de relacionados recuperado: " + jsonParametros);
+//  DateFormat formatSimpleDate = new SimpleDateFormat("dd/MM/yyyy");
+//  DateFormat formatCompleteDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
+//  try {
+//   .getString("cicloMainData", null);
+//   List<CicloFirmaTableData> mainCicloFirmaTableData = new ArrayList<CicloFirmaTableData>();         
+//   String data = "{\"cicloFirma\":[" + new String(Base64.decode(mainDocumentoData), "UTF-8") + "]}";
+//   JsonArray firmantes = Json.parse(data).asObject().get("cicloFirma").asArray();
+//   for (JsonValue firmante : firmantes) {
+// String firmanteName = firmante.asObject().getString("fullName", null);
+//    try {
+//     firmanteName = new String(Base64.decode(firmanteName), "UTF-8");
+//    } catch (IOException e) {
+//     e.printStackTrace();
+//    }
+// String firmanteMail = firmante.asObject().getString("mail", null);
+//    try {
+//     firmanteMail = new String(Base64.decode(firmanteMail), "UTF-8");
+//    } catch (IOException e) {
+//     e.printStackTrace(); 
+//    }  
+// Integer firmanteIdEstado = firmante.asObject().getInt("idEstado", 0);
+//  String firmanteEstado = firmante.asObject().getString("estado", null);
+//    String firmanteFecha = firmante.asObject().getString("fecha", "");
+//    Date fecha = null;
+//    if(!firmanteFecha.equals("null")) {
+//     fecha = formatCompleteDate.parse(firmanteFecha);
+//    }
+//    mainCicloFirmaTableData.add(new CicloFirmaTableData(firmanteName, firmanteMail, firmanteIdEstado, firmanteEstado, fecha));
+//   }
+//   ((PortafirmasApplet) applet).setCicloFirmaDocumentoData(mainCicloFirmaTableData);
+//  } catch (UnsupportedEncodingException e) {
+//   e.printStackTrace();
+//  } catch (IOException e) {
+//   e.printStackTrace();
+//  } catch (ParseException e) {
+//   e.printStackTrace();
+//  }
+//  
+//  
+//  JsonArray expedientes = Json.parse(jsonParametros).asObject().get("expedientes").asArray();
+//  for (JsonValue expediente : expedientes) {
+//   String expedienteCode = expediente.asObject().getString("code", null);
+//   logger.debug(">> Código del expediente: " + expedienteCode);
+//   String expedienteInteresado = expediente.asObject().getString("interesado", null);
+//   try {
+//    expedienteInteresado = new String(Base64.decode(expedienteInteresado), "UTF-8");
+//   } catch (IOException e) {
+//    e.printStackTrace();
+//   }
+//   logger.debug(">> Interesado del expediente: " + expedienteInteresado);
+//   String expedienteExtracto = expediente.asObject().getString("extracto", null);
+//   try {
+//    expedienteExtracto = new String(Base64.decode(expedienteExtracto), "UTF-8");
+//   } catch (IOException e) {
+//    e.printStackTrace();
+//   }
+//   logger.debug(">> Extracto del expediente: " + expedienteExtracto);      
+//   String expedienteEstado = expediente.asObject().getString("estado", null);
+//   String expedienteEstadoDesc = "";
+//   if(expedienteEstado.endsWith("1")) {
+//    expedienteEstadoDesc = "Pendiente de Fin de Trámite";
+//   } else if(expedienteEstado.endsWith("2")) {
+//    expedienteEstadoDesc = "Pendiente de Asignar Controlador";
+//   } else if(expedienteEstado.endsWith("3")) {
+//    expedienteEstadoDesc = "Terminado";
+//   } else if(expedienteEstado.endsWith("4")) {
+//    expedienteEstadoDesc = "Anulado";
+//   } else if(expedienteEstado.endsWith("5")) {
+//    expedienteEstadoDesc = "Indeterminado";
+//   } else if(expedienteEstado.endsWith("6")) {
+//    expedienteEstadoDesc = "Pendiente Archivo";
+//   } else if(expedienteEstado.endsWith("7")) {
+//    expedienteEstadoDesc = "Recepcionado (Archivo)";
+//   } else if(expedienteEstado.endsWith("8")) {
+//    expedienteEstadoDesc = "Archivado";
+//   } else if(expedienteEstado.endsWith("9")) {
+//    expedienteEstadoDesc = "Pendiente de Inicio de Trámite";
+//   } else {
+//    expedienteEstadoDesc = "Indeterminado";
+//   }
+//   logger.debug(">> Estado del expediente: " + expedienteEstado);
+//   logger.debug(">> Estado del expediente (Descripción): " + expedienteEstadoDesc); 
+//   String expedienteFecha = expediente.asObject().getString("fecha", null);
+//   logger.debug(">> Fecha del expediente: " + expedienteFecha);      
+//   logger.debug(">> Añadimos el expediente.");
+//   int position = this.expedienteTableData.size();
+//   try {     
+//    this.expedienteTableData.add(
+//     new ExpedienteTableData("#E#"+expedienteCode, expedienteInteresado, expedienteExtracto, Integer.parseInt(expedienteEstado), expedienteEstadoDesc, formatSimpleDate.parse(expedienteFecha))
+//    );      
+//   } catch(NumberFormatException e) {
+//    e.printStackTrace();
+//   } catch(ParseException e) {
+//    e.printStackTrace();
+//   }
+//   JsonArray documentos = expediente.asObject().get("documentos").asArray();
+//   for (JsonValue documento : documentos) {
+//    int documentoId = documento.asObject().getInt("id", 0);
+//    logger.debug(">> Id del documento: " + documentoId);       
+//    String documentoCode = documento.asObject().getString("code", null);
+//    logger.debug(">> Código del documento: " + documentoCode);
+//    String documentoDesc = documento.asObject().getString("desc", null);   
+//    try {
+//     documentoDesc = new String(Base64.decode(documentoDesc), "UTF-8");
+//    } catch (IOException e) {
+//    e.printStackTrace();
+//   }
+//    logger.debug(">> Descripción del documento: " + documentoDesc);  
+//    String documentoClas = documento.asObject().getString("clas", null);
+//    try {
+//     documentoClas = new String(Base64.decode(documentoClas), "UTF-8");
+//    } catch (IOException e) {
+//     e.printStackTrace();
+//    }     
+//    logger.debug(">> Clase del documento: " + documentoClas);  
+//    String documentoFecha = documento.asObject().getString("fecha", null);
+//    logger.debug(">> Fecha del documento: " + documentoFecha);  
+//    Boolean documentoFirmado = documento.asObject().getBoolean("firmado", false);
+//    logger.debug(">> Documento firmado: " + documentoFirmado);  
+//    String documentoData = documento.asObject().getString("cicloData", null);
+//    List<CicloFirmaTableData> cicloFirmaTableData = null;      
+//    if((documentoData != null) && (!documentoData.equals(""))) {
+//     try {
+//      cicloFirmaTableData = new ArrayList<CicloFirmaTableData>();         
+//   String data = "{\"cicloFirma\":[" + new String(Base64.decode(documentoData), "UTF-8") + "]}";
+//   JsonArray firmantes = Json.parse(data).asObject().get("cicloFirma").asArray();
+//   for (JsonValue firmante : firmantes) {
+// String firmanteName = firmante.asObject().getString("fullName", null);
+//    try {
+//     firmanteName = new String(Base64.decode(firmanteName), "UTF-8");
+//    } catch (IOException e) {
+//     e.printStackTrace();
+//    }  
+// String firmanteMail = firmante.asObject().getString("mail", null);
+//    try {
+//     firmanteMail = new String(Base64.decode(firmanteMail), "UTF-8");
+//    } catch (IOException e) {
+//     e.printStackTrace();
+//    }  
+// Integer firmanteIdEstado = firmante.asObject().getInt("idEstado", 0);
+// String firmanteEstado = firmante.asObject().getString("estado", null);
+//    String firmanteFecha = firmante.asObject().getString("fecha", "");
+//    Date fecha = null;
+//    if(!firmanteFecha.equals("null")) {
+//     fecha = formatCompleteDate.parse(firmanteFecha);
+//    }
+//    cicloFirmaTableData.add(new CicloFirmaTableData(firmanteName, firmanteMail, firmanteIdEstado, firmanteEstado, fecha));
+//   }
+//  } catch (UnsupportedEncodingException e) {
+//   e.printStackTrace();
+//  } catch (IOException e) {
+//   e.printStackTrace();
+//  } catch (ParseException e) {
+//   e.printStackTrace();
+//  }    
+//    }
+//    try {     
+//     this.documentoTableData.add(
+//      new DocumentoTableData(documentoId, documentoCode, position, documentoDesc, documentoClas, formatCompleteDate.parse(documentoFecha), null, documentoFirmado, cicloFirmaTableData)      
+//     );      
+//    } catch(NumberFormatException e) {
+//     e.printStackTrace();
+//    } catch(ParseException e) {
+//     e.printStackTrace();
+//    }     
+//   }    
+//  }
+//
+//  
+//  JsonArray asientos = Json.parse(jsonParametros).asObject().get("asiento").asArray();
+//  for (JsonValue asiento : asientos) {
+//   String asientoCode = asiento.asObject().getString("code", null);
+//   logger.debug(">> Código del asiento: " + asientoCode);
+//   String asientoInteresado = asiento.asObject().getString("interesado", null);
+//   logger.debug(">> Interesado del asiento: " + asientoInteresado);
+//   String asientoExtracto = asiento.asObject().getString("extracto", null);
+//   try {
+//    asientoExtracto = new String(Base64.decode(asientoExtracto), "UTF-8");
+//   } catch (IOException e) {
+//    e.printStackTrace();
+//   }    
+//   logger.debug(">> Extracto del asiento: " + asientoExtracto);   
+//   String asientoEstado = asiento.asObject().getString("estado", null);
+//   String asientoEstadoDesc = "";
+//   if(asientoEstado.endsWith("1")) {
+//    asientoEstadoDesc = "Pendiente de Asignar a Destinatario";
+//   } else if(asientoEstado.endsWith("2")) {
+//    asientoEstadoDesc = "Pendiente de Aceptación";
+//   } else if(asientoEstado.endsWith("3")) {
+//    asientoEstadoDesc = "Devuelto al Registro";
+//   } else if(asientoEstado.endsWith("4")) {
+//    asientoEstadoDesc = "Pendiente de Tramitación";
+//   } else if(asientoEstado.endsWith("5")) {
+//    asientoEstadoDesc = "Tramitación Terminada";
+//   } else if(asientoEstado.endsWith("6")) {
+//    asientoEstadoDesc = "Adjuntado a Expediente";
+//   } else if(asientoEstado.endsWith("7")) {
+//    asientoEstadoDesc = "Inicia Expediente";
+//   } else if(asientoEstado.endsWith("8")) {
+//    asientoEstadoDesc = "Anulado";
+//   } else if(asientoEstado.endsWith("9")) {
+//    asientoEstadoDesc = "Asiento en Blanco";
+//   } else if(asientoEstado.endsWith("10")) {
+//    asientoEstadoDesc = "Notificado";
+//   } else if(asientoEstado.endsWith("11")) {
+//    asientoEstadoDesc = "Anulado";
+//   } else if(asientoEstado.endsWith("12")) {
+//    asientoEstadoDesc = "Pendiente de Notificación";
+//   } else if(asientoEstado.endsWith("13")) {
+//    asientoEstadoDesc = "Pendiente de Asignar a Destinatario";
+//   } else if(asientoEstado.endsWith("14")) {
+//    asientoEstadoDesc = "Pendiente de Aceptación";
+//   } else if(asientoEstado.endsWith("15")) {
+//    asientoEstadoDesc = "Devuelto al Registro";
+//   } else if(asientoEstado.endsWith("16")) {
+//    asientoEstadoDesc = "Pendiente de Tramitación";
+//   } else if(asientoEstado.endsWith("17")) {
+//    asientoEstadoDesc = "Tramitación Terminada";
+//   } else if(asientoEstado.endsWith("18")) {
+//    asientoEstadoDesc = "Adjuntado a Expediente";
+//   } else if(asientoEstado.endsWith("19")) {
+//    asientoEstadoDesc = "Inicia Expediente";
+//   } else if(asientoEstado.endsWith("20")) {
+//    asientoEstadoDesc = "Anulado";
+//   } else if(asientoEstado.endsWith("21")) {
+//    asientoEstadoDesc = "Asiento en Blanco";
+//   } else if(asientoEstado.endsWith("22")) {
+//    asientoEstadoDesc = "Devuelto sin Notificar";
+//   } else if(asientoEstado.endsWith("23")) {
+//    asientoEstadoDesc = "Reservado";
+//   } else if(asientoEstado.endsWith("24")) {
+//    asientoEstadoDesc = "Pendiente de Envio a Destinatario";
+//   } else if(asientoEstado.endsWith("25")) {
+//    asientoEstadoDesc = "Pendiente de Envio a Destinatario";
+//   } else if(asientoEstado.endsWith("26")) {
+//    asientoEstadoDesc = "Reservado por Aplicación Externa";
+//   } else if(asientoEstado.endsWith("27")) {
+//    asientoEstadoDesc = "Reservado por Aplicación Externa";
+//   } else if(asientoEstado.endsWith("28")) {
+//    asientoEstadoDesc = "Reservado";
+//   } else if(asientoEstado.endsWith("29")) {
+//    asientoEstadoDesc = "Reservado";
+//   } else if(asientoEstado.endsWith("30")) {
+//    asientoEstadoDesc = "Pendiente de Aceptación";
+//   } else if(asientoEstado.endsWith("31")) {
+//    asientoEstadoDesc = "Inicia Expediente";
+// } else {
+//    asientoEstadoDesc = "Indeterminado";
+//   }
+//   logger.debug(">> Estado del asiento: " + asientoEstado);
+//   logger.debug(">> Estado del asiento (Descripción): " + asientoEstadoDesc); 
+//   String asientoFecha = asiento.asObject().getString("fecha", null);
+//   logger.debug(">> Fecha del asiento: " + asientoFecha);      
+//   logger.debug(">> Añadimos el asiento.");
+//   int position = this.expedienteTableData.size();
+//   try {     
+//    this.expedienteTableData.add(
+//     new ExpedienteTableData("#R#"+asientoCode, asientoInteresado, asientoExtracto, Integer.parseInt(asientoEstado), asientoEstadoDesc, formatCompleteDate.parse(asientoFecha))
+//    );      
+//   } catch(NumberFormatException e) {
+//    e.printStackTrace();
+//   } catch(ParseException e) {
+//    e.printStackTrace();
+//   }
+//   JsonArray documentos = asiento.asObject().get("documentos").asArray();
+//   for (JsonValue documento : documentos) {
+//    int documentoId = documento.asObject().getInt("id", 0);
+//    logger.debug(">> Id del documento: " + documentoId);           
+//    String documentoCode = documento.asObject().getString("code", null);
+//    logger.debug(">> Código del documento: " + documentoCode);
+//    String documentoDesc = documento.asObject().getString("desc", null);
+//    try {
+//     documentoDesc = new String(Base64.decode(documentoDesc), "UTF-8");
+//    } catch (IOException e) {
+//    e.printStackTrace();
+//   }
+//    logger.debug(">> Descripción del documento: " + documentoDesc);       
+//    String documentoClas = documento.asObject().getString("clas", null);
+//    try {
+//     documentoClas = new String(Base64.decode(documentoClas), "UTF-8");
+//    } catch (IOException e) {
+//     e.printStackTrace();
+//    }     
+//    logger.debug(">> Clase del documento: " + documentoClas);  
+//    String documentoFecha = documento.asObject().getString("fecha", null);
+//    logger.debug(">> Fecha del documento: " + documentoFecha);  
+//    Boolean documentoFirmado = documento.asObject().getBoolean("firmado", false);
+//    logger.debug(">> Documento firmado: " + documentoFirmado);     
+//    String documentoData = documento.asObject().getString("cicloData", null);
+//    List<CicloFirmaTableData> cicloFirmaTableData = null;      
+//    if((documentoData != null) && (!documentoData.equals(""))) {
+//     try {
+//      cicloFirmaTableData = new ArrayList<CicloFirmaTableData>();         
+//   String data = "{\"cicloFirma\":[" + new String(Base64.decode(documentoData), "UTF-8") + "]}";
+//   JsonArray firmantes = Json.parse(data).asObject().get("cicloFirma").asArray();
+//   for (JsonValue firmante : firmantes) {
+// String firmanteName = firmante.asObject().getString("fullName", null);
+//    try {
+//     firmanteName = new String(Base64.decode(firmanteName), "UTF-8");
+//    } catch (IOException e) {
+//     e.printStackTrace();
+//    }  
+// String firmanteMail = firmante.asObject().getString("mail", null);
+//    try {
+//     firmanteMail = new String(Base64.decode(firmanteMail), "UTF-8");
+//    } catch (IOException e) {
+//     e.printStackTrace();
+//    }  
+// Integer firmanteIdEstado = firmante.asObject().getInt("idEstado", 0);
+// String firmanteEstado = firmante.asObject().getString("estado", null);
+//    String firmanteFecha = firmante.asObject().getString("fecha", "");
+//    Date fecha = null;
+//    if(!firmanteFecha.equals("null")) {
+//     fecha = formatCompleteDate.parse(firmanteFecha);
+//    }
+//    cicloFirmaTableData.add(new CicloFirmaTableData(firmanteName, firmanteMail, firmanteIdEstado, firmanteEstado, fecha));
+//   }
+//  } catch (UnsupportedEncodingException e) {
+//   e.printStackTrace();
+//  } catch (IOException e) {
+//   e.printStackTrace();
+//  } catch (ParseException e) {
+//   e.printStackTrace();
+//  }    
+//    }
+//    try {     
+//     this.documentoTableData.add(
+//      new DocumentoTableData(documentoId, documentoCode, position, documentoDesc, documentoClas, formatCompleteDate.parse(documentoFecha), null, documentoFirmado, cicloFirmaTableData)      
+//     );      
+//    } catch(NumberFormatException e) {
+//     e.printStackTrace();
+//    } catch(ParseException e) {
+//     e.printStackTrace();
+//    }     
+//   }    
+//  }   
+  
+  
+// }
+
+
+
+}

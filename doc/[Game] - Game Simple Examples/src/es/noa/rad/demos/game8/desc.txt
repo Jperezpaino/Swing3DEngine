@@ -1,0 +1,9 @@
+Sokoban
+
+In this part of the Java 2D games tutorial, we will create a Java Sokoban game clone.
+Sokoban
+
+Sokoban is another classic computer game. It was created in 1980 by Hiroyuki Imabayashi. Sokoban means a warehouse keeper in Japanese. The player pushes boxes around a maze. The objective is to place all boxes in designated locations.
+Development
+
+We control the sokoban object with cursor keys. We can also press the R key to restart the level. When all bags are placed on the destination areas, the game is finished. We draw "Completed" string in the left upper corner of the window. 

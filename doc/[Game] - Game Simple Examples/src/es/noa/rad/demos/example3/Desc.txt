@@ -1,0 +1,4 @@
+Drawing an image
+
+When we create computer games we often work with images. In the next example we load an image and paint it on the board. 
+If you cannot locate the image file, have a look at the Displaying image in Java tutorial. 

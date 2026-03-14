@@ -1,0 +1,459 @@
+Greetings!
+
+Are you looking for a way to make your games explosions look like explosions? or maybe add some pizzazz to your boring Data-Base application? Well you’re in luck as I happen to know a whole lot about pizzazz. We are going to learn about particles in java. So we are going to make 2D particles as last time I checked java does not do 3D.
+
+Note: If you are already know how to make a basic particle system but want to learn how to make particles look good and perform well, wait for later parts in the tutorial as I will cover more than moving dots across the screen.
+
+So let’s get started!
+
+Requirements:
+
+    basic programming skills
+    basic understanding of the java2D api (know what the Graphics object is)
+    basic understanding of swing/awt
+    An IDE such as Eclipse or some way of writing and compiling code
+    + know something about game loops
+
+What you get:
+
+    A working example of particles in action
+    Better understanding of what particles are and how they work
+    Better understanding of the swing/awt api
+    Better understanding of the java2D api
+
+So as you might be able to tell this will be geared towards games and not Data-Base applications. Before we write any code lets start with looking at what particles are and no I am not talking about physics. Particles can be just about anything but for the most part, they are used to make effects like fire and smoke in CGI. You can go about creating these effects with particles in many different ways. For example there are Animated particles, Volumetric particles, Image based particles, primitive particles, etc etc etc. We will be starting with primitive particles…squares and circles.
+
+We will make a particle class but before we do that lets decide what is going into it first and maybe what methods it will need. I think we will want to know the particles location on the screen, the speed it is moving at, the size of the particle, the life of the particle (as nothing lives for ever) and finally the color of the particle because particles are a little like humans, they come in all shapes, sizes and colors. We will want an update method to you know…update the particle. The method will return a boolean signifying whether or not the particle is still alive. And a render method that will take a Graphics object as an argument so we can render our particle.
+
+Now let’s make that particle class and add all that stuff I just talked about above.
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+	
+import java.awt.Color;
+import java.awt.Graphics;
+ 
+public class Particle {
+ 
+    private int x;
+    private int y;
+    private int dx;
+    private int dy;
+    private int size;
+    private int life;
+    private Color color;
+ 
+    public boolean update(){
+ 
+    }
+ 
+    public void render(Graphics g){
+ 
+    }
+ 
+}
+
+So the x and y variables are obviously the x and y coordinate locations of the particle. Now the dx and dy variables are the speeds of the x and y coordinates. So why did we not use some variation of speedX and speedY? This is because of the way calculus defines the change in some variable over time. Do not worry we will not be doing any derivatives or integrals. Basically dx is the change in x and dy is the change in y.The rest is very self-explanatory except the update and render methods.
+
+So how is our logic going to work? What is our update and render methods going to look like? Well, let’s think about it.
+Every time we update the particle we will add the dx to x and dy to y. Then we will subtract 1 from the life of the particle. If the life is less than or equal to 0, it is dead and we will return true, else, return false.
+
+So here is our new update method
+1
+2
+3
+4
+5
+6
+7
+8
+	
+public boolean update(){
+        x += dx;
+        y += dy;
+        life--;
+        if(life <= 0)
+            return true;
+        return false;
+    }
+
+Nice I know! But what about rendering the particle? First we need to make a new Graphics2D object to work with and then we will set our color.
+The actual rendering is a little bit tricky because we want the center point of the particle to be our x and y coordinates.
+
+Lets look at the method first.
+1
+2
+3
+4
+5
+6
+7
+8
+	
+public void render(Graphics g){
+        Graphics2D g2d = (Graphics2D) g.create();
+ 
+        g2d.setColor(color);
+        g2d.fillRect(x-(size/2), y-(size/2), size, size);
+ 
+        g2d.dispose();
+    }
+
+By subtracting size/2 from both the x and y and then finishing with size, we will render a square with the center point at our x and y coordinates. Simple.
+
+Now how about a constructor? Well, our construct should be really simply.
+1
+2
+3
+4
+5
+6
+7
+8
+9
+	
+public Particle(int x, int y, int dx, int dy, int size, int life, Color c){
+        this.x = x;
+        this.y = y;
+        this.dx = dx;
+        this.dy = dy;
+        this.size = size;
+        this.life = life;
+        this.color = c;
+    }
+
+So now that are particle is done, what about all that “working example on screen” stuff?
+
+Here is the Window class I have for our little test app. I will explain everything after and do not be discouraged if you don’t understand everything that is going on.
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+	
+import java.awt.Canvas;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
+ 
+import javax.swing.JFrame;
+ 
+public class Window extends JFrame {
+ 
+    private ArrayList<Particle> particles = new ArrayList<Particle>(500);
+ 
+    private int x = 0;
+    private int y = 0;
+    private BufferStrategy bufferstrat = null;
+    private Canvas render;
+ 
+    public static void main(String[] args)
+    {
+        Window window = new Window(450, 280, "Particles: ");
+        window.pollInput();
+        window.loop();
+    }
+ 
+    public void pollInput()
+    {
+        render.addMouseListener(new MouseListener(){
+ 
+            public void mouseClicked(MouseEvent e) {
+ 
+            }
+ 
+            public void mouseEntered(MouseEvent e) {
+ 
+            }
+ 
+            public void mouseExited(MouseEvent e) {
+ 
+            }
+ 
+            public void mousePressed(MouseEvent e) {
+ 
+            }
+ 
+            public void mouseReleased(MouseEvent e) {
+ 
+            }
+ 
+        });
+    }
+ 
+    public Window( int width, int height, String title){
+        super();
+        setTitle(title);
+        setIgnoreRepaint(true);
+        setResizable(false);
+ 
+        render = new Canvas();
+        render.setIgnoreRepaint(true);
+        int nHeight = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+        int nWidth = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+        nHeight /= 2;
+        nWidth /= 2;
+ 
+        setBounds(nWidth-(width/2), nHeight-(height/2), width, height);
+        render.setBounds(nWidth-(width/2), nHeight-(height/2), width, height);
+ 
+        add(render);
+        pack();
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+ 
+        render.createBufferStrategy(2);
+        bufferstrat = render.getBufferStrategy();
+    }
+ 
+    //This is a bad game loop example but it is quick to write and easy to understand
+    //If you want to know how to do a good one use the all knowing google.
+    public void loop(){
+        while(true){
+ 
+            update();
+            render();
+ 
+            try {
+                Thread.sleep(1000/60);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+ 
+    public void update(){
+        Point p = render.getMousePosition();
+        if(p !=null ){
+            x = p.x;
+            y = p.y;
+        }
+        for(int i = 0; i <= particles.size() - 1;i++){
+            if(particles.get(i).update())
+                particles.remove(i);
+        }
+    }
+ 
+    public void render(){
+        do{
+            do{
+                Graphics2D g2d = (Graphics2D) bufferstrat.getDrawGraphics();
+                g2d.fillRect(0, 0, render.getWidth(), render.getHeight());
+ 
+                renderParticles(g2d);
+ 
+                g2d.dispose();
+             }while(bufferstrat.contentsRestored());
+              bufferstrat.show();
+        }while(bufferstrat.contentsLost());
+    }
+ 
+    public void renderParticles(Graphics2D g2d){
+        for(int i = 0; i <= particles.size() - 1;i++){
+            particles.get(i).render(g2d);
+        }
+    }
+}
+
+Let’s talk about the above. The Window class extends JFrame. We have an ArrayList to keep track of our particles, x and y int variables to keep track of where the mouse is, a BufferStrategy for double buffering, and finally a Canvas that we get our BufferStrategy from. The constructor simply sets up a window with the canvas in it so we can draw stuff to the screen. The pollInput() method gives us access to the mouse. The loop method sets up a infinite loop that will update() and render() the particles then try sleeping for a bit. This is NOT a good loop for a game or any more robust application. We are just suing it to test particles. If you want a more accurate game loop use google.
+
+ 
+
+The update method gets a point from the canvas we have named render and sets our x and y mouse location. It then updates the particles by looping through the ArrayList. The render method seems complicated but is not. We have the 2 nested do-while loops setup because I believe it makes sure that the contents of Volatile Images are not lost. Also, the java documents say that this is the best way of double buffering. In our loops we get the draw graphics from the BufferStrategy, then we clear the screen by filling a rectangle the size of our screen, draw the particles by, again, looping through the ArrayList, and finally we dispose of the graphics and tell our BufferedStrategy to blit or show what we just drew.
+
+ 
+
+Now lets add a few particles every time you click by calling a method that create different particles by a boolean argument. Lets also randomize them a bit by calling Math.random()*”our random number”
+
+ 
+
+Here is our method and the code to click for particles.
+
+ 
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+	
+public void mouseClicked(MouseEvent e) {
+                addParticle(true);addParticle(false);addParticle(true);
+                addParticle(false);addParticle(true);addParticle(false);
+            }
+ 
+            public void addParticle(boolean bool){
+                int dx,dy;
+                if(bool){
+                    dx = (int) (Math.random()*5);
+                    dy = (int) (Math.random()*5);
+                }
+                else{
+                    dx = (int) (Math.random()*-5);
+                    dy = (int) (Math.random()*-5);
+                }
+                int size = (int) (Math.random()*12);
+                int life = (int) Math.random()*(120)+380;
+                particles.add(new Particle(x,y,dx,dy,size,life,Color.blue));
+            }
+
+Click around and watch the particles go. This is the end of this tutorial. Now this is very basic. We want those special effects like fire and smoke but we have to take it one step at a time.
+In the next tutorial I am going to show you a much more object oriented approach to particles and we will build the foundations for a much more complex particle. See you then.

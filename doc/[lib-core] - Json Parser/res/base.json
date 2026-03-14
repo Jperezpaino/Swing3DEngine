@@ -1,0 +1,105 @@
+{
+ "demos" : [
+  {
+   "demoXml" : {
+    "name" : "EclipseProject",
+    "import" : [
+     "es.noa.rad.core.parser.eclipse.data.dto.EclipseProjectDTO",
+     "es.noa.rad.xml.data.XsdSchema"
+    ],
+    "schema" : [
+     {
+      "prefix" : "eclipseProject",
+      "useTagPrefix" : false,
+      "useFilePrefix" : true,
+      "package" : "es.noa.rad.eclipse.xml",
+      "dataPackage" : "data.xdto.epd",
+      "creatorPackage" : "api.creator",
+      "nameSpace" : "",
+      "useNameSpace" : false
+     }
+    ]
+   }
+  }, {
+   "demoXml" : {
+    "name" : "MusicBrainz",
+    "import" : [
+     "es.noa.rad.core.parser.eclipse.data.dto.EclipseProjectDTO",
+     "es.noa.rad.xml.data.XsdSchema"
+    ],
+    "schema" : [
+     {
+      "prefix" : "musicBrainz",
+      "useTagPrefix" : false,
+      "useFilePrefix" : true,
+      "package" : "es.noa.rad.musicbrainz.xml",
+      "dataPackage" : "data.xdto.mbd",
+      "creatorPackage" : "api.creator",
+      "nameSpace" : "",
+      "useNameSpace" : false
+     }
+    ]
+   }
+  }, {
+   "demoXml" : {
+    "name" : "Wsdl",
+    "import" : [
+     "es.noa.rad.core.parser.eclipse.data.dto.EclipseProjectDTO",
+     "es.noa.rad.xml.data.XsdSchema"
+    ],
+    "schema" : [
+     {
+      "prefix" : "xsd",
+      "useTagPrefix" : false,
+      "useFilePrefix" : true,
+      "package" : "es.noa.rad.util.xml.schema",
+      "dataPackage" : "xsd.data.xdto",
+      "creatorPackage" : "xsd.api.creator",
+      "nameSpace" : "xsd",
+      "useNameSpace" : true
+     },
+     {
+      "prefix" : "soap",
+      "useTagPrefix" : false,
+      "useFilePrefix" : true,
+      "package" : "es.noa.rad.wsdl.xml",
+      "dataPackage" : "data.xdto.soap",
+      "creatorPackage" : "api.creator",
+      "nameSpace" : "soap",
+      "useNameSpace" : true
+     },
+     {
+      "prefix" : "wsdl",
+      "useTagPrefix" : false,
+      "useFilePrefix" : true,
+      "package" : "es.noa.rad.wsdl.xml",
+      "dataPackage" : "data.xdto.wsdl",
+      "creatorPackage" : "api.creator",
+      "nameSpace" : "",
+      "useNameSpace" : false
+     }     
+    ]
+   }
+  }, {
+   "demoXml" : {
+    "name" : "SqlScript",
+    "import" : [
+     "es.noa.rad.core.parser.eclipse.data.dto.EclipseProjectDTO",
+     "es.noa.rad.xml.data.XsdSchema"
+    ],
+    "schema" : [
+     {
+      "prefix" : "sqlScript",
+      "useTagPrefix" : true,
+      "useFilePrefix" : true,
+      "package" : "es.noa.rad.scaffold.xml",
+      "dataPackage" : "data.xdto.xql",
+      "creatorPackage" : "api.creator",
+      "nameSpace" : "",
+      "useNameSpace" : false
+     } 
+    ]
+   }
+  }
+ ]
+}

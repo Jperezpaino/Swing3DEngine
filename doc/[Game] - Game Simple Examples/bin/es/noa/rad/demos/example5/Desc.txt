@@ -1,0 +1,3 @@
+Utility timer
+
+This is very similar to the previous way. We use the java.util.Timer instead of the javax.Swing.Timer. For Java Swing games this way should be more accurate. 

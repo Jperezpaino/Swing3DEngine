@@ -1,0 +1,10 @@
+Collision detection
+
+In this part of the Java 2D games tutorial we will talk about collision detection.
+
+Many games need to handle collisions, especially arcade games. Simply said, we need to detect when two objects collide on screen.
+
+In the next code example, we will expand the previous example. We add a new Alien sprite. We will detect two types of collisions: when the missile hits an alien ship and when our spacecraft collides with an alien.
+Shooting aliens
+
+In the example, we have a spacecraft and aliens. We can move the spacecraft on the board using the cursor keys. Missiles destroying aliens are launched with the spacebar key. 

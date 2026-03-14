@@ -1,0 +1,137 @@
+﻿locale.id                       en_US
+locale.name                     US English
+app.title                       PVB Emulator
+app.window_title                {NUMBER}{ROMNAME}{HYPHEN}{app.title}
+app.link_peer                   {NUMBER}{ROMNAME}
+breakpoints                     Breakpoints
+breakpoints.condition           Condition
+breakpoints.error               Error at {LINE}:{COL}:<br>{MESSAGE}
+breakpoints.err_badeof          Unexpected end of expression.
+breakpoints.err_literal         Could not process literal '{TEXT}'.
+breakpoints.err_syntax          Token '{TEXT}' not expected here.
+breakpoints.err_unknown         Unrecognized token beginning with '{TEXT}'.
+breakpoints.execute             Execute
+breakpoints.frame               Frame
+breakpoints.new                 New Breakpoint
+breakpoints.read                Read
+breakpoints.write               Write
+common.address                  Address
+common.delete                   Delete
+common.enabled                  Enabled
+common.end                      End
+common.index                    Index
+common.left                     Left
+common.misc                     Misc.
+common.name                     Name
+common.new                      New
+common.properties               Properties
+common.right                    Right
+common.start                    Start
+common.type                     Type
+common.unknown                  Unknown
+common.x                        X
+common.y                        Y
+components                      Components
+console                         Console
+cpu                             CPU
+cpu.exception                   Exception
+dasm.return                     Return
+dialog.bad_address              Error processing address:
+dialog.bad_type                 The expression must evaluate to an integer.
+dialog.enter_address            Enter an address to seek to:
+dialog.goto                     Go to
+dialog.isx_roms                 Intelligent Systems debugger files
+dialog.load                     Load
+dialog.load_rom                 Load ROM
+dialog.load_sram                Load SRAM
+dialog.save                     Save
+dialog.save_rom                 Save ROM
+dialog.save_sram                Save SRAM
+dialog.select_rom               Select ROM file
+dialog.select_sram              Select SRAM file
+dialog.vb_roms                  Virtual Boy ROMs
+error.file_read                 An error occurred while reading the file.
+error.not_rom                   The selected file does not appear to be a Virtual Boy ROM.
+menu.debug                      Debug
+menu.debug.rom_info             ROM Info
+menu.emulation                  Emulation
+menu.emulation.disconnect       Disconnect
+menu.emulation.frame_advance    Frame Advance
+menu.emulation.link             Link
+menu.emulation.reset            Reset
+menu.emulation.run_pause        Run/Pause
+menu.emulation.step             Step
+menu.emulation.step_over        Step Over
+menu.file                       File
+menu.file.debug_mode            Debug Mode
+menu.file.exit                  Exit
+menu.file.load                  Load...
+menu.file.load_rom              Load ROM...
+menu.file.new                   New...
+menu.file.new_window            New Window
+menu.file.reload                Reload
+menu.file.rom                   ROM
+menu.file.rom_size              ROM Size...
+menu.file.save                  Save
+menu.file.save_as               Save As...
+menu.file.size                  Size...
+menu.file.sram                  SRAM
+menu.file.state                 State
+menu.settings                   Settings
+menu.settings.audio             Audio...
+menu.settings.input             Input...
+menu.settings.settings          Settings...
+menu.settings.video             Video...
+mouse.down                      Wheel Down
+mouse.left                      Left Button
+mouse.middle                    Middle Button
+mouse.right                     Right Button
+mouse.up                        Wheel Up
+vip                             VIP
+vip.affine                      Affine
+vip.bg_height                   BG height
+vip.bg_maps                     BG Maps
+vip.bg_width                    BG width
+vip.buffer                      Buffer
+vip.cell                        Cell
+vip.character                   Character
+vip.characters                  Characters
+vip.colors                      Colors
+vip.delta_x                     Delta X
+vip.delta_y                     Delta Y
+vip.dest_parallax               Dest parallax
+vip.dest_x                      Dest X
+vip.dest_y                      Dest Y
+vip.display                     Display
+vip.drawing                     Drawing
+vip.end                         End
+vip.frame                       Frame
+vip.frame_buffers               Frame Buffers
+vip.generic                     Generic
+vip.generic_colors              Generic colors
+vip.group                       Group
+vip.height                      Height
+vip.hbias                       H-bias
+vip.hflip                       H-flip
+vip.interrupt                   Interrupt
+vip.map                         Map
+vip.map_base                    Map Base
+vip.mirror                      Mirror
+vip.mode                        Mode
+vip.normal                      Normal
+vip.object                      Object
+vip.objects                     Objects
+vip.overplane                   Overplane
+vip.palette                     Palette
+vip.parallax                    Parallax
+vip.params                      Params
+vip.registers                   Registers
+vip.scale                       Scale
+vip.show_grid                   Show grid
+vip.src_parallax                Src parallax
+vip.src_x                       Src X
+vip.src_y                       Src Y
+vip.vflip                       V-flip
+vip.width                       Width
+vip.worlds                      Worlds
+vsu                             VSU

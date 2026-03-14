@@ -1,0 +1,3 @@
+Donut
+
+The objects on the board are either images or are drawn with the painting tools provided by the Java 2D API. In the next example, we draw a donut shape. 

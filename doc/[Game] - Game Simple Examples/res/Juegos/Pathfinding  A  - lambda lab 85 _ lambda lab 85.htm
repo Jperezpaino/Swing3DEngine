@@ -1,0 +1,841 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html class="js" xmlns="http://www.w3.org/1999/xhtml" prefix="og: http://ogp.me/ns#" lang="es-ES"><head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Pathfinding: A* - lambda lab 85 | lambda lab 85</title>
+<link rel="canonical" href="http://www.lanshor.com/pathfinding-a-estrella/">
+<link rel="shortcut icon" type="image/x-icon" href="http://www.lanshor.com/favicon.ico">
+<link rel="stylesheet" href="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/style_002.css" type="text/css" media="screen">
+<link rel="alternate" type="application/rss+xml" title="lambda lab 85 RSS Feed" href="http://www.lanshor.com/feed/">
+<link rel="alternate" type="application/atom+xml" title="lambda lab 85 Atom Feed" href="http://www.lanshor.com/feed/atom/">
+<link rel="pingback" href="http://www.lanshor.com/xmlrpc.php">
+
+<!--[if lt IE 7]>
+	<link rel="stylesheet" type="text/css" href="http://www.lanshor.com/wp-content/themes/OnTheGo/ie6style.css" />
+	<script type="text/javascript" src="http://www.lanshor.com/wp-content/themes/OnTheGo/js/DD_belatedPNG_0.0.8a-min.js"></script>
+	<script type="text/javascript">DD_belatedPNG.fix('ul#top-menu li ul, ul#top-menu li ul li.dropdown-bottom, img#logo, div#manlayer, ul.control li.recent a, div.entries h3 span, .widget_entries h3, #buildings');</script>
+<![endif]-->
+<!--[if IE 7]>
+	<link rel="stylesheet" type="text/css" href="http://www.lanshor.com/wp-content/themes/OnTheGo/ie7style.css" />
+<![endif]-->
+
+<script src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/analytics.js" async=""></script><script type="text/javascript">
+	document.documentElement.className = 'js';
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-43848440-1', 'lanshor.com');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.7.4 - https://yoast.com/wordpress/plugins/seo/ -->
+<link rel="canonical" href="http://www.lanshor.com/pathfinding-a-estrella/">
+<meta property="og:locale" content="es_ES">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pathfinding: A* - lambda lab 85">
+<meta property="og:description" content="Introducción La búsqueda de caminos (pathfinding) es un …">
+<meta property="og:url" content="http://www.lanshor.com/pathfinding-a-estrella/">
+<meta property="og:site_name" content="lambda lab 85">
+<meta property="article:tag" content="a*,canvas,ia,javascript,juegos,pathfinding">
+<meta property="article:section" content="Inteligencia Artificial">
+<meta property="article:published_time" content="2014-04-12T18:49:34+00:00">
+<meta property="article:modified_time" content="2014-04-12T19:06:01+00:00">
+<meta property="og:updated_time" content="2014-04-12T19:06:01+00:00">
+<meta property="og:image" content="http://www.lanshor.com/wp-content/uploads/2014/04/path1.png">
+<meta property="og:image" content="http://www.lanshor.com/wp-content/uploads/2014/04/path2.png">
+<meta property="og:image" content="http://www.lanshor.com/wp-content/uploads/2014/04/path3.png">
+<meta property="og:image" content="http://www.lanshor.com/wp-content/uploads/2014/04/path4.png">
+<meta property="og:image" content="http://www.lanshor.com/wp-content/uploads/2014/04/path6.png">
+<meta property="og:image" content="http://www.lanshor.com/wp-content/uploads/2014/04/pff0-1024x512.png">
+<meta property="og:image" content="http://www.lanshor.com/wp-content/uploads/2014/04/pff1-1024x512.png">
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel="alternate" type="application/rss+xml" title="lambda lab 85 » Feed" href="http://www.lanshor.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="lambda lab 85 » RSS de los comentarios" href="http://www.lanshor.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="lambda lab 85 » Pathfinding: A* RSS de los comentarios" href="http://www.lanshor.com/pathfinding-a-estrella/feed/">
+<meta content="OnTheGo v.4.0" name="generator"><link rel="stylesheet" id="theme-my-login-css" href="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/theme-my-login.css" type="text/css" media="all">
+<link rel="stylesheet" id="cptch_stylesheet-css" href="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/style.css" type="text/css" media="all">
+<link rel="stylesheet" id="ssbaFont-css" href="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/css.css" type="text/css" media="all">
+<link rel="stylesheet" id="theme-my-login-ajax-css" href="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/ajax.css" type="text/css" media="all">
+<link rel="stylesheet" id="et-shortcodes-css-css" href="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/shortcodes.css" type="text/css" media="all">
+<link rel="stylesheet" id="thickbox-css" href="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/thickbox.css" type="text/css" media="all">
+<link rel="stylesheet" id="fancybox-css" href="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/jquery.css" type="text/css" media="screen">
+<link rel="stylesheet" id="et_page_templates-css" href="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/page_templates.css" type="text/css" media="screen">
+<script type="text/javascript" src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/jquery_002.js"></script>
+<script type="text/javascript" src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/jquery-migrate.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wpAjax = {"noPerm":"No tienes autorizaci\u00f3n para hacer eso.","broken":"Ha ocurrido un error no identificado."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/wp-ajax-response.js"></script>
+<script type="text/javascript" src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/ajax.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var thickboxL10n = {"next":"Siguiente >","prev":"< Anterior","image":"Imagen","of":"de","close":"Cerrar","noiframes":"Esta funci\u00f3n requiere de frames insertados. Tienes los iframes desactivados o tu navegador no los soporta.","loadingAnimation":"http:\/\/www.lanshor.com\/wp-content\/plugins\/auto-thickbox-plus\/images\/loadingAnimation.gif","closeImage":"http:\/\/www.lanshor.com\/wp-content\/plugins\/auto-thickbox-plus\/images\/tb-close.png"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/thickbox.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.lanshor.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.lanshor.com/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 4.1.1">
+<link rel="shortlink" href="http://www.lanshor.com/?p=338">
+<style type="text/css">	.ssba {
+											
+											
+											
+											
+										}
+										.ssba img		
+										{ 	
+											width: 35px !important;
+											padding: 6px;
+											border:  0;
+											box-shadow: none !important;
+											display: inline !important;
+											vertical-align: middle;
+										}
+										.ssba, .ssba a		
+										{
+											text-decoration:none;
+											background: none;
+											font-family: Indie Flower;
+											font-size: 	20px;
+											
+											
+										}.ssba_sharecount:after, .ssba_sharecount:before {
+											right: 100%;
+											border: solid transparent;
+											content: " ";
+											height: 0;
+											width: 0;
+											position: absolute;
+											pointer-events: none;
+										}
+										.ssba_sharecount:after {
+											border-color: rgba(224, 221, 221, 0);
+											border-right-color: #f5f5f5;
+											border-width: 5px;
+											top: 50%;
+											margin-top: -5px;
+										}
+										.ssba_sharecount:before {
+											border-color: rgba(85, 94, 88, 0);
+											border-right-color: #e0dddd;
+											border-width: 6px;
+											top: 50%;
+											margin-top: -6px;
+										}
+										.ssba_sharecount {
+											font: 11px Arial, Helvetica, sans-serif;
+											
+											padding: 5px;
+											-khtml-border-radius: 6px;
+											-o-border-radius: 6px;
+											-webkit-border-radius: 6px;
+											-moz-border-radius: 6px;
+											border-radius: 6px;
+											position: relative;
+											border: 1px solid #e0dddd;color: #555e58;
+												background: #f5f5f5;
+											}
+											.ssba_sharecount:after {
+												border-right-color: #f5f5f5;
+											}</style>	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+<link href="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/shCore.css" type="text/css" rel="stylesheet"><link href="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/shThemeDefault.css" type="text/css" rel="stylesheet"><style type="text/css" id="syntaxhighlighteranchor"></style>
+<!-- Auto ThickBox Plus by attosoft (http://attosoft.info/en/) -->
+<script type="text/javascript">
+/* <![CDATA[ */
+jQuery(function($) {
+	var links = $('a[href][href!=""]').filter(function() {
+		// No ThickBox
+		var nothickbox = ['nothickbox', 'no_thickbox'];
+		for (var i = 0; i < nothickbox.length; i++)
+			if ($(this).hasClass(nothickbox[i])) return false;
+		// Links with target attribute
+		if ($(this).is('[target][target!=""]')) return false;
+
+		return true;
+	});
+
+	// Images
+	var imageRegex = /\.(jpe?g|gif|png|bmp|webp)($|[?&#])/i;
+	var images = links.filter(function() {
+		return imageRegex.test($(this).attr('href'));
+	});
+	images.addClass('thickbox');
+
+	// Others
+	var others = links.filter(function() {
+		return !imageRegex.test($(this).attr('href'));
+	});
+	others.filter('.thickbox').not('[href*="TB_iframe"]').not('[href*="#TB_inline"]').each(function() {
+		var href = $(this).attr('href');
+		if (href.indexOf('://') != -1 && href.indexOf(location.host) == -1) {
+			// Add 'TB_iframe' to external URL
+			var hashIndex = href.indexOf('#');
+			var before = hashIndex == -1 ? href : href.substring(0, hashIndex);
+			var after = hashIndex == -1 ? '' : href.substring(hashIndex);
+			$(this).attr('href', before + (before.indexOf('?') == -1 ? '?' : '&') + 'TB_iframe' + after);
+		}
+	});
+	others.filter('[href*="TB_iframe"]').add('[href*="#TB_inline"]').addClass('thickbox');
+
+	// for WordPress 2.7.x (jQuery 1.2.6)
+	if (!$.isFunction($().live))
+		tb_init('a.thickbox');
+
+	// Set a different gallery-id for each WordPress Gallery
+	$('div.gallery').each(function() {
+		if (this.id)
+			$(this).find('a.thickbox').attr('rel', this.id);
+	});
+});
+
+/* ]]> */
+</script>
+	<style type="text/css">
+		#et_pt_portfolio_gallery { margin-left: -19px; }
+		.et_pt_portfolio_item { margin-left: 1px; }
+		.et_portfolio_small { margin-left: -40px !important; }
+		.et_portfolio_small .et_pt_portfolio_item { margin-left: 30px !important; }
+		.et_portfolio_large { margin-left: -16px !important; }
+		.et_portfolio_large .et_pt_portfolio_item { margin-left: 1px !important; }
+	</style>
+
+</head>
+<body class="single single-post postid-338 single-format-standard gecko et_includes_sidebar">
+
+	<div class="container">
+		<div id="header">
+							<ul id="top-menu" class="superfish nav sf-js-enabled">
+											<li><a href="http://www.lanshor.com/">Inicio</a></li>
+					
+						<li class="cat-item cat-item-2"><a href="http://www.lanshor.com/category/citas/">Citas</a>
+</li>
+	<li class="cat-item cat-item-40"><a href="http://www.lanshor.com/category/miscelanea/">Miscelánea</a>
+</li>
+	<li class="cat-item cat-item-66"><a href="http://www.lanshor.com/category/piece-of-code/">Piece of code</a>
+</li>
+	<li class="cat-item cat-item-11"><a href="http://www.lanshor.com/category/problemas/">Problemas</a>
+</li>
+
+									</ul> <!-- end ul.nav -->
+					</div> <!-- end header -->
+
+		<div id="contentwrap">
+			<div id="content">
+
+				<div id="manlayer"></div>
+
+				<!-- LOGO -->
+				<div id="logowrap">
+					<a href="http://www.lanshor.com/">						<img src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/logo.png" alt="lambda lab 85" id="logo"></a>
+				</div>
+				<!-- end LOGO -->
+
+				<div id="main-area" class="clearfix">
+	<div id="main-content">
+									<div class="entry category clearfix">
+
+					<h1 id="post-title"><span>Pathfinding: A*</span></h1>
+
+					<div class="cat-meta-top"></div>
+
+	<p class="post-meta"><span>Publicado  por <a href="http://www.lanshor.com/author/lanshor/" title="Entradas de LaNsHoR" rel="author">LaNsHoR</a> el 12/04/2014 en <a href="http://www.lanshor.com/category/inteligencia-artificial/" rel="category tag">Inteligencia Artificial</a> | <a href="http://www.lanshor.com/pathfinding-a-estrella/#comments" title="Comentarios en Pathfinding: A*">3 comentarios</a></span></p>
+
+<div class="cat-meta-bottom"></div>
+											
+						
+					
+					<h2>Introducción</h2>
+<p>La búsqueda de caminos (pathfinding) es uno de mis problemas 
+favoritos de todos los tiempos y una de las cosas que más he disfrutado 
+programando; por un montón de razones… La primera, es que los humanos 
+creemos erróneamente que es algo que hacemos muy bien, y sólo cuando nos
+ comparamos con una máquina tomamos consciencia de cómo únicamente 
+logramos buenos resultados en entorno sencillos. Por ejemplo, en la 
+imagen siguiente, si estamos en la casilla del círculo marrón y tenemos 
+que ir a la casilla del círculo rojo; y las casillas grises representan 
+un muro, ninguno tenemos problema en esquivar el muro y trazar el camino
+ más corto hacia nuestro destino: la casilla del círculo rojo.</p>
+<p><img src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/path1.png" alt="path1" class="aligncenter size-full wp-image-599" height="250" width="350"></p>
+<p>Sin embargo, en la vida real, al conducir o pasear por la calle, no 
+calculamos los caminos entre origen y destino de forma tan matemática 
+como pensamos, y nos dejamos llevar por las anchuras de las avenidas, 
+otros caminos que ya conocemos, la cantidad de luz de una calle, etc. El
+ resultado es que nosotros siempre nos sentimos 100% satisfechos con el 
+camino que hemos elegido, pero muy rara vez este camino es el óptimo; ni
+ el más corto, ni el más rápido.</p>
+<p>Me gusta además su enorme utilidad, tendremos que diseñar una solución al problema en cualquier entorno con <a href="http://es.wikipedia.org/wiki/Agente_inteligente_%28inteligencia_artificial%29">agentes inteligentes</a>,
+ sistemas robóticos, videojuegos, etc. Y, además, a pesar de su 
+enunciado sencillo, rara vez a los programadores que se enfrentan al 
+problema por primera vez se les ocurre alguna solución que no esté 
+basada en <a href="http://es.wikipedia.org/wiki/Vuelta_atr%C3%A1s">backtracking</a>.</p>
+<p>La solución “universal” que durante muchos años ha servido de guía a este problema es el algoritmo <span style="text-decoration: underline;">A-Estrella</span>
+ (escrito A*). Un algoritmo muy sencillo que ofrece buenos resultados, y
+ ha estado presente en casi todas las aplicaciones de búsqueda de 
+caminos desde el principio de los tiempos hasta la última década.</p>
+<p>Vamos a describir en qué consiste y luego lo implementaremos en Javascript.</p>
+<h2>Desglose y trazas: A*</h2>
+<p>El problema inicial, como hemos visto, trata de trazar el camino para ir del punto A (círculo marrón) al punto B (círculo rojo).</p>
+<p><img src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/path1.png" alt="path1" class="aligncenter size-full wp-image-599" height="250" width="350"></p>
+<p><strong>Idea general:</strong></p>
+<p>La primera operación a realizar, es dividir el espacio en casillas. 
+En nuestro ejemplo las casillas son cuadradas, pero realmente podremos 
+adaptar el algoritmo a dividir el espacio de la forma que deseemos 
+(triángulos, hexágonos, etc). A partir de ahora cada casilla será una 
+celda espacial (crearemos una estructura de datos que la represente) 
+relacionada con sus adyacentes y con su “padre”; el padre será la celda 
+por la cual hemos llegado a tener en cuenta a la actual como posible 
+candidata a formar parte del camino final.</p>
+<p>Aspectos:</p>
+<p><strong>1)</strong> Tener dos listas de celdas; una abierta y una 
+cerrada. En la lista abierta iremos introduciendo celdas que tenemos que
+ evaluar, para ver si son buenas candidatas a formar parte del camino 
+final. En la lista cerrada introduciremos las celdas ya evaluadas.</p>
+<p><strong>2)</strong> La evaluación de las celdas se hace en base a dos
+ factores: la longitud del camino más corto para llegar desde el punto 
+de origen a la celda actual, y la estimación del camino más corto que 
+podría quedar para llegar al destino. La estimación para el destino se 
+hace usando una función <a href="http://es.wikipedia.org/wiki/Heur%C3%ADstica_%28inform%C3%A1tica%29">heurística</a>, en concreto se suele usar la <a href="http://es.wikipedia.org/wiki/Distancia_Manhattan">Distancia Manhattan</a>,
+ que esencialmente consiste en contar cuantas celdas nos separan del 
+destino vertical y horizontalmente, sin movimientos verticales; como si 
+estuviéramos recorriendo manzanas en una gran ciudad y no pudiéramos 
+atravesarlas, sólo bordearlas; de ahí viene el nombre.</p>
+<div class="et-box et-shadow">
+					<div class="et-box-content"><h4>Algoritmo</h4>
+<p><strong>Paso 0</strong>
+Añadimos la celda origen a la lista abierta.</p>
+<p><strong>Paso 1</strong>
+Cogemos el primer elemento de la lista abierta y lo sacamos y lo insertamos en la lista cerrada.</p>
+<p><strong>Paso 2</strong>
+Cogemos las celdas adyacentes a la celda extraída.</p>
+<p><strong>Paso 3</strong>
+Para cada celda adyacente:</p>
+<p><strong>A)</strong> Si la celda es la celda destino, hemos terminado.
+ Recorremos inversamente la cadena de padres hasta llegar al origen para
+ obtener el camino.</p>
+<p><strong>B)</strong> Si la celda representa un muro o terreno infranqueable; la ignoramos.</p>
+<p><strong>C)</strong> Si la celda ya está en la lista cerrada, la ignoramos.</p>
+<p><strong>D)</strong> Si la celda ya está en la lista abierta, 
+comprobamos si su nueva G (lo veremos más adelante) es mejor que la 
+actual, en cuyo caso recalculamos factores (lo veremos más adelante) y 
+ponemos como padre de la celda a la celda extraída. En caso de que no 
+sea mejor, la ignoramos.</p>
+<p><strong>E)</strong> Para el resto de celdas adyacentes, les establecemos como padre la celda extraída y recalculamos factores.</p>
+<p><strong>Paso 4</strong>
+Ordenamos la lista abierta. La lista abierta es una lista ordenada de forma ascendente en función del factor F de las celdas.</p>
+<p><strong>Paso 5</strong>
+Volver al paso 1.</p></div></div>
+<p><strong>Factores</strong></p>
+<p>Cada celda va a tener 3 factores. G, H y F.</p>
+<p>– G: Es el coste de ir desde la celda origen a la celda actual. Cada 
+vez que nos movamos un paso en horizontal o vertical, añadiremos 10 
+puntos de coste. Cada vez que nos movamos en diagonal, añadiremos 14. 
+¿Por qué 14? Porque aunque geométricamente la proporción exacta debería 
+ser 14.14213 {sqrt(10*10+10*10)}, 14 es una buena aproximación entera 
+que nos hará ganar velocidad al evitar el uso de coma flotante (nota: en
+ javascript en realidad esta mejora no se aplica, ya que todos los 
+números se tratan como floats internamente).</p>
+<p>– H: Es la distancia mínima y optimista, sin usar diagonales, que 
+queda hasta el destino. La heurística basada en Distancia Manhattan de 
+la que hemos hablado antes.</p>
+<p>– F: Es la suma de G y H.</p>
+<h4>Traza explicada</h4>
+<p><strong>Iteración 1</strong></p>
+<p><img src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/path2.png" alt="path2" class="aligncenter size-full wp-image-600" height="250" width="350"></p>
+<p>Tras la primera iteración, la celda origen queda en la lista cerrada 
+(border violeta). Las adyacentes quedan en la lista abierta (borde 
+rojo). Las celdas tienen sus tres valores G, H y F calculados. La F 
+aparece en la esquina superior izquierda de cada celda. La G en la 
+inferior izquierda. La F en la inferior derecha.</p>
+<p>Además cada celda tiene una bolita azul que indica qué celda es su 
+padre, tras esta iteración, todas las celdas de la lista abierta tienen 
+como padre a la celda origen.</p>
+<p><strong>Iteración 2</strong></p>
+<p><img src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/path3.png" alt="path3" class="aligncenter size-full wp-image-601" height="250" width="350"></p>
+<p>En esta iteración hemos añadido la celda a la derecha (la de menor F 
+de la lista abierta) de la celda origen a la lista cerrada (borde 
+violeta). No se han producido más cambios.</p>
+<p><strong>Iteración 3</strong></p>
+<p><img src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/path4.png" alt="path4" class="aligncenter size-full wp-image-602" height="250" width="350"></p>
+<p>Se añade la celda superior derecha desde el origen a la lista cerrada
+ (es la de menor F de la lista abierta) y se añaden las adyacentes que 
+no estaban ya.</p>
+<p><strong>Iteración N</strong></p>
+<p>Y algoritmo sigue. De forma sencilla, hasta alcanzar el objetivo:</p>
+<p><img src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/path6.png" alt="path6" class="aligncenter size-full wp-image-604" height="250" width="350"></p>
+<h4>Ejecución de traza interactiva I</h4>
+<p><script src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/path.js"></script>Podéis ejecutar el algoritmo paso a paso haciendo clic en la imagen inicial siguiente. Cada clic equivale a una iteración:</p>
+<div style="text-align:center"><canvas id="pf1c" width="350" height="250" onclick="pf1next(event)" style="cursor:pointer;border:3px dotted #000"></canvas></div>
+<p><script>
+var pf1=0x0;
+function init_pf1()
+{
+   var map=new Map(7,5,50,pf1c);
+   map.origin={x:1,y:2};
+   map.destiny={x:5,y:2};
+   map.fill(map.terrains.ground)
+   map.rect(map.terrains.wall, 3, 1, 1, 3);
+   map.render();
+   pf1=new Pathfinding(map);
+}
+init_pf1();
+function pf1next(event)
+{
+   if(pf1.ended)
+      init_pf1();
+   event.preventDefault();
+   pf1.next();
+   return false;
+}
+</script></p>
+<h4>Ejecución de traza interactiva II</h4>
+<p>Vamos a darle más juego al algoritmo. Podemos añadir fácilmente tipos
+ de terrenos con diferentes costes a la hora de transitarlos. En el 
+siguiente ejemplo vamos a usar los siguientes tipos de terreno:</p>
+<p>– Césped (verde claro): Movimiento al 100%<br>
+– Bosque (verde oscuro): Movimiento al 75% de la velocidad normal<br>
+– Agua (azul claro): Movimiento al 50% de la velocidad normal<br>
+– Agua profunda (azul oscuro): Movimiento al 10% de la velocidad normal<br>
+– Muro (gris): Infranqueable (0% de velocidad)<br>
+– Puente de madera (marrón): Movimiento al 90% de la velocidad normal</p>
+<p>El escenario es el siguiente:</p>
+<p><a class="thickbox" href="http://www.lanshor.com/wp-content/uploads/2014/04/pff0.png"><img src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/pff0-1024x512.png" alt="pff0" class="aligncenter size-large wp-image-658" style="width:870px"></a></p>
+<p>Y el resultado (<strong>clic en la imagen para ampliar</strong>):</p>
+<p><a class="thickbox" href="http://www.lanshor.com/wp-content/uploads/2014/04/pff1.png"><img src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/pff1-1024x512.png" alt="pff1" class="aligncenter size-large wp-image-659" style="width:870px"></a></p>
+<p>Podéis ejecutarlo paso a paso en la siguiente simulación (tened en 
+cuenta que habrá interacciones vacías que sólo eliminan nodos). Cada 
+clic en el mapa será una iteración.</p>
+<div style="text-align:center"><canvas id="pf2c" width="1500" height="750" onclick="pf2next(event)" style="cursor:pointer;border:3px dotted #000;max-width:850px"></canvas></div>
+<p><script>
+var pf2=0x0;
+function init_pf2()
+{
+var map=new Map(30,15,50,pf2c);
+map.fill(map.terrains.ground)
+map.rect(map.terrains.wall, 4, 2, 2, 6);
+map.rect(map.terrains.water, 8, 0, 4, 15);
+map.rect(map.terrains.deep_water, 9, 0, 2, 15);
+map.rect(map.terrains.forest, 13, 6, 5, 5);
+map.rect(map.terrains.water, 15, 1, 4, 4);
+map.rect(map.terrains.deep_water, 16, 2, 2, 2);
+map.rect(map.terrains.wall, 19, 3, 1, 6);
+map.rect(map.terrains.bridge, 8, 10, 4, 1);
+map.origin={x:2,y:2};
+map.destiny={x:27,y:4};
+map.render();
+pf2=new Pathfinding(map);
+}
+init_pf2();
+function pf2next(event)
+{
+   if(pf2.ended)
+      init_pf2();
+   event.preventDefault();
+   pf2.next();
+   return false;
+}
+</script></p>
+<h4>Y por último… lo más importante; el código <img src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/icon_wink.gif" alt=";)" class="wp-smiley"></h4>
+<p>Como siempre, si tenéis cualquier duda, preguntadme <img src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/icon_smile.gif" alt=":)" class="wp-smiley"></p>
+<p>Os recomiendo leerlo despacio y entenderlo (es muy sencillo y claro). Se lee bien.</p>
+<div style="width:850px">
+<div><div id="highlighter_809440" class="syntaxhighlighter  jscript"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div><div class="line number29 index28 alt2">29</div><div class="line number30 index29 alt1">30</div><div class="line number31 index30 alt2">31</div><div class="line number32 index31 alt1">32</div><div class="line number33 index32 alt2">33</div><div class="line number34 index33 alt1">34</div><div class="line number35 index34 alt2">35</div><div class="line number36 index35 alt1">36</div><div class="line number37 index36 alt2">37</div><div class="line number38 index37 alt1">38</div><div class="line number39 index38 alt2">39</div><div class="line number40 index39 alt1">40</div><div class="line number41 index40 alt2">41</div><div class="line number42 index41 alt1">42</div><div class="line number43 index42 alt2">43</div><div class="line number44 index43 alt1">44</div><div class="line number45 index44 alt2">45</div><div class="line number46 index45 alt1">46</div><div class="line number47 index46 alt2">47</div><div class="line number48 index47 alt1">48</div><div class="line number49 index48 alt2">49</div><div class="line number50 index49 alt1">50</div><div class="line number51 index50 alt2">51</div><div class="line number52 index51 alt1">52</div><div class="line number53 index52 alt2">53</div><div class="line number54 index53 alt1">54</div><div class="line number55 index54 alt2">55</div><div class="line number56 index55 alt1">56</div><div class="line number57 index56 alt2">57</div><div class="line number58 index57 alt1">58</div><div class="line number59 index58 alt2">59</div><div class="line number60 index59 alt1">60</div><div class="line number61 index60 alt2">61</div><div class="line number62 index61 alt1">62</div><div class="line number63 index62 alt2">63</div><div class="line number64 index63 alt1">64</div><div class="line number65 index64 alt2">65</div><div class="line number66 index65 alt1">66</div><div class="line number67 index66 alt2">67</div><div class="line number68 index67 alt1">68</div><div class="line number69 index68 alt2">69</div><div class="line number70 index69 alt1">70</div><div class="line number71 index70 alt2">71</div><div class="line number72 index71 alt1">72</div><div class="line number73 index72 alt2">73</div><div class="line number74 index73 alt1">74</div><div class="line number75 index74 alt2">75</div><div class="line number76 index75 alt1">76</div><div class="line number77 index76 alt2">77</div><div class="line number78 index77 alt1">78</div><div class="line number79 index78 alt2">79</div><div class="line number80 index79 alt1">80</div><div class="line number81 index80 alt2">81</div><div class="line number82 index81 alt1">82</div><div class="line number83 index82 alt2">83</div><div class="line number84 index83 alt1">84</div><div class="line number85 index84 alt2">85</div><div class="line number86 index85 alt1">86</div><div class="line number87 index86 alt2">87</div><div class="line number88 index87 alt1">88</div><div class="line number89 index88 alt2">89</div><div class="line number90 index89 alt1">90</div><div class="line number91 index90 alt2">91</div><div class="line number92 index91 alt1">92</div><div class="line number93 index92 alt2">93</div><div class="line number94 index93 alt1">94</div><div class="line number95 index94 alt2">95</div><div class="line number96 index95 alt1">96</div><div class="line number97 index96 alt2">97</div><div class="line number98 index97 alt1">98</div><div class="line number99 index98 alt2">99</div><div class="line number100 index99 alt1">100</div><div class="line number101 index100 alt2">101</div><div class="line number102 index101 alt1">102</div><div class="line number103 index102 alt2">103</div><div class="line number104 index103 alt1">104</div><div class="line number105 index104 alt2">105</div><div class="line number106 index105 alt1">106</div><div class="line number107 index106 alt2">107</div><div class="line number108 index107 alt1">108</div><div class="line number109 index108 alt2">109</div><div class="line number110 index109 alt1">110</div><div class="line number111 index110 alt2">111</div><div class="line number112 index111 alt1">112</div><div class="line number113 index112 alt2">113</div><div class="line number114 index113 alt1">114</div><div class="line number115 index114 alt2">115</div><div class="line number116 index115 alt1">116</div><div class="line number117 index116 alt2">117</div><div class="line number118 index117 alt1">118</div><div class="line number119 index118 alt2">119</div><div class="line number120 index119 alt1">120</div><div class="line number121 index120 alt2">121</div><div class="line number122 index121 alt1">122</div><div class="line number123 index122 alt2">123</div><div class="line number124 index123 alt1">124</div><div class="line number125 index124 alt2">125</div><div class="line number126 index125 alt1">126</div><div class="line number127 index126 alt2">127</div><div class="line number128 index127 alt1">128</div><div class="line number129 index128 alt2">129</div><div class="line number130 index129 alt1">130</div><div class="line number131 index130 alt2">131</div><div class="line number132 index131 alt1">132</div><div class="line number133 index132 alt2">133</div><div class="line number134 index133 alt1">134</div><div class="line number135 index134 alt2">135</div><div class="line number136 index135 alt1">136</div><div class="line number137 index136 alt2">137</div><div class="line number138 index137 alt1">138</div><div class="line number139 index138 alt2">139</div><div class="line number140 index139 alt1">140</div><div class="line number141 index140 alt2">141</div><div class="line number142 index141 alt1">142</div><div class="line number143 index142 alt2">143</div><div class="line number144 index143 alt1">144</div><div class="line number145 index144 alt2">145</div><div class="line number146 index145 alt1">146</div><div class="line number147 index146 alt2">147</div><div class="line number148 index147 alt1">148</div><div class="line number149 index148 alt2">149</div><div class="line number150 index149 alt1">150</div><div class="line number151 index150 alt2">151</div><div class="line number152 index151 alt1">152</div><div class="line number153 index152 alt2">153</div><div class="line number154 index153 alt1">154</div><div class="line number155 index154 alt2">155</div><div class="line number156 index155 alt1">156</div><div class="line number157 index156 alt2">157</div><div class="line number158 index157 alt1">158</div><div class="line number159 index158 alt2">159</div><div class="line number160 index159 alt1">160</div><div class="line number161 index160 alt2">161</div><div class="line number162 index161 alt1">162</div><div class="line number163 index162 alt2">163</div><div class="line number164 index163 alt1">164</div><div class="line number165 index164 alt2">165</div><div class="line number166 index165 alt1">166</div><div class="line number167 index166 alt2">167</div><div class="line number168 index167 alt1">168</div><div class="line number169 index168 alt2">169</div><div class="line number170 index169 alt1">170</div><div class="line number171 index170 alt2">171</div><div class="line number172 index171 alt1">172</div><div class="line number173 index172 alt2">173</div><div class="line number174 index173 alt1">174</div><div class="line number175 index174 alt2">175</div><div class="line number176 index175 alt1">176</div><div class="line number177 index176 alt2">177</div><div class="line number178 index177 alt1">178</div><div class="line number179 index178 alt2">179</div><div class="line number180 index179 alt1">180</div><div class="line number181 index180 alt2">181</div><div class="line number182 index181 alt1">182</div><div class="line number183 index182 alt2">183</div><div class="line number184 index183 alt1">184</div><div class="line number185 index184 alt2">185</div><div class="line number186 index185 alt1">186</div><div class="line number187 index186 alt2">187</div><div class="line number188 index187 alt1">188</div><div class="line number189 index188 alt2">189</div><div class="line number190 index189 alt1">190</div><div class="line number191 index190 alt2">191</div><div class="line number192 index191 alt1">192</div><div class="line number193 index192 alt2">193</div><div class="line number194 index193 alt1">194</div><div class="line number195 index194 alt2">195</div><div class="line number196 index195 alt1">196</div><div class="line number197 index196 alt2">197</div><div class="line number198 index197 alt1">198</div><div class="line number199 index198 alt2">199</div><div class="line number200 index199 alt1">200</div><div class="line number201 index200 alt2">201</div><div class="line number202 index201 alt1">202</div><div class="line number203 index202 alt2">203</div><div class="line number204 index203 alt1">204</div><div class="line number205 index204 alt2">205</div><div class="line number206 index205 alt1">206</div><div class="line number207 index206 alt2">207</div><div class="line number208 index207 alt1">208</div><div class="line number209 index208 alt2">209</div><div class="line number210 index209 alt1">210</div><div class="line number211 index210 alt2">211</div><div class="line number212 index211 alt1">212</div><div class="line number213 index212 alt2">213</div><div class="line number214 index213 alt1">214</div><div class="line number215 index214 alt2">215</div><div class="line number216 index215 alt1">216</div><div class="line number217 index216 alt2">217</div><div class="line number218 index217 alt1">218</div><div class="line number219 index218 alt2">219</div><div class="line number220 index219 alt1">220</div><div class="line number221 index220 alt2">221</div><div class="line number222 index221 alt1">222</div><div class="line number223 index222 alt2">223</div><div class="line number224 index223 alt1">224</div><div class="line number225 index224 alt2">225</div><div class="line number226 index225 alt1">226</div><div class="line number227 index226 alt2">227</div><div class="line number228 index227 alt1">228</div><div class="line number229 index228 alt2">229</div><div class="line number230 index229 alt1">230</div><div class="line number231 index230 alt2">231</div><div class="line number232 index231 alt1">232</div><div class="line number233 index232 alt2">233</div><div class="line number234 index233 alt1">234</div><div class="line number235 index234 alt2">235</div><div class="line number236 index235 alt1">236</div><div class="line number237 index236 alt2">237</div><div class="line number238 index237 alt1">238</div><div class="line number239 index238 alt2">239</div><div class="line number240 index239 alt1">240</div><div class="line number241 index240 alt2">241</div><div class="line number242 index241 alt1">242</div><div class="line number243 index242 alt2">243</div><div class="line number244 index243 alt1">244</div><div class="line number245 index244 alt2">245</div><div class="line number246 index245 alt1">246</div><div class="line number247 index246 alt2">247</div><div class="line number248 index247 alt1">248</div><div class="line number249 index248 alt2">249</div><div class="line number250 index249 alt1">250</div><div class="line number251 index250 alt2">251</div><div class="line number252 index251 alt1">252</div><div class="line number253 index252 alt2">253</div><div class="line number254 index253 alt1">254</div><div class="line number255 index254 alt2">255</div><div class="line number256 index255 alt1">256</div><div class="line number257 index256 alt2">257</div><div class="line number258 index257 alt1">258</div><div class="line number259 index258 alt2">259</div><div class="line number260 index259 alt1">260</div><div class="line number261 index260 alt2">261</div><div class="line number262 index261 alt1">262</div><div class="line number263 index262 alt2">263</div><div class="line number264 index263 alt1">264</div><div class="line number265 index264 alt2">265</div><div class="line number266 index265 alt1">266</div><div class="line number267 index266 alt2">267</div><div class="line number268 index267 alt1">268</div><div class="line number269 index268 alt2">269</div><div class="line number270 index269 alt1">270</div><div class="line number271 index270 alt2">271</div><div class="line number272 index271 alt1">272</div><div class="line number273 index272 alt2">273</div><div class="line number274 index273 alt1">274</div><div class="line number275 index274 alt2">275</div><div class="line number276 index275 alt1">276</div><div class="line number277 index276 alt2">277</div><div class="line number278 index277 alt1">278</div><div class="line number279 index278 alt2">279</div><div class="line number280 index279 alt1">280</div><div class="line number281 index280 alt2">281</div><div class="line number282 index281 alt1">282</div><div class="line number283 index282 alt2">283</div><div class="line number284 index283 alt1">284</div><div class="line number285 index284 alt2">285</div><div class="line number286 index285 alt1">286</div><div class="line number287 index286 alt2">287</div><div class="line number288 index287 alt1">288</div><div class="line number289 index288 alt2">289</div><div class="line number290 index289 alt1">290</div><div class="line number291 index290 alt2">291</div><div class="line number292 index291 alt1">292</div><div class="line number293 index292 alt2">293</div><div class="line number294 index293 alt1">294</div><div class="line number295 index294 alt2">295</div><div class="line number296 index295 alt1">296</div><div class="line number297 index296 alt2">297</div><div class="line number298 index297 alt1">298</div><div class="line number299 index298 alt2">299</div><div class="line number300 index299 alt1">300</div><div class="line number301 index300 alt2">301</div><div class="line number302 index301 alt1">302</div><div class="line number303 index302 alt2">303</div><div class="line number304 index303 alt1">304</div><div class="line number305 index304 alt2">305</div><div class="line number306 index305 alt1">306</div><div class="line number307 index306 alt2">307</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="jscript keyword">function</code> <code class="jscript plain">Map(width, height, cell_size, canvas)</code></div><div class="line number2 index1 alt1"><code class="jscript plain">{</code></div><div class="line number3 index2 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript comments">//-- init</code></div><div class="line number4 index3 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.width=width || 10;</code></div><div class="line number5 index4 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.height=height || 10;</code></div><div class="line number6 index5 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.cell_size=cell_size || 50;</code></div><div class="line number7 index6 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">canvas.width=</code><code class="jscript keyword">this</code><code class="jscript plain">.width*</code><code class="jscript keyword">this</code><code class="jscript plain">.cell_size;</code></div><div class="line number8 index7 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">canvas.height=</code><code class="jscript keyword">this</code><code class="jscript plain">.height*</code><code class="jscript keyword">this</code><code class="jscript plain">.cell_size;</code></div><div class="line number9 index8 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.ctx=canvas.getContext(</code><code class="jscript string">"2d"</code><code class="jscript plain">);</code></div><div class="line number10 index9 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.origin=0x0;</code></div><div class="line number11 index10 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.destiny=0x0;</code></div><div class="line number12 index11 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript comments">//-- inside globals</code></div><div class="line number13 index12 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">map=</code><code class="jscript keyword">this</code><code class="jscript plain">;</code></div><div class="line number14 index13 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">ctx=</code><code class="jscript keyword">this</code><code class="jscript plain">.ctx;</code></div><div class="line number15 index14 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript comments">//-- members</code></div><div class="line number16 index15 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.cells=[];</code></div><div class="line number17 index16 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">terrains=[</code></div><div class="line number18 index17 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{awkwardness:1.00, color:</code><code class="jscript string">"#6DBF50"</code><code class="jscript plain">, name:</code><code class="jscript string">"ground"</code><code class="jscript plain">},</code></div><div class="line number19 index18 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{awkwardness:0.75, color:</code><code class="jscript string">"#1F7F3A"</code><code class="jscript plain">, name:</code><code class="jscript string">"forest"</code><code class="jscript plain">},</code></div><div class="line number20 index19 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{awkwardness:0.50, color:</code><code class="jscript string">"#6FD1FF"</code><code class="jscript plain">, name:</code><code class="jscript string">"water"</code><code class="jscript plain">},</code></div><div class="line number21 index20 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{awkwardness:0.10, color:</code><code class="jscript string">"#2B427D"</code><code class="jscript plain">, name:</code><code class="jscript string">"deep_water"</code><code class="jscript plain">},</code></div><div class="line number22 index21 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{awkwardness:0.00, color:</code><code class="jscript string">"#26221E"</code><code class="jscript plain">, name:</code><code class="jscript string">"wall"</code><code class="jscript plain">},</code></div><div class="line number23 index22 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{awkwardness:0.90, color:</code><code class="jscript string">"#76421E"</code><code class="jscript plain">, name:</code><code class="jscript string">"bridge"</code><code class="jscript plain">}</code></div><div class="line number24 index23 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">];</code></div><div class="line number25 index24 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript comments">// -- allow external access by name (like map.terrain.water...)</code></div><div class="line number26 index25 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">(</code><code class="jscript keyword">function</code> <code class="jscript plain">indexTerrains()</code></div><div class="line number27 index26 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number28 index27 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">map.terrains={};</code></div><div class="line number29 index28 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">for</code><code class="jscript plain">(</code><code class="jscript keyword">var</code> <code class="jscript plain">i=0;i&lt;terrains.length;i++)</code></div><div class="line number30 index29 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">map.terrains[terrains[i].name]=terrains[i];</code></div><div class="line number31 index30 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}());</code></div><div class="line number32 index31 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript comments">//-- utils</code></div><div class="line number33 index32 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.randTerrain=</code><code class="jscript keyword">function</code><code class="jscript plain">()</code></div><div class="line number34 index33 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number35 index34 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">index=Math.floor(Math.random()*terrains.length-0.2);</code></div><div class="line number36 index35 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">return</code> <code class="jscript plain">terrains[index&gt;0?index:0];</code></div><div class="line number37 index36 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number38 index37 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.drawFlag=</code><code class="jscript keyword">function</code><code class="jscript plain">(x,y,color)</code></div><div class="line number39 index38 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number40 index39 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">x=x*</code><code class="jscript keyword">this</code><code class="jscript plain">.cell_size+</code><code class="jscript keyword">this</code><code class="jscript plain">.cell_size/2;</code></div><div class="line number41 index40 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">y=y*</code><code class="jscript keyword">this</code><code class="jscript plain">.cell_size+</code><code class="jscript keyword">this</code><code class="jscript plain">.cell_size/2;</code></div><div class="line number42 index41 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.save();</code></div><div class="line number43 index42 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.fillStyle=color;</code></div><div class="line number44 index43 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.strokeStyle=</code><code class="jscript string">"#000"</code><code class="jscript plain">;</code></div><div class="line number45 index44 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.beginPath();</code></div><div class="line number46 index45 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.arc(x,y,</code><code class="jscript keyword">this</code><code class="jscript plain">.cell_size/3,0,2*Math.PI);</code></div><div class="line number47 index46 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.stroke();</code></div><div class="line number48 index47 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.fill();</code></div><div class="line number49 index48 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.restore();</code></div><div class="line number50 index49 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number51 index50 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript comments">//-- private classes</code></div><div class="line number52 index51 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">function</code> <code class="jscript plain">Cell(x, y)</code></div><div class="line number53 index52 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number54 index53 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.G=</code><code class="jscript string">""</code><code class="jscript plain">;</code></div><div class="line number55 index54 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.H=</code><code class="jscript string">""</code><code class="jscript plain">;</code></div><div class="line number56 index55 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.F=</code><code class="jscript keyword">this</code><code class="jscript plain">.G+</code><code class="jscript keyword">this</code><code class="jscript plain">.H;</code></div><div class="line number57 index56 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.x=x;</code></div><div class="line number58 index57 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.y=y;</code></div><div class="line number59 index58 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.list=0x0;</code></div><div class="line number60 index59 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.dad=0x0;</code></div><div class="line number61 index60 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.terrain=map.randTerrain();</code></div><div class="line number62 index61 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.drawDad=</code><code class="jscript keyword">function</code><code class="jscript plain">(x,y)</code></div><div class="line number63 index62 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number64 index63 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.save();</code></div><div class="line number65 index64 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.fillStyle=</code><code class="jscript string">"#4D92FF"</code><code class="jscript plain">;</code></div><div class="line number66 index65 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.strokeStyle=</code><code class="jscript string">"#000"</code><code class="jscript plain">;</code></div><div class="line number67 index66 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.beginPath();</code></div><div class="line number68 index67 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.arc(x,y,map.cell_size/10,0,2*Math.PI);</code></div><div class="line number69 index68 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.stroke();</code></div><div class="line number70 index69 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.fill();</code></div><div class="line number71 index70 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.restore();</code></div><div class="line number72 index71 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number73 index72 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.render=</code><code class="jscript keyword">function</code><code class="jscript plain">()</code></div><div class="line number74 index73 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number75 index74 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.save();</code></div><div class="line number76 index75 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.fillStyle=</code><code class="jscript keyword">this</code><code class="jscript plain">.terrain.color;</code></div><div class="line number77 index76 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.strokeStyle=</code><code class="jscript string">"#000"</code><code class="jscript plain">;</code></div><div class="line number78 index77 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.fillRect(0,0,map.cell_size, map.cell_size);</code></div><div class="line number79 index78 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.strokeRect(0,0,map.cell_size, map.cell_size);</code></div><div class="line number80 index79 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript comments">//Draw data</code></div><div class="line number81 index80 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.fillStyle=</code><code class="jscript string">"#000"</code><code class="jscript plain">;</code></div><div class="line number82 index81 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.font = </code><code class="jscript string">"10px Arial"</code><code class="jscript plain">;</code></div><div class="line number83 index82 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.textAlign=</code><code class="jscript string">"start"</code><code class="jscript plain">;</code></div><div class="line number84 index83 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.textBaseline=</code><code class="jscript string">"top"</code><code class="jscript plain">;</code></div><div class="line number85 index84 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.fillText(</code><code class="jscript keyword">this</code><code class="jscript plain">.F,1,1);</code></div><div class="line number86 index85 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.textBaseline=</code><code class="jscript string">"bottom"</code><code class="jscript plain">;</code></div><div class="line number87 index86 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.fillText(</code><code class="jscript keyword">this</code><code class="jscript plain">.G,1,map.cell_size);</code></div><div class="line number88 index87 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.textAlign=</code><code class="jscript string">"end"</code><code class="jscript plain">;</code></div><div class="line number89 index88 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.fillText(</code><code class="jscript keyword">this</code><code class="jscript plain">.H,map.cell_size-1,map.cell_size);</code></div><div class="line number90 index89 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript comments">//Draw list</code></div><div class="line number91 index90 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(</code><code class="jscript keyword">this</code><code class="jscript plain">.list)</code></div><div class="line number92 index91 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number93 index92 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.strokeStyle=</code><code class="jscript keyword">this</code><code class="jscript plain">.list==</code><code class="jscript string">"open"</code><code class="jscript plain">?</code><code class="jscript string">"#F00"</code><code class="jscript plain">:</code><code class="jscript string">"#a0F"</code><code class="jscript plain">;</code></div><div class="line number94 index93 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.strokeRect(1,1,map.cell_size-2, map.cell_size-2);</code></div><div class="line number95 index94 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number96 index95 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript comments">//Draw dad</code></div><div class="line number97 index96 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(</code><code class="jscript keyword">this</code><code class="jscript plain">.dad)</code></div><div class="line number98 index97 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number99 index98 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">offset=(map.cell_size/10)*3;</code></div><div class="line number100 index99 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">x=offset;</code></div><div class="line number101 index100 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">y=offset;</code></div><div class="line number102 index101 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(</code><code class="jscript keyword">this</code><code class="jscript plain">.dad.x==</code><code class="jscript keyword">this</code><code class="jscript plain">.x)</code></div><div class="line number103 index102 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">x=map.cell_size/2;</code></div><div class="line number104 index103 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(</code><code class="jscript keyword">this</code><code class="jscript plain">.dad.x&gt;</code><code class="jscript keyword">this</code><code class="jscript plain">.x)</code></div><div class="line number105 index104 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">x=map.cell_size-offset;</code></div><div class="line number106 index105 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(</code><code class="jscript keyword">this</code><code class="jscript plain">.dad.y==</code><code class="jscript keyword">this</code><code class="jscript plain">.y)</code></div><div class="line number107 index106 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">y=map.cell_size/2;</code></div><div class="line number108 index107 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(</code><code class="jscript keyword">this</code><code class="jscript plain">.dad.y&gt;</code><code class="jscript keyword">this</code><code class="jscript plain">.y)</code></div><div class="line number109 index108 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">y=map.cell_size-offset;</code></div><div class="line number110 index109 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.drawDad(x,y);</code></div><div class="line number111 index110 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}&nbsp;&nbsp; </code></div><div class="line number112 index111 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.restore();</code></div><div class="line number113 index112 alt2">&nbsp;</div><div class="line number114 index113 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number115 index114 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number116 index115 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript comments">//-- constructor</code></div><div class="line number117 index116 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">for</code><code class="jscript plain">(</code><code class="jscript keyword">var</code> <code class="jscript plain">i=0;i&lt;</code><code class="jscript keyword">this</code><code class="jscript plain">.width;i++)</code></div><div class="line number118 index117 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number119 index118 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.cells[i]=[];</code></div><div class="line number120 index119 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">for</code><code class="jscript plain">(</code><code class="jscript keyword">var</code> <code class="jscript plain">j=0;j&lt;</code><code class="jscript keyword">this</code><code class="jscript plain">.height;j++)</code></div><div class="line number121 index120 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.cells[i].push(</code><code class="jscript keyword">new</code> <code class="jscript plain">Cell(i,j));</code></div><div class="line number122 index121 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}&nbsp;&nbsp; </code></div><div class="line number123 index122 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript comments">//--methods</code></div><div class="line number124 index123 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.render=</code><code class="jscript keyword">function</code><code class="jscript plain">()</code></div><div class="line number125 index124 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number126 index125 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">for</code><code class="jscript plain">(</code><code class="jscript keyword">var</code> <code class="jscript plain">i=0;i&lt;</code><code class="jscript keyword">this</code><code class="jscript plain">.width;i++)</code></div><div class="line number127 index126 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number128 index127 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">for</code><code class="jscript plain">(</code><code class="jscript keyword">var</code> <code class="jscript plain">j=0;j&lt;</code><code class="jscript keyword">this</code><code class="jscript plain">.height;j++)</code></div><div class="line number129 index128 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number130 index129 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.save();</code></div><div class="line number131 index130 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.translate(i*</code><code class="jscript keyword">this</code><code class="jscript plain">.cell_size,j*</code><code class="jscript keyword">this</code><code class="jscript plain">.cell_size);</code></div><div class="line number132 index131 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.cells[i][j].render();</code></div><div class="line number133 index132 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.restore();</code></div><div class="line number134 index133 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number135 index134 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number136 index135 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(</code><code class="jscript keyword">this</code><code class="jscript plain">.origin)</code></div><div class="line number137 index136 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.drawFlag(</code><code class="jscript keyword">this</code><code class="jscript plain">.origin.x,</code><code class="jscript keyword">this</code><code class="jscript plain">.origin.y,</code><code class="jscript string">"#A65C3E"</code><code class="jscript plain">);</code></div><div class="line number138 index137 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(</code><code class="jscript keyword">this</code><code class="jscript plain">.destiny)</code></div><div class="line number139 index138 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.drawFlag(</code><code class="jscript keyword">this</code><code class="jscript plain">.destiny.x,</code><code class="jscript keyword">this</code><code class="jscript plain">.destiny.y,</code><code class="jscript string">"#A92535"</code><code class="jscript plain">);</code></div><div class="line number140 index139 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number141 index140 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.fill=</code><code class="jscript keyword">function</code><code class="jscript plain">(terrain, skip_render)</code></div><div class="line number142 index141 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number143 index142 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">for</code><code class="jscript plain">(</code><code class="jscript keyword">var</code> <code class="jscript plain">i=0;i&lt;</code><code class="jscript keyword">this</code><code class="jscript plain">.width;i++)</code></div><div class="line number144 index143 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">for</code><code class="jscript plain">(</code><code class="jscript keyword">var</code> <code class="jscript plain">j=0;j&lt;</code><code class="jscript keyword">this</code><code class="jscript plain">.height;j++)</code></div><div class="line number145 index144 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.cells[i][j].terrain=terrain;</code></div><div class="line number146 index145 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(!skip_render)</code></div><div class="line number147 index146 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.render();</code></div><div class="line number148 index147 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number149 index148 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.rect=</code><code class="jscript keyword">function</code><code class="jscript plain">(terrain, x, y, w, h, skip_render)</code></div><div class="line number150 index149 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number151 index150 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">for</code><code class="jscript plain">(</code><code class="jscript keyword">var</code> <code class="jscript plain">i=x;i&lt;x+w;i++)</code></div><div class="line number152 index151 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">for</code><code class="jscript plain">(</code><code class="jscript keyword">var</code> <code class="jscript plain">j=y;j&lt;y+h;j++)</code></div><div class="line number153 index152 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.cells[i][j].terrain=terrain;</code></div><div class="line number154 index153 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(!skip_render)</code></div><div class="line number155 index154 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.render();</code></div><div class="line number156 index155 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number157 index156 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.addTerrain=</code><code class="jscript keyword">function</code><code class="jscript plain">(terrain)</code></div><div class="line number158 index157 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number159 index158 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">terrains.push(terrain);</code></div><div class="line number160 index159 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">indexTerrains();</code></div><div class="line number161 index160 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number162 index161 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.getAdjacentCells=</code><code class="jscript keyword">function</code><code class="jscript plain">(cell)</code></div><div class="line number163 index162 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number164 index163 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">adjacent_cells=[];</code></div><div class="line number165 index164 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">for</code><code class="jscript plain">(</code><code class="jscript keyword">var</code> <code class="jscript plain">i=cell.x-1;i&lt;=cell.x+1;i++)</code></div><div class="line number166 index165 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number167 index166 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">for</code><code class="jscript plain">(</code><code class="jscript keyword">var</code> <code class="jscript plain">j=cell.y-1;j&lt;=cell.y+1;j++)</code></div><div class="line number168 index167 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number169 index168 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">try</code></div><div class="line number170 index169 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number171 index170 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(</code><code class="jscript keyword">this</code><code class="jscript plain">.cells[i][j] &amp;&amp; !(i==cell.x &amp;&amp; j==cell.y))</code></div><div class="line number172 index171 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">adjacent_cells.push(</code><code class="jscript keyword">this</code><code class="jscript plain">.cells[i][j]);</code></div><div class="line number173 index172 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number174 index173 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">catch</code><code class="jscript plain">(ex) {}</code></div><div class="line number175 index174 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number176 index175 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number177 index176 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">return</code> <code class="jscript plain">adjacent_cells;</code></div><div class="line number178 index177 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number179 index178 alt2"><code class="jscript plain">}</code></div><div class="line number180 index179 alt1">&nbsp;</div><div class="line number181 index180 alt2"><code class="jscript keyword">function</code> <code class="jscript plain">Pathfinding(map)</code></div><div class="line number182 index181 alt1"><code class="jscript plain">{</code></div><div class="line number183 index182 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript comments">//OpenList class</code></div><div class="line number184 index183 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">function</code> <code class="jscript plain">OpenList()</code></div><div class="line number185 index184 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number186 index185 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">cells=[];</code></div><div class="line number187 index186 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.add=</code><code class="jscript keyword">function</code><code class="jscript plain">(cell)</code></div><div class="line number188 index187 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number189 index188 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">cell.list=</code><code class="jscript string">"open"</code><code class="jscript plain">;</code></div><div class="line number190 index189 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">cells.push(cell);</code></div><div class="line number191 index190 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number192 index191 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.getFirst=</code><code class="jscript keyword">function</code><code class="jscript plain">()</code></div><div class="line number193 index192 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number194 index193 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">first=cells.splice(0,1)[0];</code></div><div class="line number195 index194 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">return</code> <code class="jscript plain">first;</code></div><div class="line number196 index195 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number197 index196 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.sort=</code><code class="jscript keyword">function</code><code class="jscript plain">()</code></div><div class="line number198 index197 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number199 index198 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">cells.sort(</code><code class="jscript keyword">function</code><code class="jscript plain">(a,b) {</code><code class="jscript keyword">return</code> <code class="jscript plain">a.F-b.F;});</code></div><div class="line number200 index199 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number201 index200 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.contains=</code><code class="jscript keyword">function</code><code class="jscript plain">(cell)</code></div><div class="line number202 index201 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number203 index202 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">return</code> <code class="jscript plain">cells.indexOf(cell)&lt;0?</code><code class="jscript keyword">false</code><code class="jscript plain">:</code><code class="jscript keyword">true</code><code class="jscript plain">;</code></div><div class="line number204 index203 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number205 index204 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number206 index205 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript comments">//ClosedList class</code></div><div class="line number207 index206 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">function</code> <code class="jscript plain">ClosedList()</code></div><div class="line number208 index207 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number209 index208 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">cells=[];</code></div><div class="line number210 index209 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.add=</code><code class="jscript keyword">function</code><code class="jscript plain">(cell)</code></div><div class="line number211 index210 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number212 index211 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">cell.list=</code><code class="jscript string">"closed"</code><code class="jscript plain">;</code></div><div class="line number213 index212 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">cells.push(cell);</code></div><div class="line number214 index213 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number215 index214 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.contains=</code><code class="jscript keyword">function</code><code class="jscript plain">(cell)</code></div><div class="line number216 index215 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number217 index216 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">return</code> <code class="jscript plain">cells.indexOf(cell)&lt;0?</code><code class="jscript keyword">false</code><code class="jscript plain">:</code><code class="jscript keyword">true</code><code class="jscript plain">;</code></div><div class="line number218 index217 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number219 index218 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number220 index219 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript comments">//init</code></div><div class="line number221 index220 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">open_list=</code><code class="jscript keyword">new</code> <code class="jscript plain">OpenList();</code></div><div class="line number222 index221 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">closed_list=</code><code class="jscript keyword">new</code> <code class="jscript plain">ClosedList();</code></div><div class="line number223 index222 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">ctx=map.ctx;</code></div><div class="line number224 index223 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">open_list.add(map.cells[map.origin.x][map.origin.y]);</code></div><div class="line number225 index224 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.ended=</code><code class="jscript keyword">false</code><code class="jscript plain">;</code></div><div class="line number226 index225 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.iterations=0;</code></div><div class="line number227 index226 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript comments">//members</code></div><div class="line number228 index227 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.next=</code><code class="jscript keyword">function</code><code class="jscript plain">(skip_render)</code></div><div class="line number229 index228 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number230 index229 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(</code><code class="jscript keyword">this</code><code class="jscript plain">.ended)</code></div><div class="line number231 index230 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">return</code><code class="jscript plain">;</code></div><div class="line number232 index231 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.interations++;</code></div><div class="line number233 index232 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript comments">//get the first cell</code></div><div class="line number234 index233 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">dad=open_list.getFirst();</code></div><div class="line number235 index234 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">closed_list.add(dad);</code></div><div class="line number236 index235 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript comments">//add the adjacents cells to the open list</code></div><div class="line number237 index236 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">adjacent_cells=map.getAdjacentCells(dad);</code></div><div class="line number238 index237 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">for</code><code class="jscript plain">(</code><code class="jscript keyword">var</code> <code class="jscript plain">i=0;i&lt;adjacent_cells.length;i++)</code></div><div class="line number239 index238 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number240 index239 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">cell=adjacent_cells[i];</code></div><div class="line number241 index240 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript comments">//~~~ Start check end</code></div><div class="line number242 index241 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(cell.x==map.destiny.x &amp;&amp; cell.y==map.destiny.y)</code></div><div class="line number243 index242 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number244 index243 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.ended=</code><code class="jscript keyword">true</code><code class="jscript plain">;</code></div><div class="line number245 index244 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">cell.dad=dad;</code></div><div class="line number246 index245 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(!skip_render)</code></div><div class="line number247 index246 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.drawPath(cell);</code></div><div class="line number248 index247 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">return</code> <code class="jscript plain">cell;</code></div><div class="line number249 index248 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number250 index249 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript comments">//~~~ End check end</code></div><div class="line number251 index250 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript comments">//~~~ Start of the exclusion zone</code></div><div class="line number252 index251 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(!cell.terrain.awkwardness)</code></div><div class="line number253 index252 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">continue</code><code class="jscript plain">;</code></div><div class="line number254 index253 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(closed_list.contains(cell))</code></div><div class="line number255 index254 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">continue</code><code class="jscript plain">;</code></div><div class="line number256 index255 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(open_list.contains(cell))</code></div><div class="line number257 index256 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number258 index257 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">awk=cell.terrain.awkwardness;</code></div><div class="line number259 index258 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript comments">//Change the dad and G,H,F if the current path is better</code></div><div class="line number260 index259 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">newG=parseInt(cell.x!=dad.x &amp;&amp; cell.y!=dad.y? dad.G+14/awk : dad.G+10/awk);</code></div><div class="line number261 index260 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(cell.G&lt;newG) </code><code class="jscript comments">//worse? ok, skip</code></div><div class="line number262 index261 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">continue</code><code class="jscript plain">;</code></div><div class="line number263 index262 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number264 index263 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript comments">//~~~ End of the exclusion zone</code></div><div class="line number265 index264 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">one_change_at_least=</code><code class="jscript keyword">true</code><code class="jscript plain">;</code></div><div class="line number266 index265 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">cell.dad=dad;</code></div><div class="line number267 index266 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript comments">//Length to the origin</code></div><div class="line number268 index267 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">awk=cell.terrain.awkwardness;</code></div><div class="line number269 index268 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">cell.G=Math.round(parseInt(cell.x!=dad.x &amp;&amp; cell.y!=dad.y? dad.G+14/awk : dad.G+10/awk));</code></div><div class="line number270 index269 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript comments">//Manhattan heuristic</code></div><div class="line number271 index270 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">dx=Math.abs(map.destiny.x-cell.x);</code></div><div class="line number272 index271 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">dy=Math.abs(map.destiny.y-cell.y);</code></div><div class="line number273 index272 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">cell.H=(dx+dy)*10;</code></div><div class="line number274 index273 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript comments">//Update F</code></div><div class="line number275 index274 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">cell.F=cell.G+cell.H;</code></div><div class="line number276 index275 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">open_list.add(cell);</code></div><div class="line number277 index276 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number278 index277 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript comments">//sort open list</code></div><div class="line number279 index278 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">open_list.sort();</code></div><div class="line number280 index279 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript comments">//render</code></div><div class="line number281 index280 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(!skip_render)</code></div><div class="line number282 index281 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">map.render();</code></div><div class="line number283 index282 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number284 index283 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.drawPath=</code><code class="jscript keyword">function</code><code class="jscript plain">(cell)</code></div><div class="line number285 index284 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number286 index285 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">offset=map.cell_size/2;</code></div><div class="line number287 index286 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">next=cell.dad;</code></div><div class="line number288 index287 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.save();</code></div><div class="line number289 index288 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">while</code><code class="jscript plain">(next)</code></div><div class="line number290 index289 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number291 index290 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.moveTo(cell.x*map.cell_size+offset,cell.y*map.cell_size+offset)</code></div><div class="line number292 index291 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.lineTo(next.x*map.cell_size+offset,next.y*map.cell_size+offset);</code></div><div class="line number293 index292 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.stroke();</code></div><div class="line number294 index293 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">cell=next;</code></div><div class="line number295 index294 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">next=cell.dad;</code></div><div class="line number296 index295 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number297 index296 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ctx.restore();</code></div><div class="line number298 index297 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number299 index298 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.solve=</code><code class="jscript keyword">function</code><code class="jscript plain">()</code></div><div class="line number300 index299 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number301 index300 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">last_cell=0x0;</code></div><div class="line number302 index301 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">while</code><code class="jscript plain">(!</code><code class="jscript keyword">this</code><code class="jscript plain">.ended)</code></div><div class="line number303 index302 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">last_cell=</code><code class="jscript keyword">this</code><code class="jscript plain">.next(</code><code class="jscript keyword">true</code><code class="jscript plain">);</code></div><div class="line number304 index303 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">map.render();</code></div><div class="line number305 index304 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.drawPath(last_cell);</code></div><div class="line number306 index305 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number307 index306 alt2"><code class="jscript plain">}</code></div></div></td></tr></tbody></table></div></div>
+<p>En estas 300 líneas (me ha llevado media mañana escribirlas!) tenéis 
+todo lo necesario para crear mapas y resolver caminos. Un ejemplo de 
+ejecución (el que crea el último mapa grande que hemos visto) sería:</p>
+<div><div id="highlighter_983458" class="syntaxhighlighter  jscript"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="jscript keyword">var</code> <code class="jscript plain">map=</code><code class="jscript keyword">new</code> <code class="jscript plain">Map(30,15,50,canvas);</code></div><div class="line number2 index1 alt1"><code class="jscript plain">map.fill(map.terrains.ground)</code></div><div class="line number3 index2 alt2"><code class="jscript plain">map.rect(map.terrains.wall, 4, 2, 2, 6);</code></div><div class="line number4 index3 alt1"><code class="jscript plain">map.rect(map.terrains.water, 8, 0, 4, 15);</code></div><div class="line number5 index4 alt2"><code class="jscript plain">map.rect(map.terrains.deep_water, 9, 0, 2, 15);</code></div><div class="line number6 index5 alt1"><code class="jscript plain">map.rect(map.terrains.forest, 13, 6, 5, 5);</code></div><div class="line number7 index6 alt2"><code class="jscript plain">map.rect(map.terrains.water, 15, 1, 4, 4);</code></div><div class="line number8 index7 alt1"><code class="jscript plain">map.rect(map.terrains.deep_water, 16, 2, 2, 2);</code></div><div class="line number9 index8 alt2"><code class="jscript plain">map.rect(map.terrains.wall, 19, 3, 1, 6);</code></div><div class="line number10 index9 alt1"><code class="jscript plain">map.rect(map.terrains.bridge, 8, 10, 4, 1);</code></div><div class="line number11 index10 alt2"><code class="jscript plain">map.origin={x:2,y:2};</code></div><div class="line number12 index11 alt1"><code class="jscript plain">map.destiny={x:27,y:4};</code></div><div class="line number13 index12 alt2"><code class="jscript plain">map.render();</code></div><div class="line number14 index13 alt1"><code class="jscript keyword">var</code> <code class="jscript plain">pathfinding=</code><code class="jscript keyword">new</code> <code class="jscript plain">Pathfinding(map);</code></div><div class="line number15 index14 alt2">&nbsp;</div><div class="line number16 index15 alt1"><code class="jscript comments">//Para avanzar un paso pathfinding.next();</code></div><div class="line number17 index16 alt2"><code class="jscript comments">//Para resolver directamente pathfinding.solve();</code></div></div></td></tr></tbody></table></div></div>
+</div>
+<p>He de decir que he disfrutado mucho escribiendo este pequeño código. 
+Mi parte favorita son las líneas de las 26 a las 31. ¿Todo el mundo las 
+entiende y sabe qué hacen y por qué funcionan? <img src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/icon_wink.gif" alt=";)" class="wp-smiley"></p>
+<!-- Simple Share Buttons Adder (5.5) simplesharebuttons.com --><div class="ssba"><div style="text-align:left"><hr>Si te gusta esta entrada... compártela! ;)<br><a class="ssba_twitter_share" href="http://twitter.com/share?url=http://www.lanshor.com/pathfinding-a-estrella/&amp;text=Pathfinding%3A+A%2A+" target="_blank" rel="nofollow"><img src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/twitter.png" title="Twitter" class="ssba" alt="Tweet about this on Twitter"></a><span class="ssba_sharecount">4</span><a class="ssba_facebook_share" href="http://www.facebook.com/sharer.php?u=http://www.lanshor.com/pathfinding-a-estrella/" target="_blank" rel="nofollow"><img src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/facebook.png" title="Facebook" class="ssba" alt="Share on Facebook"></a><span class="ssba_sharecount">6</span><a class="ssba_google_share" href="https://plus.google.com/share?url=http://www.lanshor.com/pathfinding-a-estrella/" target="_blank" rel="nofollow"><img src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/google.png" title="Google+" class="ssba" alt="Share on Google+"></a><span class="ssba_sharecount">0</span><a class="ssba_tumblr_share" href="http://www.tumblr.com/share/link?url=www.lanshor.com/pathfinding-a-estrella/&amp;name=Pathfinding:%20A*" target="_blank" rel="nofollow"><img src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/tumblr.png" title="tumblr" class="ssba" alt="Share on Tumblr"></a><a class="ssba_pinterest_share" href="javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','//assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)%7D)());"><img src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/pinterest.png" title="Pinterest" class="ssba" alt="Pin on Pinterest"></a><span class="ssba_sharecount">0</span><a class="ssba_linkedin_share ssba_share_link" href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http://www.lanshor.com/pathfinding-a-estrella/" target="_blank" rel="nofollow"><img src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/linkedin.png" title="Linkedin" class="ssba" alt="Share on LinkedIn"></a><span class="ssba_sharecount">0</span><a class="ssba_reddit_share" href="http://reddit.com/submit?url=http://www.lanshor.com/pathfinding-a-estrella/&amp;title=Pathfinding:%20A*" target="_blank" rel="nofollow"><img src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/reddit.png" title="Reddit" class="ssba" alt="Share on Reddit"></a><span class="ssba_sharecount">0</span></div></div>
+					
+					
+				</div> <!-- end .entry -->
+
+								
+				<!-- You can start editing here. -->
+
+	<div id="comment-section">
+		<p id="comments">3 Comentarios</p>
+
+	
+			<ol class="commentlist clearfix">
+			   <li class="comment byuser comment-author-rnk even thread-even depth-1" id="li-comment-133">
+   <div id="comment-133" class="comment-body clearfix">
+		<img src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/Mi-instantnea-1-150x150.png" alt="RnK" class="avatar avatar-57 wp-user-avatar wp-user-avatar-57 alignnone photo" height="57" width="57">		<div class="comment-wrap clearfix">
+			<div class="comment-author vcard">
+				<span class="fn">RnK</span><span class="separator"> | </span>
+				<span class="comment-meta commentmetadata"><a href="http://www.lanshor.com/pathfinding-a-estrella/#comment-133">13 abril, 2014 at 13:31</a></span>
+			</div>
+			
+		    <div class="comment-content"><p>Me lo quedo, con tu permiso, para 
+hacer ejercicios y experimentos, nunca me atreví a estudiar el problema 
+por mi cuenta, por pereza, pero así da gusto <img src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/icon_smile.gif" alt=":)" class="wp-smiley"><br>
+Esa funcion para indexar los tipos de terreno simplemente genial! Aunque
+ si te digo la verdad no entiendo muy bien porqué puedes hacer 
+map.terrains,  simplemente con la línea “map.terrains={};” creas la 
+propiedad “terrains” dentro de la variable map?</p>
+</div> <!-- end comment-content-->
+		    <div class="reply-container"><a class="comment-reply-link" href="http://www.lanshor.com/pathfinding-a-estrella/?replytocom=133#respond" onclick='return addComment.moveForm( "comment-133", "133", "respond", "338" )' aria-label="Responder a RnK">Respuesta</a></div>		</div> <!-- end comment-wrap-->
+	</div> <!-- end comment-body-->
+<ul class="children">
+   <li class="comment byuser comment-author-lanshor bypostauthor odd alt depth-2" id="li-comment-134">
+   <div id="comment-134" class="comment-body clearfix">
+		<img src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/the_enigma_of_captain__s_mug_by_alexiuss-d53yihs-150x150.jpg" alt="LaNsHoR" class="avatar avatar-57 wp-user-avatar wp-user-avatar-57 alignnone photo" height="57" width="57">		<div class="comment-wrap clearfix">
+			<div class="comment-author vcard">
+				<span class="fn">LaNsHoR</span><span class="separator"> | </span>
+				<span class="comment-meta commentmetadata"><a href="http://www.lanshor.com/pathfinding-a-estrella/#comment-134">13 abril, 2014 at 15:44</a></span>
+			</div>
+			
+		    <div class="comment-content"><p>Exacto! <img src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/icon_wink.gif" alt=";)" class="wp-smiley">
+ Dentro de la clase hay una variable “terrains” que contiene los tipos 
+de terreno, y también un miembro “terrains” que contiene los alias a los
+ tipos de terreno (y se crea en el momento en que sea usa, como bien 
+dices). Al primero se accede simplemente por el nombre “terrains”, y al 
+segundo por this.terrains o por map.terrains (y desde fuera con el 
+nombre_del_objeto.terrains?.</p>
+<p>Una de las cosas que más molan de javascript es que puedes añadir 
+atributos y métodos a un objeto (o a una clase) en cualquier momento. 
+Por ejemplo:</p>
+<div><div id="highlighter_135298" class="syntaxhighlighter  jscript"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="jscript keyword">function</code> <code class="jscript plain">A(x)</code></div><div class="line number2 index1 alt1"><code class="jscript plain">{</code></div><div class="line number3 index2 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.x=x;</code></div><div class="line number4 index3 alt1"><code class="jscript plain">}</code></div><div class="line number5 index4 alt2"><code class="jscript keyword">var</code> <code class="jscript plain">a=</code><code class="jscript keyword">new</code> <code class="jscript plain">A(1);</code></div><div class="line number6 index5 alt1"><code class="jscript keyword">var</code> <code class="jscript plain">b=</code><code class="jscript keyword">new</code> <code class="jscript plain">B(2);</code></div><div class="line number7 index6 alt2"><code class="jscript plain">b.y=7;</code></div><div class="line number8 index7 alt1"><code class="jscript comments">/*</code></div><div class="line number9 index8 alt2"><code class="jscript comments">Ahora el objeto "b" tiene tiene</code></div><div class="line number10 index9 alt1"><code class="jscript comments">dos atributos "x" e "y", pero</code></div><div class="line number11 index10 alt2"><code class="jscript comments">el objeto "a" sólo tiene a X.</code></div><div class="line number12 index11 alt1"><code class="jscript comments">*/</code></div></div></td></tr></tbody></table></div></div>
+<p>El objeto B pertenece ahora a una “subclase” de A creada y definida 
+en tiempo de ejecución. Esta característica de Javascript fue durante 
+muchos años un lastre para el rendimiento de sus máquinas virtuales, 
+hasta que llegó Google con su V8 y logró una buena implementación: <a href="https://developers.google.com/v8/design" rel="nofollow">https://developers.google.com/v8/design</a></p>
+<p>Para usarlo en un entorno real, convendría añadir la posibilidad de 
+definir un callback cuando se encuentra el camino, otro callback si no 
+se encuentra, etc. StormByte me preguntó en Twitter qué pasaba si no se 
+encuentra ningún camino; le dije que la lista abierta se quedaría vacía y
+ no se haría nada (pero me dí cuenta entonces que el atributo ended se 
+quedaría a false; quizá sería mejor que ended se llamase “found” y crear
+ un nuevo atributo ended que indicase el fin del algoritmo (con éxito o 
+no).</p>
+</div> <!-- end comment-content-->
+		    <div class="reply-container"><a class="comment-reply-link" href="http://www.lanshor.com/pathfinding-a-estrella/?replytocom=134#respond" onclick='return addComment.moveForm( "comment-134", "134", "respond", "338" )' aria-label="Responder a LaNsHoR">Respuesta</a></div>		</div> <!-- end comment-wrap-->
+	</div> <!-- end comment-body-->
+<ul class="children">
+   <li class="comment byuser comment-author-rnk even depth-3" id="li-comment-135">
+   <div id="comment-135" class="comment-body clearfix">
+		<img src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/Mi-instantnea-1-150x150.png" alt="RnK" class="avatar avatar-57 wp-user-avatar wp-user-avatar-57 alignnone photo" height="57" width="57">		<div class="comment-wrap clearfix">
+			<div class="comment-author vcard">
+				<span class="fn">RnK</span><span class="separator"> | </span>
+				<span class="comment-meta commentmetadata"><a href="http://www.lanshor.com/pathfinding-a-estrella/#comment-135">13 abril, 2014 at 16:53</a></span>
+			</div>
+			
+		    <div class="comment-content"><p>Da mucho juego esa posibilidad, la
+ de poder crear atributos “al vuelo” en una clase que solo tenga ciertos
+ atributos en condiciones concretas, sin cargar al resto de instancias 
+de clase con atributos que nunca llegan a usar, por poner un ejemplo 
+sencillo, un enemigo que puede ser envenenado pero no necesariamente 
+todos los enemigos van a ser envenenados.</p>
+<p>Cierto es que siempre(?) merece la pena “acorralar” con callbacks 
+todas las posibilidades, aunque según en que casos, se me ocurre un 
+escenario en el que los caminos son dinámicos, y no sé si, en el caso de
+ que en primera instancia no se encuentre ningún camino, pero a lo largo
+ del tiempo un cambio en el mapa abra un camino posible, es mejor parar 
+la función y reiniciarla o dejarla correr hasta que pueda encontrar un 
+camino posible.</p>
+<p>De todas formas solo puedo conjeturar porque no sé mucho de 
+optimización (sin contar las muchísimas otras cosas que aún me quedan 
+por aprender sobre programación en general), y me muevo bastante por 
+intuición. Pero, como bien dices al principio de la entrada, las 
+personas tendemos a reafirmar nuestra lógica en lugar de compararla y 
+mejorarla, por eso es algo que intento evitar siempre a toda costa, y 
+preguntarte sobre estas cosas garantiza ir bien encaminado <img src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/icon_wink.gif" alt=";)" class="wp-smiley"></p>
+</div> <!-- end comment-content-->
+		    <div class="reply-container"><a class="comment-reply-link" href="http://www.lanshor.com/pathfinding-a-estrella/?replytocom=135#respond" onclick='return addComment.moveForm( "comment-135", "135", "respond", "338" )' aria-label="Responder a RnK">Respuesta</a></div>		</div> <!-- end comment-wrap-->
+	</div> <!-- end comment-body-->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		</ol>
+	
+	
+			<div id="trackbacks">
+			<h3 id="trackbacks-title">Trackbacks/Pingbacks</h3>
+			<ol class="pinglist">
+						<li id="comment-132"><a href="http://www.meneame.net/m/programacion/pathdfinding-con-a" rel="external nofollow" class="url">Pathdfinding con A*</a> - […] Pathdfinding con A*  […] 	</li><!-- #comment-## -->
+			</ol>
+		</div>
+										<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title"><span>Responder</span> <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://www.lanshor.com/pathfinding-a-estrella/#respond" style="display:none;">Cancelar respuesta</a></small></h3>
+									<form action="http://www.lanshor.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																			<p class="comment-notes"><span id="email-notes">Tu dirección de correo electrónico no será publicada.</span> Los campos necesarios están marcados <span class="required">*</span></p>							<p class="comment-form-author"><label for="author">Nombre <span class="required">*</span></label> <input id="author" name="author" size="30" aria-required="true" type="text"></p>
+<p class="comment-form-email"><label for="email">Correo electrónico <span class="required">*</span></label> <input id="email" name="email" size="30" aria-describedby="email-notes" aria-required="true" type="text"></p>
+<p class="comment-form-url"><label for="url">Web</label> <input id="url" name="url" size="30" type="text"></p>
+<p class="cptch_block"><br>		<input name="cptch_result" value="aqY=" type="hidden">
+		<input name="cptch_time" value="1427464783" type="hidden">
+		<input value="Version: 4.0.8" type="hidden">
+		ocho − <input id="cptch_input" class="cptch_input" autocomplete="off" name="cptch_number" maxlength="2" size="2" aria-required="true" required="required" style="margin-bottom:0;display:inline;font-size: 12px;width: 40px;" type="text"> = 3</p>												<p class="comment-form-comment"><label for="comment">Comentario</label> <textarea id="comment" name="comment" cols="45" rows="8" aria-describedby="form-allowed-tags" aria-required="true"></textarea></p>						<p class="form-allowed-tags" id="form-allowed-tags">Puedes usar las siguientes etiquetas y atributos <abbr title="HyperText Markup Language">HTML</abbr>:  <code>&lt;a
+ href="" title=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt; 
+&lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code&gt; &lt;del 
+datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;strike&gt; 
+&lt;strong&gt; </code></p>						<p class="form-submit">
+							<input name="submit" id="submit" class="submit" value="Enviar" type="submit">
+							<input name="comment_post_ID" value="338" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+						</p>
+											</form>
+							</div><!-- #respond -->
+			</div> <!-- end comment-section -->			</div> <!-- #main-content -->
+
+<div id="sidebar">
+
+	<div class="widget_wrap">
+							<div class="widget_entries"><h3>Acceder</h3><div class="widget-content">
+<div class="login" id="theme-my-login1">
+			<form name="loginform" id="loginform1" action="/pathfinding-a-estrella/?instance=1" method="post">
+		<p>
+			<label for="user_login1">Nombre de usuario</label>
+			<input name="log" id="user_login1" class="input" size="20" type="text">
+		</p>
+		<p>
+			<label for="user_pass1">Contraseña</label>
+			<input name="pwd" id="user_pass1" class="input" value="" size="20" type="password">
+		</p>
+
+		<p class="cptch_block"><br>		<input name="cptch_result" value="saA=" type="hidden">
+		<input name="cptch_time" value="1427464783" type="hidden">
+		<input value="Version: 4.0.8" type="hidden">
+		6 + <input id="cptch_input" class="cptch_input" autocomplete="off" name="cptch_number" maxlength="2" size="2" aria-required="true" required="required" style="margin-bottom:0;display:inline;font-size: 12px;width: 40px;" type="text"> =  nueve</p>
+		<br><input name="_wp_original_http_referer" value="" type="hidden">
+
+		<p class="forgetmenot">
+			<input name="rememberme" id="rememberme1" value="forever" type="checkbox">
+			<label for="rememberme1">Recuérdame</label>
+		</p>
+		<p class="submit">
+			<input name="wp-submit" id="wp-submit1" value="Acceder" type="submit">
+			<input name="redirect_to" value="http://www.lanshor.com/wp-admin/" type="hidden">
+			<input name="instance" value="1" type="hidden">
+			<input name="action" value="login" type="hidden">
+		</p>
+	</form>
+	<ul class="tml-action-links">
+<li><a href="http://www.lanshor.com/register/" rel="nofollow">Registrarse</a></li>
+<li><a href="http://www.lanshor.com/lostpassword/" rel="nofollow">Contraseña perdida</a></li>
+</ul>
+</div>
+</div> <!-- .widget-content -->
+							<div class="entries-bottom usual"></div>
+							</div> <!-- .entries -->
+							</div> <!-- .widget_wrap -->
+<div class="widget_wrap">
+							<div class="widget_entries"><h3>Buscar</h3><div class="widget-content"><form method="get" id="searchform" action="http://www.lanshor.com//">
+    <div>
+        <input name="s" id="s" type="text">
+        <input id="searchsubmit" value="Buscar" type="submit">
+    </div>
+</form></div> <!-- .widget-content -->
+							<div class="entries-bottom usual"></div>
+							</div> <!-- .entries -->
+							</div> <!-- .widget_wrap --><div class="widget_wrap">
+							<div class="widget_entries"><h3>Tags</h3><div class="widget-content"><div class="tagcloud"><a href="http://www.lanshor.com/tag/a/" class="tag-link-60" title="1 tema" style="font-size: 8pt;">a*</a>
+<a href="http://www.lanshor.com/tag/arquitectura/" class="tag-link-14" title="1 tema" style="font-size: 8pt;">arquitectura</a>
+<a href="http://www.lanshor.com/tag/arthur-c-clarke/" class="tag-link-51" title="1 tema" style="font-size: 8pt;">arthur c. clarke</a>
+<a href="http://www.lanshor.com/tag/assembly/" class="tag-link-8" title="1 tema" style="font-size: 8pt;">assembly</a>
+<a href="http://www.lanshor.com/tag/atractores/" class="tag-link-49" title="1 tema" style="font-size: 8pt;">atractores</a>
+<a href="http://www.lanshor.com/tag/automatas/" class="tag-link-32" title="1 tema" style="font-size: 8pt;">autómatas</a>
+<a href="http://www.lanshor.com/tag/automatas-celulares/" class="tag-link-31" title="1 tema" style="font-size: 8pt;">autómatas celulares</a>
+<a href="http://www.lanshor.com/tag/bajo-nivel/" class="tag-link-43" title="1 tema" style="font-size: 8pt;">bajo nivel</a>
+<a href="http://www.lanshor.com/tag/bases-de-datos-2/" class="tag-link-16" title="1 tema" style="font-size: 8pt;">bases de datos</a>
+<a href="http://www.lanshor.com/tag/c/" class="tag-link-22" title="3 temas" style="font-size: 15.636363636364pt;">c++</a>
+<a href="http://www.lanshor.com/tag/canvas/" class="tag-link-55" title="2 temas" style="font-size: 12.581818181818pt;">canvas</a>
+<a href="http://www.lanshor.com/tag/citas-2/" class="tag-link-21" title="2 temas" style="font-size: 12.581818181818pt;">citas</a>
+<a href="http://www.lanshor.com/tag/css/" class="tag-link-19" title="1 tema" style="font-size: 8pt;">css</a>
+<a href="http://www.lanshor.com/tag/diseno/" class="tag-link-15" title="2 temas" style="font-size: 12.581818181818pt;">diseño</a>
+<a href="http://www.lanshor.com/tag/estructuras-de-control/" class="tag-link-39" title="1 tema" style="font-size: 8pt;">estructuras de control</a>
+<a href="http://www.lanshor.com/tag/estructuras-de-datos/" class="tag-link-37" title="1 tema" style="font-size: 8pt;">estructuras de datos</a>
+<a href="http://www.lanshor.com/tag/evolucion/" class="tag-link-50" title="1 tema" style="font-size: 8pt;">evolución</a>
+<a href="http://www.lanshor.com/tag/fractral/" class="tag-link-57" title="1 tema" style="font-size: 8pt;">fractral</a>
+<a href="http://www.lanshor.com/tag/games/" class="tag-link-28" title="1 tema" style="font-size: 8pt;">games</a>
+<a href="http://www.lanshor.com/tag/geometria/" class="tag-link-24" title="1 tema" style="font-size: 8pt;">geometría</a>
+<a href="http://www.lanshor.com/tag/html/" class="tag-link-20" title="1 tema" style="font-size: 8pt;">html</a>
+<a href="http://www.lanshor.com/tag/humor/" class="tag-link-41" title="1 tema" style="font-size: 8pt;">humor</a>
+<a href="http://www.lanshor.com/tag/imagen/" class="tag-link-47" title="1 tema" style="font-size: 8pt;">imagen</a>
+<a href="http://www.lanshor.com/tag/indireccion/" class="tag-link-30" title="1 tema" style="font-size: 8pt;">indirección</a>
+<a href="http://www.lanshor.com/tag/javascript/" class="tag-link-44" title="4 temas" style="font-size: 18.181818181818pt;">javascript</a>
+<a href="http://www.lanshor.com/tag/lua/" class="tag-link-27" title="1 tema" style="font-size: 8pt;">lua</a>
+<a href="http://www.lanshor.com/tag/magia/" class="tag-link-53" title="1 tema" style="font-size: 8pt;">magia</a>
+<a href="http://www.lanshor.com/tag/mandelbrot/" class="tag-link-56" title="1 tema" style="font-size: 8pt;">mandelbrot</a>
+<a href="http://www.lanshor.com/tag/matematicas-2/" class="tag-link-25" title="1 tema" style="font-size: 8pt;">matemáticas</a>
+<a href="http://www.lanshor.com/tag/modelos/" class="tag-link-33" title="1 tema" style="font-size: 8pt;">modelos</a>
+<a href="http://www.lanshor.com/tag/naturaleza/" class="tag-link-34" title="4 temas" style="font-size: 18.181818181818pt;">naturaleza</a>
+<a href="http://www.lanshor.com/tag/octarino/" class="tag-link-52" title="1 tema" style="font-size: 8pt;">octarino</a>
+<a href="http://www.lanshor.com/tag/pathfinding/" class="tag-link-59" title="1 tema" style="font-size: 8pt;">pathfinding</a>
+<a href="http://www.lanshor.com/tag/perros/" class="tag-link-45" title="1 tema" style="font-size: 8pt;">perros</a>
+<a href="http://www.lanshor.com/tag/php/" class="tag-link-38" title="2 temas" style="font-size: 12.581818181818pt;">php</a>
+<a href="http://www.lanshor.com/tag/problemas-2/" class="tag-link-17" title="6 temas" style="font-size: 22pt;">problemas</a>
+<a href="http://www.lanshor.com/tag/punteros/" class="tag-link-29" title="1 tema" style="font-size: 8pt;">punteros</a>
+<a href="http://www.lanshor.com/tag/sierpinski/" class="tag-link-36" title="1 tema" style="font-size: 8pt;">sierpiński</a>
+<a href="http://www.lanshor.com/tag/sistemas/" class="tag-link-48" title="1 tema" style="font-size: 8pt;">sistemas</a>
+<a href="http://www.lanshor.com/tag/sql/" class="tag-link-13" title="2 temas" style="font-size: 12.581818181818pt;">sql</a>
+<a href="http://www.lanshor.com/tag/sse/" class="tag-link-9" title="1 tema" style="font-size: 8pt;">sse</a>
+<a href="http://www.lanshor.com/tag/tecnologia/" class="tag-link-54" title="1 tema" style="font-size: 8pt;">tecnología</a>
+<a href="http://www.lanshor.com/tag/triangulo/" class="tag-link-35" title="1 tema" style="font-size: 8pt;">triángulo</a>
+<a href="http://www.lanshor.com/tag/vision/" class="tag-link-46" title="1 tema" style="font-size: 8pt;">visión</a>
+<a href="http://www.lanshor.com/tag/xkcd/" class="tag-link-42" title="1 tema" style="font-size: 8pt;">xkcd</a></div>
+</div> <!-- .widget-content -->
+							<div class="entries-bottom usual"></div>
+							</div> <!-- .entries -->
+							</div> <!-- .widget_wrap --><div class="widget_wrap">
+							<div class="widget_entries"><h3>Comentarios recientes</h3><div class="widget-content"><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">LaNsHoR</span> en <a href="http://www.lanshor.com/recuperar-codigo-borrado/#comment-191">Recuperar código borrado</a></li><li class="recentcomments"><span class="comment-author-link">LaNsHoR</span> en <a href="http://www.lanshor.com/ids-unicas/#comment-164">IDs únicas</a></li><li class="recentcomments"><span class="comment-author-link">LaNsHoR</span> en <a href="http://www.lanshor.com/ids-unicas/#comment-163">IDs únicas</a></li><li class="recentcomments"><span class="comment-author-link">LaNsHoR</span> en <a href="http://www.lanshor.com/ids-unicas/#comment-162">IDs únicas</a></li><li class="recentcomments"><span class="comment-author-link">Erful</span> en <a href="http://www.lanshor.com/ids-unicas/#comment-161">IDs únicas</a></li></ul></div> <!-- .widget-content -->
+							<div class="entries-bottom usual"></div>
+							</div> <!-- .entries -->
+							</div> <!-- .widget_wrap -->
+
+</div> <!-- end sidebar --></div> <!-- end #main-area -->
+
+			</div> <!-- end #content -->
+		</div> <!-- end #contentwrap -->
+
+		<div id="footer-widgets-wrap">
+			<div id="footer-widgets" class="clearfix">
+
+				    
+<!-- 
+	Plugin: Custom Meta Widget	Plugin URL: http://shinraholdings.com/plugins/custom-meta-widget/-->
+
+
+	<div class="widget">
+						<div class="widgettop">	<h4><span>lambda lab 85</span></h4><div class="widget-content">	<ul>
+	
+	
+    <li><a rel="nofollow" href="http://www.lanshor.com/register/">Registrarse</a></li><li><a rel="nofollow" href="http://www.lanshor.com/login/">Acceder</a></li><li><a href="http://www.log85.com/">Caminar hasta LoG85</a></li>	
+	</ul>
+    
+	</div> <!-- end .widget-content -->
+						</div> <!-- end .widgettop -->
+						<div class="widgetbottom"></div> <!-- end .widgetbottom -->
+					</div> <!-- end .widget -->		<div class="widget">
+						<div class="widgettop">		<h4><span>Últimas Entradas</span></h4><div class="widget-content">		<ul>
+					<li>
+				<a href="http://www.lanshor.com/ruido-perlin/">Ruido Perlin</a>
+						</li>
+					<li>
+				<a href="http://www.lanshor.com/recuperar-codigo-borrado/">Recuperar código borrado</a>
+						</li>
+					<li>
+				<a href="http://www.lanshor.com/tamano-de-las-tablas-en-bbdd/">Tamaño de las tablas en BBDD</a>
+						</li>
+					<li>
+				<a href="http://www.lanshor.com/ids-unicas/">IDs únicas</a>
+						</li>
+					<li>
+				<a href="http://www.lanshor.com/pathfinding-a-estrella/">Pathfinding: A*</a>
+						</li>
+				</ul>
+		</div> <!-- end .widget-content -->
+						</div> <!-- end .widgettop -->
+						<div class="widgetbottom"></div> <!-- end .widgetbottom -->
+					</div> <!-- end .widget --><div class="widget">
+						<div class="widgettop"><h4><span>Categorías</span></h4><div class="widget-content">		<ul>
+	<li class="cat-item cat-item-12"><a href="http://www.lanshor.com/category/bases-de-datos/">Bases de Datos</a>
+</li>
+	<li class="cat-item cat-item-2"><a href="http://www.lanshor.com/category/citas/">Citas</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="http://www.lanshor.com/category/computacion-grafica/">Computación Gráfica</a>
+</li>
+	<li class="cat-item cat-item-58"><a href="http://www.lanshor.com/category/inteligencia-artificial/">Inteligencia Artificial</a>
+</li>
+	<li class="cat-item cat-item-23"><a href="http://www.lanshor.com/category/matematicas/">Matemáticas</a>
+</li>
+	<li class="cat-item cat-item-40"><a href="http://www.lanshor.com/category/miscelanea/">Miscelánea</a>
+</li>
+	<li class="cat-item cat-item-66"><a href="http://www.lanshor.com/category/piece-of-code/">Piece of code</a>
+</li>
+	<li class="cat-item cat-item-11"><a href="http://www.lanshor.com/category/problemas/">Problemas</a>
+</li>
+	<li class="cat-item cat-item-26"><a href="http://www.lanshor.com/category/scripting/">Scripting</a>
+</li>
+	<li class="cat-item cat-item-18"><a href="http://www.lanshor.com/category/web/">WEB</a>
+</li>
+		</ul>
+</div> <!-- end .widget-content -->
+						</div> <!-- end .widgettop -->
+						<div class="widgetbottom"></div> <!-- end .widgetbottom -->
+					</div><div class="clear"></div> <!-- end .widget -->
+			</div> <!-- end #footer-widgets -->
+		</div> <!-- end #footer-widgets-wrap -->
+
+		<div id="footer">
+			<p id="copyright"><a href="http://www.twitter.com/lanshor">LaNsHoR</a> ~ 2013</p>
+		</div> <!-- end #footer -->
+
+	</div> <!-- end container -->
+
+	
+<script type="text/javascript" src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/superfish.js"></script>
+<script type="text/javascript" src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/init.js"></script>
+
+<script type="text/javascript">
+//<![CDATA[
+
+	jQuery(".js div#from-blog div.entries").show(); //prevents a flash of unstyled content
+
+	
+	
+
+//]]>
+</script>
+<script type="text/javascript" src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/shCore.js"></script>
+<script type="text/javascript" src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/shBrushJScript.js"></script>
+<script type="text/javascript">
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "http://www.lanshor.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.9b";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "http://www.lanshor.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?ver=3.0.9b";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+</script>
+<script type="text/javascript" src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/comment-reply.js"></script>
+<script type="text/javascript" src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/jquery_003.js"></script>
+<script type="text/javascript" src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/jquery.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var et_ptemplates_strings = {"captcha":"Captcha","fill":"Fill","field":"campo","invalid":"Email no v\u00e1lido"};
+var et_ptemplates_strings = {"captcha":"Captcha","fill":"Fill","field":"campo","invalid":"Email no v\u00e1lido"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Pathfinding%20%20A%20%20-%20lambda%20lab%2085%20_%20lambda%20lab%2085_files/et-ptemplates-frontend.js"></script>
+
+<div id="fancybox-tmp"></div><div id="fancybox-loading"><div></div></div><div id="fancybox-overlay"></div><div id="fancybox-wrap"><div id="fancybox-outer"><div class="fancybox-bg" id="fancybox-bg-n"></div><div class="fancybox-bg" id="fancybox-bg-ne"></div><div class="fancybox-bg" id="fancybox-bg-e"></div><div class="fancybox-bg" id="fancybox-bg-se"></div><div class="fancybox-bg" id="fancybox-bg-s"></div><div class="fancybox-bg" id="fancybox-bg-sw"></div><div class="fancybox-bg" id="fancybox-bg-w"></div><div class="fancybox-bg" id="fancybox-bg-nw"></div><div id="fancybox-content"></div><a id="fancybox-close"></a><div id="fancybox-title"></div><a href="javascript:;" id="fancybox-left"><span class="fancy-ico" id="fancybox-left-ico"></span></a><a href="javascript:;" id="fancybox-right"><span class="fancy-ico" id="fancybox-right-ico"></span></a></div></div></body></html>
