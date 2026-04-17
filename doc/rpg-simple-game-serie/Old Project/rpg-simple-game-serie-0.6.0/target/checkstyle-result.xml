@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="9.3">
+<file name="C:\No-Gravity\Projects-Eclipse\rpg-simple-game-serie\rpg-simple-game-serie-0.6.0\src\main\java\es\noa\rad\game\rpgs2d\Application.java">
+</file>
+<file name="C:\No-Gravity\Projects-Eclipse\rpg-simple-game-serie\rpg-simple-game-serie-0.6.0\src\main\java\es\noa\rad\game\rpgs2d\CollisionChecker.java">
+</file>
+<file name="C:\No-Gravity\Projects-Eclipse\rpg-simple-game-serie\rpg-simple-game-serie-0.6.0\src\main\java\es\noa\rad\game\rpgs2d\entity\Entity.java">
+</file>
+<file name="C:\No-Gravity\Projects-Eclipse\rpg-simple-game-serie\rpg-simple-game-serie-0.6.0\src\main\java\es\noa\rad\game\rpgs2d\entity\package-info.java">
+</file>
+<file name="C:\No-Gravity\Projects-Eclipse\rpg-simple-game-serie\rpg-simple-game-serie-0.6.0\src\main\java\es\noa\rad\game\rpgs2d\entity\Player.java">
+</file>
+<file name="C:\No-Gravity\Projects-Eclipse\rpg-simple-game-serie\rpg-simple-game-serie-0.6.0\src\main\java\es\noa\rad\game\rpgs2d\GamePanel.java">
+<error line="51" column="44" severity="error" message="&apos;;&apos; no está seguido de espacio en blanco." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAfterCheck"/>
+<error line="61" column="41" severity="error" message="&apos;;&apos; no está seguido de espacio en blanco." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAfterCheck"/>
+</file>
+<file name="C:\No-Gravity\Projects-Eclipse\rpg-simple-game-serie\rpg-simple-game-serie-0.6.0\src\main\java\es\noa\rad\game\rpgs2d\KeyHandler.java">
+</file>
+<file name="C:\No-Gravity\Projects-Eclipse\rpg-simple-game-serie\rpg-simple-game-serie-0.6.0\src\main\java\es\noa\rad\game\rpgs2d\package-info.java">
+</file>
+<file name="C:\No-Gravity\Projects-Eclipse\rpg-simple-game-serie\rpg-simple-game-serie-0.6.0\src\main\java\es\noa\rad\game\rpgs2d\tile\package-info.java">
+</file>
+<file name="C:\No-Gravity\Projects-Eclipse\rpg-simple-game-serie\rpg-simple-game-serie-0.6.0\src\main\java\es\noa\rad\game\rpgs2d\tile\Tile.java">
+</file>
+<file name="C:\No-Gravity\Projects-Eclipse\rpg-simple-game-serie\rpg-simple-game-serie-0.6.0\src\main\java\es\noa\rad\game\rpgs2d\tile\TileManager.java">
+</file>
+</checkstyle>

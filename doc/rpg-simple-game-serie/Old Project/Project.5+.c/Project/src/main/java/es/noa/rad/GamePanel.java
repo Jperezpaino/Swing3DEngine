@@ -1,0 +1,136 @@
+package es.noa.rad;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import javax.swing.JPanel;
+import es.noa.rad.entity.Player;
+import es.noa.rad.tile.TileManager;
+
+public class GamePanel extends JPanel implements Runnable {
+
+  /**
+    * 
+    */
+  private static final long serialVersionUID = 1L;
+  
+  /* Screen settings. */
+  private final int originalTileSize = 16;
+  private final int scale = 3;
+  
+  public int tileSize = this.originalTileSize * this.scale;
+  public int maxScreenCol = 16;
+  public int maxScreenRow = 12;
+  public int screenWidth = this.tileSize * this.maxScreenCol;
+  public int screenHeight = this.tileSize * this.maxScreenRow;
+  
+  /* World Settings. */
+  public final int maxWorldCol = 50;
+  public final int maxWorldRow = 50;
+  public final int worldWidth = (this.tileSize * this.maxWorldCol);
+  public final int worldHeight = (this.tileSize * this.maxWorldRow);
+
+  /* Maximum Frames Per Second. */
+  final int fps = 60;
+  
+  protected TileManager tileManager;
+  protected KeyHandler keyHandler;
+  protected Thread gameThread;
+  public Player player;
+
+  public GamePanel() {
+    super();
+    this.setPreferredSize(new Dimension(this.screenWidth, this.screenHeight));
+    this.setBackground(Color.black);
+    this.setDoubleBuffered(true);
+        
+    this.keyHandler = new KeyHandler(this);
+    this.addKeyListener(this.keyHandler);    
+    this.setFocusable(true);
+    
+    this.tileManager = new TileManager(this);
+    this.player = new Player(this, this.keyHandler);
+  }
+
+  public final void zoomInOut(
+		 final int scale) {
+
+	double oldWorldWidth = (this.tileSize * this.maxWorldCol);    
+    this.tileSize += scale;    
+    double newWorldWidth = (this.tileSize * this.maxWorldCol);
+    
+    this.player.speed = (newWorldWidth / 600);
+    
+    double multiplier = (newWorldWidth / oldWorldWidth);
+
+    System.out.println("tileSize:" + this.tileSize);
+    System.out.println("World Width:" + newWorldWidth);    
+    System.out.println("Old Player World: (" + this.player.worldX + ", " + this.player.worldY + ")");    
+    
+    double newPlayerWorldX = (this.player.worldX * multiplier);
+    double newPlayerWorldY = (this.player.worldY * multiplier);
+    
+    this.player.worldX = newPlayerWorldX;
+    this.player.worldY = newPlayerWorldY;
+
+    System.out.println("New Player World: (" + this.player.worldX + ", " + this.player.worldY + ")");    
+  }
+  
+  public final void startGameThread() {
+    this.gameThread = new Thread(this);  
+    this.gameThread.start();
+  }
+
+  @Override
+  public final void run() {
+
+    double drawInterval = 1000000000/this.fps; /* 0.01666 Seconds. */
+    double deltaTime = 0;
+    long lastTime = System.nanoTime();
+    long currentTime;
+    long timer = 0;
+    long drawCount = 0;
+
+    while(this.gameThread != null) {
+      currentTime = System.nanoTime();
+      deltaTime += (currentTime - lastTime) / drawInterval;
+      timer += (currentTime - lastTime);
+      lastTime = currentTime;
+    
+      if(deltaTime >= 1) {
+        /* 1 UPDATE: Update information such as character positions. */
+        this.update();
+
+        /* 2 DRAW: Draw the screen with the update information. */
+        this.repaint();
+        
+        deltaTime--;
+        drawCount++;
+      }
+      
+      if(timer >= 1000000000) {
+    	System.out.println("FPS: " + drawCount);
+    	drawCount = 0;
+    	timer = 0;
+      }
+    }
+
+  }
+  
+  public final void update() {
+    this.player.update();
+  }
+
+  @Override
+  public final void paintComponent(
+         final Graphics graphics) {
+    super.paintComponent(graphics);
+    
+    Graphics2D graphics2D = (Graphics2D) graphics;
+    this.tileManager.draw(graphics2D);
+    this.player.draw(graphics2D);    
+    graphics2D.dispose();
+  }
+
+}
